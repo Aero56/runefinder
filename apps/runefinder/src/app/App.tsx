@@ -2,7 +2,7 @@ const App = () => {
   return (
     <>
       <div />
-      RuneFinder
+      <h1>RuneFinder</h1>
       <div />
     </>
   );
