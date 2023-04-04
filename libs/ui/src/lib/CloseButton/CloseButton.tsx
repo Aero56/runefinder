@@ -1,6 +1,6 @@
 import './styles.scss';
 
-interface CloseButtonProps {
+export interface CloseButtonProps {
   onClick: () => void;
 }
 

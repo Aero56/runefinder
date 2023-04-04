@@ -1,4 +1,4 @@
-import CloseButton from 'libs/ui/src/lib/CloseButton';
+import { CloseButton } from '@runefinder/ui';
 
 const App = () => {
   return (
