@@ -1,11 +1,11 @@
-import { Button } from '@runefinder/ui';
+import CloseButton from 'libs/ui/src/lib/CloseButton';
 
 const App = () => {
   return (
     <>
       <div />
       <h1>RuneFinder</h1>
-      <Button label="Button"></Button>
+      <CloseButton onClick={() => {}}></CloseButton>
       <div />
     </>
   );

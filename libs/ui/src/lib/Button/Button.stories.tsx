@@ -7,10 +7,6 @@ const Story: Meta<typeof Button> = {
 };
 export default Story;
 
-export const Primary = {
-  args: { label: 'Button' },
-};
-
-export const Secondary = {
+export const Default = {
   args: { label: 'Button' },
 };
