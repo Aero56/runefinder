@@ -4,4 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'normalize.css';
+@layer base {
+    html {
+        @apply bg-slate-800;
+        @apply text-slate-100;
+    }
+}
