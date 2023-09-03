@@ -1,15 +1,14 @@
-import CloseButton from '@components/CloseButton';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div>
+    <>
       <h1 className="text-3xl">RuneFinder</h1>
-      <CloseButton
-        onClick={() => {
-          console.log('test');
-        }}
-      ></CloseButton>
-    </div>
+
+      <Link to="/login">
+        <p className="p-4 w-32 text-center bg-slate-600">Log in </p>
+      </Link>
+    </>
   );
 };
 
