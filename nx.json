@@ -1,21 +1,19 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "runefinder",
   "affected": {
     "defaultBase": "master"
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx-cloud",
       "options": {
         "cacheableOperations": [
           "build",
           "lint",
           "test",
-          "e2e",
-          "build-storybook"
+          "e2e"
         ],
-        "accessToken": "YjdhNzkyOWEtYjgzYy00NmIyLWIzNmQtN2MxM2U1YjY2ZGIxfHJlYWQtd3JpdGU="
+        "accessToken": "N2IzMGZlNzYtNTc5OS00N2E4LWIyNWUtODI1NTkwYWU5ZTc3fHJlYWQtd3JpdGU="
       }
     }
   },
@@ -26,12 +24,6 @@
       ],
       "inputs": [
         "production",
-        "^production"
-      ]
-    },
-    "e2e": {
-      "inputs": [
-        "default",
         "^production"
       ]
     },
@@ -48,11 +40,10 @@
         "{workspaceRoot}/.eslintignore"
       ]
     },
-    "build-storybook": {
+    "e2e": {
       "inputs": [
         "default",
-        "^production",
-        "!{projectRoot}/.storybook/**/*"
+        "^production"
       ]
     }
   },
@@ -65,16 +56,12 @@
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-      "!{projectRoot}/.storybook/**/*"
+      "!{projectRoot}/.eslintrc.json"
     ],
-    "sharedGlobals": [
-      "{workspaceRoot}/babel.config.json"
-    ]
+    "sharedGlobals": []
   },
   "generators": {
-    "@nrwl/react": {
+    "@nx/react": {
       "application": {
         "style": "scss",
         "linter": "eslint",
@@ -89,5 +76,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "defaultProject": "runefinder"
 }
