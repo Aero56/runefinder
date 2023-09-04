@@ -1,19 +1,8 @@
+import { useAuth } from '@contexts/AuthContext';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { supabase } from '@api/supabase';
-import { User } from '@supabase/supabase-js';
 
 const Home = () => {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    async function getAuth() {
-      const { data } = await supabase.auth.getSession();
-      data.session && setUser(data.session.user);
-    }
-
-    getAuth();
-  }, []);
+  const { user } = useAuth();
 
   return (
     <>

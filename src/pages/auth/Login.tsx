@@ -23,10 +23,10 @@ const Login = () => {
       toast(error.message);
     } else {
       toast('Success! You are now logged in.');
+      navigate('/');
     }
 
     setLoading(false);
-    navigate('/');
   };
 
   return (

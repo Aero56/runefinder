@@ -1,11 +1,12 @@
 import { supabase } from '@api/supabase';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast/headless';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,6 +23,7 @@ const Signup = () => {
       toast(error.message);
     } else {
       toast('Success! An e-mail has been sent for verification.');
+      navigate('/');
     }
 
     setLoading(false);
