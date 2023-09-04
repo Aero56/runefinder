@@ -9,7 +9,8 @@
       "vite/client"
     ],
     "paths": {
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@api/*": ["./src/api/*"]
     }
   },
   "exclude": [
