@@ -7,7 +7,6 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -35,8 +34,6 @@ const Signup = () => {
       <div className="p-6 max-w-sm mx-auto bg-slate-700 rounded-xl shadow-md flex flex-col items-center gap-3">
         <h1 className="text-3xl text-center mb-4">Sign up</h1>
         <div className="flex flex-col w-full gap-3 mb-4">
-          <label>RuneScape Username</label>
-          <input id="username" onChange={(e) => setUsername(e.target.value)} />
           <label>Email</label>
           <input
             id="email"
