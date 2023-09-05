@@ -11,7 +11,8 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@api/*": ["./src/api/*"],
-      "@contexts/*": ["./src/contexts/*"]
+      "@contexts/*": ["./src/contexts/*"],
+      "@/types/*": ["./src/types/*"]
     }
   },
   "exclude": [
