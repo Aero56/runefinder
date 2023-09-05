@@ -5,6 +5,7 @@ import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import Notifications from '@components/Notifications';
 import Account from './pages/auth/Account';
+import Player from './pages/Player';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/player/:username" element={<Player />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
