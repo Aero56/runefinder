@@ -1,18 +1,12 @@
-import { Table } from '@/types/supabase';
+import { Group } from '@/types/group';
 import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-interface Group extends Table<'groups'> {
-  users: {
-    id: string;
-    username: string;
-  }[];
-}
-
 const Home = () => {
   const { user } = useAuth();
+
   const [groups, setGroups] = useState<Group[] | null>(null);
 
   const getGroups = useCallback(async () => {
@@ -45,10 +39,12 @@ const Home = () => {
       {groups && (
         <div className="flex flex-col gap-5 mt-5">
           {groups.map((group) => (
-            <div className="flex flex-col p-4 rounded bg-slate-700">
-              <p>{group.name}</p>
-              <p>{group.users.map((user) => user.username).join(', ')}</p>
-            </div>
+            <Link key={group.id} to={`/group/${group.id}`}>
+              <div className="flex flex-col p-4 rounded bg-slate-700">
+                <p>{group.name}</p>
+                <p>{group.users.map((user) => user.username).join(', ')}</p>
+              </div>
+            </Link>
           ))}
         </div>
       )}

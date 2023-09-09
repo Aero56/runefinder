@@ -12,7 +12,8 @@
       "@components/*": ["./src/components/*"],
       "@api/*": ["./src/api/*"],
       "@contexts/*": ["./src/contexts/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/types/*": ["./src/types/*"],
+      "@pages/*": ["./src/pages/*"]
     }
   },
   "exclude": [
