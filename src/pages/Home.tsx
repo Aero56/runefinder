@@ -1,26 +1,22 @@
-import { Group } from '@/types/group';
-import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
-import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useGroupsQuery from '@hooks/useGroupsQuery';
+
+const STALE_TIME = 10000;
 
 const Home = () => {
   const { user } = useAuth();
 
-  const [groups, setGroups] = useState<Group[] | null>(null);
+  const { data: groups, isLoading } = useGroupsQuery(
+    {
+      order: { column: 'updated_at', options: { ascending: false } },
+    },
+    { staleTime: STALE_TIME }
+  );
 
-  const getGroups = useCallback(async () => {
-    const { data } = await supabase
-      .from('groups')
-      .select('*, users!users_group_id_fkey(id, username)')
-      .order('updated_at', { ascending: false });
-
-    setGroups(data ?? null);
-  }, []);
-
-  useEffect(() => {
-    getGroups();
-  }, [getGroups, user]);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="m-4">

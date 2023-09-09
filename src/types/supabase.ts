@@ -8,6 +8,20 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+export type Table<T extends keyof Database['public']['Tables']> =
+  Database['public']['Tables'][T]['Row'];
+
+export type QueryParams = {
+  order?: {
+    column: string;
+    options: {
+      ascending?: boolean;
+      nullsFirst?: boolean;
+      foreignTable?: undefined;
+    };
+  };
+};
+
 export interface Database {
   public: {
     Tables: {
@@ -97,6 +111,3 @@ export interface Database {
     };
   };
 }
-
-export type Table<T extends keyof Database['public']['Tables']> =
-  Database['public']['Tables'][T]['Row'];
