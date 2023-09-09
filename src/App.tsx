@@ -8,7 +8,6 @@ import Account from '@pages/auth/Account';
 import Player from '@pages/Player';
 import Group from '@pages/Group';
 import { useAuth } from '@contexts/AuthContext';
-import { useEffect, useState } from 'react';
 
 const AuthRoute = () => {
   const { session } = useAuth();

@@ -21,7 +21,7 @@ const Group = () => {
       .single();
 
     setGroup(data ?? null);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     getGroup().then(() => setLoaded(true));
@@ -60,7 +60,7 @@ const Group = () => {
         }
       )
       .subscribe();
-  }, [getGroup]);
+  }, [getGroup, id]);
 
   if (!loaded) {
     return <p>Loading...</p>;
