@@ -1,58 +1,42 @@
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast/headless';
-import { Stats } from '@/types/stats';
+import useUpdatePlayerMutation from '@hooks/useUpdatePlayerMutation';
+import queryClient from '@api/queryClient';
+import useUserQuery from '@hooks/useUserQuery';
 
 const Account = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
-  const [stats, setStats] = useState<Stats | null>(null);
+
+  const { data: player } = useUserQuery(user!.id, { enabled: !!user });
+  const { mutateAsync, isLoading: isUpdateLoading } = useUpdatePlayerMutation();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     navigate('/');
   };
 
-  const getStats = useCallback(async () => {
-    const { data } = await supabase
-      .from('users')
-      .select('id, stats')
-      .eq('id', user!.id)
-      .single();
-
-    setStats(data?.stats ?? null);
-  }, [user]);
-
   const handleUpdatePlayerData = async () => {
-    setLoading(true);
-
-    const { error } = await supabase.functions.invoke('update-player', {
-      body: { name: username },
-    });
-
-    if (error) {
-      toast(error);
-    } else {
-      toast('Success! Your player data has been updated.');
-
-      if (user) {
-        getStats();
+    try {
+      await mutateAsync(username).then(() =>
+        toast('Success! Your player data has been updated.')
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        toast(error.message);
+        return;
       }
     }
 
-    setLoading(false);
-  };
-
-  useEffect(() => {
     if (user) {
-      getStats();
+      queryClient.invalidateQueries(['player', user.id]);
     }
-  }, [getStats, user]);
+  };
 
   return (
     <div className="flex flex-col">
@@ -64,7 +48,7 @@ const Account = () => {
         className="bg-slate-600 appearance-none border-2 border-slate-800 rounded w-full py-2 px-4 text-slate-50 leading-tight focus:outline-none  focus:border-blue-500"
         placeholder="Username"
       />
-      {!loading ? (
+      {!isUpdateLoading ? (
         <button
           className="p-4 w-32 text-center bg-slate-600"
           onClick={handleUpdatePlayerData}
@@ -99,9 +83,9 @@ const Account = () => {
         Sign out
       </button>
 
-      {stats && (
+      {player?.stats && (
         <div className="flex flex-col">
-          {Object.entries(stats.skills).map(([key, value]) => (
+          {Object.entries(player.stats.skills).map(([key, value]) => (
             <p key={key}>
               {key}: {value.level}
             </p>
