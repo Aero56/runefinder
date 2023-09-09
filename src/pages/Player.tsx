@@ -1,41 +1,24 @@
 import { useParams } from 'react-router-dom';
-import { supabase } from '@api/supabase';
-import { useCallback, useEffect, useState } from 'react';
 
-import { Stats } from '@/types/stats';
+import usePlayerQuery from '@hooks/usePlayerQuery';
 
 const Player = () => {
   const { username = '' } = useParams();
 
-  const [loaded, setLoaded] = useState(false);
-  const [stats, setStats] = useState<Stats | null>(null);
+  const { data: player, isLoading } = usePlayerQuery(username);
 
-  const getStats = useCallback(async () => {
-    const { data } = await supabase
-      .from('users')
-      .select('username, stats')
-      .eq('username', username)
-      .single();
-
-    setStats(data?.stats ?? null);
-  }, [username]);
-
-  useEffect(() => {
-    getStats().then(() => setLoaded(true));
-  }, [getStats]);
-
-  if (!loaded) {
+  if (isLoading) {
     return <p>Loading...</p>;
   }
 
-  if (!stats) {
+  if (!player) {
     return <p>This player does not exist on runefinder.</p>;
   }
 
   return (
     <div className="flex flex-col">
       {username}
-      {Object.entries(stats.skills).map(([key, value]) => (
+      {Object.entries(player.stats.skills).map(([key, value]) => (
         <p key={key}>
           {key}: {value.level}
         </p>

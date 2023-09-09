@@ -2,17 +2,12 @@ import { useAuth } from '@contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import useGroupsQuery from '@hooks/useGroupsQuery';
 
-const STALE_TIME = 10000;
-
 const Home = () => {
   const { user } = useAuth();
 
-  const { data: groups, isLoading } = useGroupsQuery(
-    {
-      order: { column: 'updated_at', options: { ascending: false } },
-    },
-    { staleTime: STALE_TIME }
-  );
+  const { data: groups, isLoading } = useGroupsQuery({
+    order: { column: 'updated_at', options: { ascending: false } },
+  });
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -38,7 +33,19 @@ const Home = () => {
             <Link key={group.id} to={`/group/${group.id}`}>
               <div className="flex flex-col p-4 rounded bg-slate-700">
                 <p>{group.name}</p>
-                <p>{group.users.map((user) => user.username).join(', ')}</p>
+                <p>
+                  {group.users.map((user, i) => (
+                    <span key={user.id}>
+                      {i > 0 && ', '}
+                      <Link
+                        to={`/player/${user.username}`}
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        {user.username}
+                      </Link>
+                    </span>
+                  ))}
+                </p>
               </div>
             </Link>
           ))}
