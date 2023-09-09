@@ -1,31 +1,18 @@
 import { useParams } from 'react-router-dom';
 import { supabase } from '@api/supabase';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { Group as GroupType } from '@/types/group';
 import { toast } from 'react-hot-toast/headless';
+import useGroupQuery from '@hooks/useGroupQuery';
+import queryClient from '@api/queryClient';
 
 const Group = () => {
   const { id = '' } = useParams();
 
-  const [loaded, setLoaded] = useState(false);
-  const [group, setGroup] = useState<GroupType | null>(null);
-
-  const getGroup = useCallback(async () => {
-    console.log('test');
-
-    const { data } = await supabase
-      .from('groups')
-      .select('*, users!users_group_id_fkey(id, username)')
-      .eq('id', id)
-      .single();
-
-    setGroup(data ?? null);
-  }, [id]);
+  const { data: group, isLoading } = useGroupQuery(id);
 
   useEffect(() => {
-    getGroup().then(() => setLoaded(true));
-
     supabase
       .channel('table-db-changes')
       .on(
@@ -37,32 +24,35 @@ const Group = () => {
           filter: `group_id=eq.${id}`,
         },
         (payload) => {
-          setGroup((prevGroup) => {
-            const newUser = {
-              id: payload.new.id,
-              username: payload.new.username,
-            };
+          queryClient.setQueryData(
+            ['group', id],
+            (oldData?: GroupType | null) => {
+              const newUser = {
+                id: payload.new.id,
+                username: payload.new.username,
+              };
 
-            if (prevGroup) {
-              const users = [...prevGroup.users];
+              if (oldData) {
+                const users = [...oldData.users];
 
-              if (!users.some((user) => user.id === newUser.id)) {
-                users.push(newUser);
+                if (!users.some((user) => user.id === newUser.id)) {
+                  users.push(newUser);
+                }
+
+                return { ...oldData, users };
               }
 
-              return { ...prevGroup, users };
+              return null;
             }
-
-            return null;
-          });
+          );
 
           toast('A player has joined the group!');
         }
       )
       .subscribe();
-  }, [getGroup, id]);
+  }, [id]);
 
-  if (!loaded) {
+  if (isLoading) {
     return <p>Loading...</p>;
   }
 

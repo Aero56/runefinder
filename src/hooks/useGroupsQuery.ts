@@ -5,11 +5,11 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 const useGroupsQuery = (
   params?: QueryParams,
-  options?: UseQueryOptions<Group[]>
+  options?: UseQueryOptions<Group[] | null>
 ) => {
   const queryKey = ['groups'];
 
-  return useQuery<Group[]>(
+  return useQuery<Group[] | null>(
     queryKey,
     async () => {
       let query = supabase
@@ -22,7 +22,7 @@ const useGroupsQuery = (
 
       const { data } = await query;
 
-      return data ?? [];
+      return data;
     },
     options
   );
