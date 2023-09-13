@@ -8,6 +8,7 @@ import Account from '@pages/auth/Account';
 import Player from '@pages/Player';
 import Group from '@pages/Group';
 import { useAuth } from '@contexts/AuthContext';
+import Header from '@components/Header';
 
 const AuthRoute = () => {
   const { session } = useAuth();
@@ -22,6 +23,7 @@ const AuthRoute = () => {
 const App = () => {
   return (
     <>
+      <Header />
       <Notifications />
       <Routes>
         <Route path="/" element={<Home />} />
