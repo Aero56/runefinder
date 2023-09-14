@@ -56,7 +56,6 @@ module.exports = {
   },
   plugins: [
     require("daisyui"),
-    require('@tailwindcss/typography'),
   ],
   daisyui: {
     base: true, // applies background color and foreground color for root element by default
