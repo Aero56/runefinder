@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useSignupMutation from '@hooks/useSignupMutation';
 import toast from 'react-hot-toast/headless';
