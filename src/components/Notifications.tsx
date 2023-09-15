@@ -8,7 +8,7 @@ const Notifications = () => {
     <div
       onMouseEnter={startPause}
       onMouseLeave={endPause}
-      className="top-3 right-3 fixed transition ease-in-out delay-150 flex flex-col gap-2"
+      className="top-20 right-3 fixed transition ease-in-out delay-150 flex flex-col gap-2 z-50"
     >
       {toasts
         .filter((toast) => toast.visible)
@@ -17,7 +17,7 @@ const Notifications = () => {
             key={toast.id}
             {...toast.ariaProps}
             id="toast-simple"
-            className="flex items-center w-full max-w-xs p-4 space-x-4 text-slate-50 bg-slate-900 divide-x rounded-lg shadow "
+            className="flex items-center w-full max-w-xs p-4 space-x-4 bg-black-pearl-800  divide-x rounded-lg shadow "
             role="alert"
           >
             <div className="text-sm font-normal">

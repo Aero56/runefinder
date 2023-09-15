@@ -33,14 +33,14 @@ const Header = () => {
       </div>
       <div className="navbar-end gap-1">
         <button className="btn btn-ghost btn-circle hover:bg-black-pearl-800">
-          <QuestionMarkCircleIcon className="w-5 h-5 [&>path]:stroke-[2.5]" />
+          <QuestionMarkCircleIcon className="w-6 h-6 [&>path]:stroke-[2.5]" />
         </button>
         {user ? (
           <Link
             to="/account"
             className="btn btn-ghost btn-circle hover:bg-black-pearl-800"
           >
-            <UserIcon className="w-5 h-5 [&>path]:stroke-[2.5]" />
+            <UserIcon className="w-6 h-6 [&>path]:stroke-[2.5]" />
           </Link>
         ) : (
           <button
