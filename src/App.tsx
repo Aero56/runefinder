@@ -7,8 +7,7 @@ import Player from '@pages/Player';
 import Group from '@pages/Group';
 import { useAuth } from '@contexts/AuthContext';
 import Header from '@components/Header';
-import Login from '@components/Login';
-import Signup from '@components/Signup';
+import Auth from '@components/auth/Auth';
 
 const AuthRoute = () => {
   const { session } = useAuth();
@@ -24,9 +23,8 @@ const App = () => {
   return (
     <>
       <Header />
-      <Login />
-      <Signup />
       <Notifications />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/player/:username" element={<Player />} />
@@ -38,6 +36,8 @@ const App = () => {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+
+      <Auth />
     </>
   );
 };
