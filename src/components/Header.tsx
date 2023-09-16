@@ -26,30 +26,45 @@ const Header = () => {
       <div className="navbar-start">
         <Link
           to="/"
-          className="btn btn-ghost normal-case text-xl text-anzac-400 hover:bg-black-pearl-800"
+          className="btn btn-ghost normal-case  hover:bg-black-pearl-800"
         >
-          RuneFinder
+          <img
+            src="/logo.png"
+            alt="RuneFinder logo"
+            className="object-contain h-8 w-8"
+          />
+          <p className="hidden xs:block text-xl text-black-pearl-100">
+            RuneFinder
+          </p>
         </Link>
       </div>
       <div className="navbar-end gap-1">
-        <button className="btn btn-ghost btn-circle hover:bg-black-pearl-800">
-          <QuestionMarkCircleIcon className="w-6 h-6 [&>path]:stroke-[2.5]" />
-        </button>
         {user ? (
           <Link
             to="/account"
-            className="btn btn-ghost btn-circle hover:bg-black-pearl-800"
+            className="btn btn-ghost w-12 p-0 hover:bg-black-pearl-800"
           >
             <UserIcon className="w-6 h-6 [&>path]:stroke-[2.5]" />
           </Link>
         ) : (
-          <button
-            className="btn bg-anzac-400 text-black-pearl-900 font-extrabold rounded-full w-28 hover:bg-anzac-300"
-            onClick={() => navigate('?signin')}
-          >
-            Sign in
-          </button>
+          <>
+            <button
+              className="btn btn-ghost font-extrabold hover:bg-black-pearl-800"
+              onClick={() => navigate('?signin')}
+            >
+              Sign in
+            </button>
+            <button
+              className="btn bg-anzac-400 text-black-pearl-900 font-extrabold hover:bg-anzac-300"
+              onClick={() => navigate('?signup')}
+            >
+              Sign up
+            </button>
+          </>
         )}
+        <button className="btn btn-ghost w-12 p-0 hover:bg-black-pearl-800">
+          <QuestionMarkCircleIcon className="w-6 h-6 [&>path]:stroke-[2.5]" />
+        </button>
       </div>
     </div>
   );

@@ -17,6 +17,9 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      screens: {
+        'xs': '480px'
+      },
       colors: {
         'anzac': {
           '50': '#fcfaea',
