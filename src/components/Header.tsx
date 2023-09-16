@@ -29,7 +29,7 @@ const Header = () => {
           className="btn btn-ghost normal-case  hover:bg-black-pearl-800"
         >
           <img
-            src="/logo.png"
+            src="/images/logo.png"
             alt="RuneFinder logo"
             className="object-contain h-8 w-8"
           />
@@ -49,13 +49,13 @@ const Header = () => {
         ) : (
           <>
             <button
-              className="btn btn-ghost font-extrabold hover:bg-black-pearl-800"
+              className="btn btn-ghost font-bold hover:bg-black-pearl-800"
               onClick={() => navigate('?signin')}
             >
               Sign in
             </button>
             <button
-              className="btn bg-anzac-400 text-black-pearl-900 font-extrabold hover:bg-anzac-300"
+              className="btn bg-anzac-400 text-black-pearl-900 font-bold hover:bg-anzac-300"
               onClick={() => navigate('?signup')}
             >
               Sign up
