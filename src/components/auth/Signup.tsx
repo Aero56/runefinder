@@ -55,14 +55,14 @@ const Signup = ({ onClose }: SignupProps) => {
 
   return (
     <>
-      <h3 className="font-bold text-xl mb-4">Create account on RuneFinder</h3>
+      <h3 className="mb-4 text-xl font-bold">Create account on RuneFinder</h3>
       <form
         method="dialog"
         className="space-y-6"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <label htmlFor="email" className="block mb-2 text-sm">
+          <label htmlFor="email" className="mb-2 block text-sm">
             Your email
           </label>
           <input
@@ -83,11 +83,11 @@ const Signup = ({ onClose }: SignupProps) => {
             })}
           />
           {errors.email && (
-            <p className="text-sm text-error mt-2">{errors.email.message}</p>
+            <p className="mt-2 text-sm text-error">{errors.email.message}</p>
           )}
         </div>
         <div>
-          <label htmlFor="password" className="block mb-2 text-sm">
+          <label htmlFor="password" className="mb-2 block text-sm">
             Your password
           </label>
           <input
@@ -118,11 +118,11 @@ const Signup = ({ onClose }: SignupProps) => {
             })}
           />
           {errors.password && (
-            <p className="text-sm text-error mt-2">{errors.password.message}</p>
+            <p className="mt-2 text-sm text-error">{errors.password.message}</p>
           )}
         </div>
         <div>
-          <label htmlFor="password" className="block mb-2 text-sm">
+          <label htmlFor="password" className="mb-2 block text-sm">
             Confirm password
           </label>
           <input
@@ -140,12 +140,12 @@ const Signup = ({ onClose }: SignupProps) => {
             })}
           />
           {errors.confirmPassword && (
-            <p className="text-sm text-error mt-2">
+            <p className="mt-2 text-sm text-error">
               {errors.confirmPassword.message}
             </p>
           )}
         </div>
-        <button className="btn w-full bg-anzac-400 hover:bg-anzac-300 text-black-pearl-900 mt-5">
+        <button className="btn mt-5 w-full bg-anzac-400 text-black-pearl-900 hover:bg-anzac-300">
           {!isLoading ? (
             'Sign up'
           ) : (
@@ -155,7 +155,7 @@ const Signup = ({ onClose }: SignupProps) => {
         <div className="text-sm font-medium">
           Already have an account?
           <span
-            className="ml-1 text-anzac-400 hover:underline cursor-pointer"
+            className="ml-1 cursor-pointer text-anzac-400 hover:underline"
             onClick={() => navigate('?signin')}
           >
             Sign in
@@ -169,7 +169,7 @@ const Signup = ({ onClose }: SignupProps) => {
       </div>
       <div className="space-y-4">
         <button
-          className="btn w-full hover:bg-gray-800 bg-black-pearl-800 border-none font-bold"
+          className="btn w-full border-none bg-black-pearl-800 font-bold hover:bg-gray-800"
           onClick={() => handleLoginWithProvider(AuthProviders.Google)}
         >
           <svg

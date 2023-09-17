@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <div
-      className={`navbar bg-black-pearl-900 sticky top-0 ${
+      className={`navbar sticky top-0 bg-black-pearl-900 ${
         !top && `shadow-md`
       }`}
     >
@@ -31,9 +31,9 @@ const Header = () => {
           <img
             src="/images/logo.png"
             alt="RuneFinder logo"
-            className="object-contain h-8 w-8"
+            className="h-8 w-8 object-contain"
           />
-          <p className="hidden xs:block text-xl text-black-pearl-100">
+          <p className="hidden text-xl text-black-pearl-100 xs:block">
             RuneFinder
           </p>
         </Link>
@@ -44,7 +44,7 @@ const Header = () => {
             to="/account"
             className="btn btn-ghost w-12 p-0 hover:bg-black-pearl-800"
           >
-            <UserIcon className="w-6 h-6 [&>path]:stroke-[2.5]" />
+            <UserIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
           </Link>
         ) : (
           <>
@@ -55,7 +55,7 @@ const Header = () => {
               Sign in
             </button>
             <button
-              className="btn bg-anzac-400 text-black-pearl-900 font-bold hover:bg-anzac-300"
+              className="btn bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300"
               onClick={() => navigate('?signup')}
             >
               Sign up
@@ -63,7 +63,7 @@ const Header = () => {
           </>
         )}
         <button className="btn btn-ghost w-12 p-0 hover:bg-black-pearl-800">
-          <QuestionMarkCircleIcon className="w-6 h-6 [&>path]:stroke-[2.5]" />
+          <QuestionMarkCircleIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
         </button>
       </div>
     </div>

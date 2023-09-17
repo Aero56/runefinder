@@ -67,10 +67,10 @@ const Auth = () => {
     >
       <div className="modal-box max-w-md bg-black-pearl-900">
         <button
-          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
           onClick={handleClose}
         >
-          <XMarkIcon className="w-5 h-5" />
+          <XMarkIcon className="h-5 w-5" />
         </button>
         {isLoginActive && <Login onClose={handleClose} />}
         {isSignupActive && <Signup onClose={handleClose} />}

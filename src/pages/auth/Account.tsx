@@ -24,7 +24,7 @@ const Account = () => {
   const handleUpdatePlayerData = async () => {
     try {
       await mutateAsync(username).then(() =>
-        toast('Success! Your player data has been updated.')
+        toast('Success! Your player data has been updated.'),
       );
     } catch (error) {
       if (error instanceof Error) {
@@ -45,23 +45,23 @@ const Account = () => {
       <input
         id="username"
         onChange={(e) => setUsername(e.target.value)}
-        className="bg-slate-600 appearance-none border-2 border-slate-800 rounded w-full py-2 px-4 text-slate-50 leading-tight focus:outline-none  focus:border-blue-500"
+        className="w-full appearance-none rounded border-2 border-slate-800 bg-slate-600 px-4 py-2 leading-tight text-slate-50 focus:border-blue-500  focus:outline-none"
         placeholder="Username"
       />
       {!isUpdateLoading ? (
         <button
-          className="p-4 w-32 text-center bg-slate-600"
+          className="w-32 bg-slate-600 p-4 text-center"
           onClick={handleUpdatePlayerData}
         >
           Update player data
         </button>
       ) : (
         <button
-          className="p-4 w-32 text-center bg-slate-600 flex justify-center items-center"
+          className="flex w-32 items-center justify-center bg-slate-600 p-4 text-center"
           disabled
         >
           <svg
-            className="inline w-4 h-4 mr-3 text-white animate-spin"
+            className="mr-3 inline h-4 w-4 animate-spin text-white"
             viewBox="0 0 100 100"
           >
             <path
@@ -77,7 +77,7 @@ const Account = () => {
         </button>
       )}
       <button
-        className="p-4 w-32 text-center bg-slate-600"
+        className="w-32 bg-slate-600 p-4 text-center"
         onClick={handleSignOut}
       >
         Sign out

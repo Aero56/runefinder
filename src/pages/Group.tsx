@@ -43,11 +43,11 @@ const Group = () => {
               }
 
               return null;
-            }
+            },
           );
 
           toast('A player has joined the group!');
-        }
+        },
       )
       .subscribe();
   }, [id]);

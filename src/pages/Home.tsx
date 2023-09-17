@@ -19,14 +19,14 @@ const Home = () => {
         <div className="dropdown">
           <label
             tabIndex={0}
-            className="btn bg-black-pearl-950 border-bg border-2 border-black-pearl-900 hover:bg-black-pearl-900 hover:border-black-pearl-900"
+            className="border-bg btn border-2 border-black-pearl-900 bg-black-pearl-950 hover:border-black-pearl-900 hover:bg-black-pearl-900"
           >
             Filter
-            <ChevronDownIcon className="w-6 h-6" />
+            <ChevronDownIcon className="h-6 w-6" />
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-black-pearl-800 rounded-box w-52 mt-1"
+            className="menu dropdown-content rounded-box z-[1] mt-1 w-52 bg-black-pearl-800 p-2 shadow"
           >
             <li>
               <button>Item 1</button>
@@ -36,20 +36,20 @@ const Home = () => {
             </li>
           </ul>
         </div>
-        <button className="hidden xs:flex btn bg-anzac-400 hover:bg-anzac-300 text-black-pearl-900 font-bold ">
-          <PlusIcon className="w-6 h-6" />
+        <button className="btn hidden bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 xs:flex ">
+          <PlusIcon className="h-6 w-6" />
           Create party
         </button>
-        <button className="flex xs:hidden btn btn-circle fixed bottom-6 right-6 bg-anzac-400 hover:bg-anzac-300 text-black-pearl-900">
-          <PlusIcon className="w-6 h-6" />
+        <button className="btn btn-circle fixed bottom-6 right-6 flex bg-anzac-400 text-black-pearl-900 hover:bg-anzac-300 xs:hidden">
+          <PlusIcon className="h-6 w-6" />
         </button>
       </div>
       {groups && (
-        <div className="flex flex-col gap-5 mt-5">
+        <div className="mt-5 flex flex-col gap-5">
           {groups.map((group) => (
             <button
               key={group.id}
-              className="flex flex-col p-4 rounded bg-black-pearl-900 hover:bg-gray-900 transition-colors duration-300"
+              className="flex flex-col rounded bg-black-pearl-900 p-4 transition-colors duration-300 hover:bg-gray-900"
               onClick={() => navigate(`/group/${group.id}`)}
             >
               <p>{group.name}</p>
