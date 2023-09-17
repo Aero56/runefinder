@@ -152,7 +152,7 @@ const Signup = ({ onClose }: SignupProps) => {
             <span className="loading loading-spinner"></span>
           )}
         </button>
-        <div className="text-sm font-medium">
+        <div className="text-center text-sm font-medium">
           Already have an account?
           <span
             className="ml-1 cursor-pointer text-anzac-400 hover:underline"

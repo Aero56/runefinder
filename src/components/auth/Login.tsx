@@ -117,7 +117,10 @@ const Login = ({ onClose }: LoginProps) => {
               Remember me
             </label>
           </div>
-          <Link to="/" className="text-sm text-anzac-400 hover:underline">
+          <Link
+            to="?reset-password"
+            className="text-sm text-anzac-400 hover:underline"
+          >
             Forgot password?
           </Link>
         </div>
@@ -128,7 +131,7 @@ const Login = ({ onClose }: LoginProps) => {
             <span className="loading loading-spinner"></span>
           )}
         </button>
-        <div className="text-sm font-medium ">
+        <div className="text-center text-sm font-medium">
           Don't have an account yet?
           <span
             className="ml-1 cursor-pointer text-anzac-400 hover:underline"

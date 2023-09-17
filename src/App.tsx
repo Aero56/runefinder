@@ -8,6 +8,7 @@ import Group from '@pages/Group';
 import { useAuth } from '@contexts/AuthContext';
 import Header from '@components/Header';
 import Auth from '@components/auth/Auth';
+import ChangePassword from '@pages/auth/ChangePassword';
 
 const AuthRoute = () => {
   const { session } = useAuth();
@@ -32,6 +33,7 @@ const App = () => {
 
         <Route element={<AuthRoute />}>
           <Route path="/account" element={<Account />} />
+          <Route path="/account/change-password" element={<ChangePassword />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

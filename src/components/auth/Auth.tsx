@@ -4,6 +4,7 @@ import Signup from '@components/auth/Signup';
 import { useSearchParams } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '@contexts/AuthContext';
+import ResetPassword from './ResetPassword';
 
 const Auth = () => {
   const { user } = useAuth();
@@ -15,17 +16,26 @@ const Auth = () => {
   const [shouldUnmount, setShouldUnmount] = useState(!!user);
   const [isLoginActive, setLoginActive] = useState(true);
   const [isSignupActive, setSignupActive] = useState(false);
+  const [isResetPasswordActive, setIsResetPasswordActive] = useState(false);
 
   const shouldShowSignin = searchParams.has('signin');
   const shouldShowSignup = searchParams.has('signup');
-  const shouldShowDialog = shouldShowSignin || shouldShowSignup;
+  const shouldShowPasswordReset = searchParams.has('reset-password');
+  const shouldShowDialog =
+    shouldShowSignin || shouldShowSignup || shouldShowPasswordReset;
 
   useEffect(() => {
     if (shouldShowDialog) {
       setLoginActive(shouldShowSignin);
       setSignupActive(shouldShowSignup);
+      setIsResetPasswordActive(shouldShowPasswordReset);
     }
-  }, [shouldShowSignin, shouldShowSignup, shouldShowDialog]);
+  }, [
+    shouldShowSignin,
+    shouldShowSignup,
+    shouldShowDialog,
+    shouldShowPasswordReset,
+  ]);
 
   useEffect(() => {
     if (shouldShowDialog) {
@@ -39,6 +49,7 @@ const Auth = () => {
   const handleClose = useCallback(() => {
     searchParams.delete('signin');
     searchParams.delete('signup');
+    searchParams.delete('reset-password');
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
 
@@ -74,6 +85,7 @@ const Auth = () => {
         </button>
         {isLoginActive && <Login onClose={handleClose} />}
         {isSignupActive && <Signup onClose={handleClose} />}
+        {isResetPasswordActive && <ResetPassword onClose={handleClose} />}
       </div>
       <form method="dialog" className="modal-backdrop">
         <button>close</button>
