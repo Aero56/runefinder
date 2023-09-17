@@ -69,7 +69,7 @@ module.exports = {
       {
         dark: {
           "base-100": "#030C13",
-          "base-content": "#bde3fa",
+          "base-content": "#cfe8fc",
         },
       },
     ],

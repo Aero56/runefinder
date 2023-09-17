@@ -1,5 +1,10 @@
 import { Stats } from './stats';
 
+export enum AuthProviders {
+  Google = 'google',
+  Discord = 'discord',
+}
+
 export type Json =
   | string
   | number
