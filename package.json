@@ -20,7 +20,7 @@
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
-    "@nx/cypress": "16.7.4",
+    "@nx/cypress": "16.8.1",
     "@nx/eslint-plugin": "16.7.4",
     "@nx/js": "16.7.4",
     "@nx/linter": "16.7.4",

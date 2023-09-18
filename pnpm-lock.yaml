@@ -35,8 +35,8 @@ dependencies:
 
 devDependencies:
   '@nx/cypress':
-    specifier: 16.7.4
-    version: 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
+    specifier: 16.8.1
+    version: 16.8.1(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
   '@nx/eslint-plugin':
     specifier: 16.7.4
     version: 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(@typescript-eslint/parser@5.62.0)(eslint-config-prettier@8.1.0)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
@@ -2085,10 +2085,10 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@nrwl/cypress@16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6):
-    resolution: {integrity: sha512-FmpCWrBIpoS0MsrMlusSBF7Wr8N6v8nbDpo8M8Bl8a6mGZu3lLnJ1ZnhYtCzwEoK0EnEQLGv76TwagRDhjVvmA==}
+  /@nrwl/cypress@16.8.1(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6):
+    resolution: {integrity: sha512-set8MUV6b1QpHCSqQ4It01BM9u6hf0e6s02DZdi/1OW3h/JYo5kqcLrYQra3AKCIimGByXdoHtCUjyFT0pMrdg==}
     dependencies:
-      '@nx/cypress': 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
+      '@nx/cypress': 16.8.1(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -2116,6 +2116,14 @@ packages:
     resolution: {integrity: sha512-Y7yYDh62Hi4q99Q4+ipIQ3K9iLuAld3WcwjLv6vtl6Livu+TU3eqbraBEno7DQL8JuIuwgBT4lX7Bp3w3N9RDg==}
     dependencies:
       '@nx/devkit': 16.8.1(nx@16.7.4)
+    transitivePeerDependencies:
+      - nx
+    dev: true
+
+  /@nrwl/devkit@16.8.1(nx@16.8.1):
+    resolution: {integrity: sha512-Y7yYDh62Hi4q99Q4+ipIQ3K9iLuAld3WcwjLv6vtl6Livu+TU3eqbraBEno7DQL8JuIuwgBT4lX7Bp3w3N9RDg==}
+    dependencies:
+      '@nx/devkit': 16.8.1(nx@16.8.1)
     transitivePeerDependencies:
       - nx
     dev: true
@@ -2316,21 +2324,20 @@ packages:
       - debug
     dev: true
 
-  /@nx/cypress@16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6):
-    resolution: {integrity: sha512-rqVnTZbM8rr7K8p+O51uMBko9pYlFPpGqkFQbGOpzFjhoCXW0d4MqYMd03Iele4HjBLCNqVjgmUg3TZacO9vTQ==}
+  /@nx/cypress@16.8.1(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6):
+    resolution: {integrity: sha512-Yao0YWb0PVyAKDWXKjHsLjwuULx7GPUsoAuz8qr990YeKDuhqFKOPmSPSv8a8VAOo7yltCWuBmzvL1X8xF2amQ==}
     peerDependencies:
-      cypress: '>= 3 < 13'
+      cypress: '>= 3 < 14'
     peerDependenciesMeta:
       cypress:
         optional: true
     dependencies:
-      '@nrwl/cypress': 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
-      '@nx/devkit': 16.7.4(nx@16.7.4)
-      '@nx/js': 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(nx@16.7.4)(typescript@5.1.6)
-      '@nx/linter': 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
+      '@nrwl/cypress': 16.8.1(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
+      '@nx/devkit': 16.8.1(nx@16.7.4)
+      '@nx/js': 16.8.1(@swc/core@1.3.85)(@types/node@20.6.2)(nx@16.7.4)(typescript@5.1.6)
+      '@nx/linter': 16.8.1(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)
       '@phenomnomnominal/tsquery': 5.0.1(typescript@5.1.6)
       detect-port: 1.5.1
-      dotenv: 16.3.1
       semver: 7.5.3
       tslib: 2.6.2
     transitivePeerDependencies:
@@ -2382,7 +2389,7 @@ packages:
     peerDependencies:
       nx: '>= 15 <= 17'
     dependencies:
-      '@nrwl/devkit': 16.8.1(nx@16.7.4)
+      '@nrwl/devkit': 16.8.1(nx@16.8.1)
       ejs: 3.1.9
       enquirer: 2.3.6
       ignore: 5.2.4
@@ -3443,10 +3450,6 @@ packages:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
       '@types/node': 20.6.2
-    dev: true
-
-  /@types/node@18.14.2:
-    resolution: {integrity: sha512-1uEQxww3DaghA0RxqHx0O0ppVlo43pJhepY51OxuQIKHpjbnYLA7vcdwioNPzIqmC2u3I/dmylcqjlh0e7AyUA==}
     dev: true
 
   /@types/node@20.6.2:
@@ -6326,7 +6329,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.14.2
+      '@types/node': 20.6.2
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
