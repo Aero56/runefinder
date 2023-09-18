@@ -53,14 +53,6 @@ const Auth = () => {
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
 
-  useEffect(() => {
-    const ref = dialogRef.current;
-    ref?.addEventListener('close', handleClose);
-    return () => {
-      ref?.removeEventListener('close', handleClose);
-    };
-  }, [handleClose]);
-
   const handleUnmount = () => {
     setShouldUnmount(!!user);
   };
@@ -75,6 +67,7 @@ const Auth = () => {
       id="auth"
       className="modal"
       onTransitionEnd={handleUnmount}
+      onClose={handleClose}
     >
       <div className="modal-box max-w-md bg-black-pearl-900">
         <button
