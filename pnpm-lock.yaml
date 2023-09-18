@@ -95,8 +95,8 @@ devDependencies:
     specifier: ~0.32.0
     version: 0.32.4(vitest@0.32.4)
   autoprefixer:
-    specifier: 10.4.13
-    version: 10.4.13(postcss@8.4.21)
+    specifier: 10.4.15
+    version: 10.4.15(postcss@8.4.21)
   daisyui:
     specifier: ^3.7.4
     version: 3.7.5
@@ -3874,8 +3874,8 @@ packages:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: true
 
-  /autoprefixer@10.4.13(postcss@8.4.21):
-    resolution: {integrity: sha512-49vKpMqcZYsJjwotvt4+h/BCjJVnhGwcLpDt5xkcaOG3eLrG/HUYLagrihYsQ+qrIBgIzX1Rw7a6L8I/ZA1Atg==}
+  /autoprefixer@10.4.15(postcss@8.4.21):
+    resolution: {integrity: sha512-KCuPB8ZCIqFdA4HwKXsvz7j6gvSDNhDP7WnUjBleRkKjPdvCmHFuQ77ocavI8FT6NdvlBnE2UFr2H4Mycn8Vew==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
