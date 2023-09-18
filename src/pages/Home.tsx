@@ -1,9 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
 import useGroupsQuery from '@hooks/useGroupsQuery';
-import { PlusIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { PlusIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '@contexts/AuthContext';
 import CreateParty from '@components/CreateParty';
 import { useState } from 'react';
+import Select, { Option } from '@components/Select';
+
+const OPTIONS = [
+  { label: 'Option 1', value: '1' },
+  { label: 'Option 2', value: '2' },
+  { label: 'Option 3', value: '3' },
+];
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,30 +35,20 @@ const Home = () => {
     setCreatingParty(false);
   };
 
+  const handleChangeFilter = (selected: Option[]) => {
+    console.log(selected);
+  };
+
   return (
     <>
       <div className="container pt-4">
         <div className="flex justify-between">
-          <div className="dropdown">
-            <label
-              tabIndex={0}
-              className="border-bg btn border-2 border-black-pearl-900 bg-black-pearl-950 hover:border-black-pearl-900 hover:bg-black-pearl-900"
-            >
-              Filter
-              <ChevronDownIcon className="h-6 w-6" />
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu dropdown-content rounded-box z-[1] mt-1 w-52 bg-black-pearl-800 p-2 shadow"
-            >
-              <li>
-                <button>Item 1</button>
-              </li>
-              <li>
-                <button>Item 2</button>
-              </li>
-            </ul>
-          </div>
+          <Select
+            label="Filters"
+            options={OPTIONS}
+            onChange={handleChangeFilter}
+            multiSelect
+          />
           {user && (
             <>
               <button

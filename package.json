@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@floating-ui/react": "^0.25.4",
     "@heroicons/react": "^2.0.18",
     "@supabase/supabase-js": "^2.33.1",
     "@swc/helpers": "~0.5.0",
