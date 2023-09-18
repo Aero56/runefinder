@@ -1,9 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import useGroupsQuery from '@hooks/useGroupsQuery';
 import { PlusIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { useAuth } from '@contexts/AuthContext';
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const { user } = useAuth();
 
   const { data: groups, isLoading } = useGroupsQuery({
     order: { column: 'updated_at', options: { ascending: false } },
@@ -36,13 +39,17 @@ const Home = () => {
             </li>
           </ul>
         </div>
-        <button className="btn hidden bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 xs:flex ">
-          <PlusIcon className="h-6 w-6" />
-          Create party
-        </button>
-        <button className="btn btn-circle fixed bottom-6 right-6 flex bg-anzac-400 text-black-pearl-900 hover:bg-anzac-300 xs:hidden">
-          <PlusIcon className="h-6 w-6" />
-        </button>
+        {user && (
+          <>
+            <button className="btn hidden bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 xs:flex ">
+              <PlusIcon className="h-6 w-6" />
+              Create party
+            </button>
+            <button className="btn btn-circle fixed bottom-6 right-6 flex border-none bg-anzac-400 text-black-pearl-900 shadow hover:bg-anzac-300 xs:hidden">
+              <PlusIcon className="h-6 w-6" />
+            </button>
+          </>
+        )}
       </div>
       {groups && (
         <div className="mt-5 flex flex-col gap-5">
