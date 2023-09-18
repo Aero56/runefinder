@@ -6,5 +6,5 @@
 
 ## Start the app
 
-Run `npm start` or `nx serve runefinder`
-
+1. Run `pnpm install`
+2. Run `pnpm start` or `nx serve runefinder`
