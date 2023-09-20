@@ -1,8 +1,14 @@
-export interface Minigames {
-  lms: Minigame;
+export enum Minigame {
+  BarbarianAssault,
+  FightPit,
+  TroubleBrewing,
 }
 
-interface Minigame {
+export interface Minigames {
+  lms: IMinigame;
+}
+
+interface IMinigame {
   rank: number;
   score: number;
 }

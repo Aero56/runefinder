@@ -7,7 +7,7 @@ import Player from '@pages/Player';
 import Group from '@pages/Group';
 import { useAuth } from '@contexts/AuthContext';
 import Header from '@components/Header';
-import Auth from '@components/auth/Auth';
+import Auth from '@components/Auth/Auth';
 import ChangePassword from '@pages/auth/ChangePassword';
 
 const AuthRoute = () => {

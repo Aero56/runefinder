@@ -14,27 +14,35 @@ import {
   useTransitionStyles,
 } from '@floating-ui/react';
 import { useState } from 'react';
+import { Activity } from '@/types/generic';
+import SelectMenu from './SelectMenu';
+
+type Entity = Activity;
 
 export interface Option {
-  value: string;
   label: string;
+  value?: string;
+  options?: Option[];
+  entity?: Entity;
 }
 
 interface SelectProps {
-  label: string;
+  value: Option[];
+  placeholder?: string;
   options: Option[];
-  multiSelect?: boolean;
+  isMulti?: boolean;
   onChange: (selected: Option[]) => void;
 }
 
 const Select = ({
-  label,
+  value,
   options,
   onChange,
-  multiSelect = false,
+  isMulti = false,
+  placeholder = 'Select',
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<Set<Option>>(new Set([]));
+  const [selected, setSelected] = useState<Set<Option>>(new Set(value));
 
   const { context, refs, floatingStyles } = useFloating({
     placement: 'bottom-start',
@@ -67,9 +75,9 @@ const Select = ({
     let selection = selected;
 
     if (!selection.has(value)) {
-      if (!multiSelect) {
+      if (!isMulti) {
         selection = new Set([value]);
-      } else if (multiSelect) {
+      } else if (isMulti) {
         selection.add(value);
       }
     } else {
@@ -78,38 +86,34 @@ const Select = ({
 
     setSelected(new Set(selection));
     onChange([...selection]);
-    !multiSelect && setIsOpen(false);
+    !isMulti && setIsOpen(false);
   };
 
   return (
     <>
       <button
+        type="button"
         ref={refs.setReference}
         {...getReferenceProps()}
         className="border-bg btn border-2 border-black-pearl-900 bg-black-pearl-950 hover:border-black-pearl-900 hover:bg-black-pearl-900"
       >
-        {label}
+        {[...selected][0]?.label ?? placeholder}
         <ChevronDownIcon className="h-6 w-6" />
       </button>
       {isMounted && (
         <FloatingPortal>
           <FloatingFocusManager context={context} modal={false}>
             <div
-              className="menu rounded-box block w-56 space-y-1 overflow-y-auto bg-black-pearl-800"
+              className="menu rounded-box block w-56 overflow-y-auto bg-black-pearl-800"
               ref={refs.setFloating}
               style={{ ...floatingStyles, ...transitionStyles }}
               {...getFloatingProps()}
             >
-              {options.map((option) => (
-                <li key={option.value}>
-                  <button
-                    onClick={() => handleSelect(option)}
-                    className={`${selected.has(option) ? 'active' : ''}`}
-                  >
-                    {option.label}
-                  </button>
-                </li>
-              ))}
+              <SelectMenu
+                options={options}
+                onSelect={handleSelect}
+                selected={selected}
+              />
             </div>
           </FloatingFocusManager>
         </FloatingPortal>

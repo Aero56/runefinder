@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
-import Login from '@components/auth/Login';
-import Signup from '@components/auth/Signup';
+import Login from '@components/Auth/Login';
+import Signup from '@components/Auth/Signup';
 import { useSearchParams } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '@contexts/AuthContext';
