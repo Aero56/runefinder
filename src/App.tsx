@@ -8,7 +8,7 @@ import Group from '@pages/Group';
 import { useAuth } from '@contexts/AuthContext';
 import Header from '@components/Header';
 import ChangePassword from '@pages/auth/ChangePassword';
-import Auth from '@components/Auth/Auth';
+import Auth from '@components/Auth';
 
 const AuthRoute = () => {
   const { session } = useAuth();
