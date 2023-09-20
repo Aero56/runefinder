@@ -1,10 +1,10 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
-import Login from '@components/Auth/Login';
-import Signup from '@components/Auth/Signup';
 import { useSearchParams } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '@contexts/AuthContext';
 import ResetPassword from './ResetPassword';
+import Login from './Login';
+import Signup from './Signup';
 
 const Auth = () => {
   const { user } = useAuth();
