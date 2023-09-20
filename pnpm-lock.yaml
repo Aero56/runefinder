@@ -37,9 +37,6 @@ dependencies:
     version: 6.16.0(react-dom@18.2.0)(react@18.2.0)
 
 devDependencies:
-  '@nx/cypress':
-    specifier: 16.7.4
-    version: 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
   '@nx/eslint-plugin':
     specifier: 16.7.4
     version: 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(@typescript-eslint/parser@5.62.0)(eslint-config-prettier@8.1.0)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
@@ -2129,25 +2126,6 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@nrwl/cypress@16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6):
-    resolution: {integrity: sha512-FmpCWrBIpoS0MsrMlusSBF7Wr8N6v8nbDpo8M8Bl8a6mGZu3lLnJ1ZnhYtCzwEoK0EnEQLGv76TwagRDhjVvmA==}
-    dependencies:
-      '@nx/cypress': 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
-    transitivePeerDependencies:
-      - '@babel/traverse'
-      - '@swc-node/register'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - cypress
-      - debug
-      - eslint
-      - nx
-      - supports-color
-      - typescript
-      - verdaccio
-    dev: true
-
   /@nrwl/devkit@16.7.4(nx@16.7.4):
     resolution: {integrity: sha512-Gt2q3cqDWzGP1woavGIo4bl8g9YaXic/Xfsl7qPq0LHJedLj49p1vXetB0wawkavSE2MTyo7yDh6YDK/38XoLw==}
     dependencies:
@@ -2160,6 +2138,14 @@ packages:
     resolution: {integrity: sha512-Y7yYDh62Hi4q99Q4+ipIQ3K9iLuAld3WcwjLv6vtl6Livu+TU3eqbraBEno7DQL8JuIuwgBT4lX7Bp3w3N9RDg==}
     dependencies:
       '@nx/devkit': 16.8.1(nx@16.7.4)
+    transitivePeerDependencies:
+      - nx
+    dev: true
+
+  /@nrwl/devkit@16.8.1(nx@16.8.1):
+    resolution: {integrity: sha512-Y7yYDh62Hi4q99Q4+ipIQ3K9iLuAld3WcwjLv6vtl6Livu+TU3eqbraBEno7DQL8JuIuwgBT4lX7Bp3w3N9RDg==}
+    dependencies:
+      '@nx/devkit': 16.8.1(nx@16.8.1)
     transitivePeerDependencies:
       - nx
     dev: true
@@ -2360,37 +2346,6 @@ packages:
       - debug
     dev: true
 
-  /@nx/cypress@16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6):
-    resolution: {integrity: sha512-rqVnTZbM8rr7K8p+O51uMBko9pYlFPpGqkFQbGOpzFjhoCXW0d4MqYMd03Iele4HjBLCNqVjgmUg3TZacO9vTQ==}
-    peerDependencies:
-      cypress: '>= 3 < 13'
-    peerDependenciesMeta:
-      cypress:
-        optional: true
-    dependencies:
-      '@nrwl/cypress': 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
-      '@nx/devkit': 16.7.4(nx@16.7.4)
-      '@nx/js': 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(nx@16.7.4)(typescript@5.1.6)
-      '@nx/linter': 16.7.4(@swc/core@1.3.85)(@types/node@20.6.2)(eslint@8.46.0)(nx@16.7.4)(typescript@5.1.6)
-      '@phenomnomnominal/tsquery': 5.0.1(typescript@5.1.6)
-      detect-port: 1.5.1
-      dotenv: 16.3.1
-      semver: 7.5.3
-      tslib: 2.6.2
-    transitivePeerDependencies:
-      - '@babel/traverse'
-      - '@swc-node/register'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - debug
-      - eslint
-      - nx
-      - supports-color
-      - typescript
-      - verdaccio
-    dev: true
-
   /@nx/devkit@16.7.4(nx@16.7.4):
     resolution: {integrity: sha512-SLito+/TAeDYR+d7IIpp/sBJm41WM+nIevILv0TSQW4Pq0ylUy1nUvV8Pe7l1ohZccDrQuebMUWPwGO0hv8SeQ==}
     peerDependencies:
@@ -2426,7 +2381,7 @@ packages:
     peerDependencies:
       nx: '>= 15 <= 17'
     dependencies:
-      '@nrwl/devkit': 16.8.1(nx@16.7.4)
+      '@nrwl/devkit': 16.8.1(nx@16.8.1)
       ejs: 3.1.9
       enquirer: 2.3.6
       ignore: 5.2.4
