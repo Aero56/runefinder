@@ -21,7 +21,7 @@
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
-    "@nx/eslint-plugin": "16.7.4",
+    "@nx/eslint-plugin": "16.8.1",
     "@nx/js": "16.7.4",
     "@nx/linter": "16.8.1",
     "@nx/playwright": "16.8.1",
