@@ -5,7 +5,7 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 const useGroupsQuery = (
   params?: QueryParams,
-  options?: UseQueryOptions<Group[] | null>
+  options?: UseQueryOptions<Group[] | null>,
 ) => {
   const queryKey = ['groups'];
 
@@ -14,7 +14,8 @@ const useGroupsQuery = (
     async () => {
       let query = supabase
         .from('groups')
-        .select('*, users!users_group_id_fkey(id, username)');
+        .select('*, users!users_group_id_fkey(id, username)')
+        .eq('status', 'open');
 
       if (params?.order) {
         query = query.order(params.order.column, params.order.options);
@@ -24,7 +25,7 @@ const useGroupsQuery = (
 
       return data;
     },
-    options
+    options,
   );
 };
 

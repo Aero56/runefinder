@@ -1,23 +1,14 @@
-import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { PlusIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
-import {
-  FloatingFocusManager,
-  FloatingOverlay,
-  FloatingPortal,
-  autoUpdate,
-  useClick,
-  useDismiss,
-  useFloating,
-  useInteractions,
-  useRole,
-  useTransitionStyles,
-} from '@floating-ui/react';
 import { Controller, useForm } from 'react-hook-form';
 import { Raid } from '@/types/raids';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@api/supabase';
+import { useAuth } from '@contexts/AuthContext';
 import Select, { Option } from './Select';
 import useGroupMutation from '@hooks/useGroupMutation';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast/headless';
+import Dialog from './Dialog';
 
 const DEFAULT_SIZE = 10;
 
@@ -55,27 +46,12 @@ interface FormData {
 
 const CreateParty = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   const { mutateAsync: createGroup, isLoading } = useGroupMutation();
-
-  const { context, refs } = useFloating({
-    open: isOpen,
-    onOpenChange: setIsOpen,
-    whileElementsMounted: autoUpdate,
-  });
-
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    useClick(context),
-    useDismiss(context),
-    useRole(context),
-  ]);
-
-  const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
-    duration: 300,
-    initial: { opacity: 0, transform: 'scale(0.95)' },
-  });
 
   const {
     handleSubmit,
@@ -84,13 +60,53 @@ const CreateParty = () => {
     setValue,
     control,
     formState: { errors },
+    getValues,
   } = useForm<FormData>();
+
+  const handleCreateParty = () => {
+    setIsOpen(true);
+  };
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async () => {
+    if (user) {
+      const { data } = await supabase
+        .from('groups')
+        .select('id')
+        .eq('created_by', user.id)
+        .eq('status', 'open');
+
+      if (data?.length) {
+        setIsConfirmationOpen(true);
+        setIsOpen(false);
+        return;
+      }
+
+      handleCreateGroup();
+    }
+  };
+
+  const selectedActivity = watch('activity');
+
+  useEffect(() => {
+    setValue('size', 1);
+  }, [selectedActivity, setValue]);
+
+  const handleConfirm = async () => {
+    handleCreateGroup();
+  };
+
+  const handleConfirmCancel = () => {
+    setIsConfirmationOpen(false);
+    setIsOpen(true);
+  };
+
+  const handleCreateGroup = async () => {
+    const data = getValues();
+
     let result;
 
     try {
@@ -104,23 +120,18 @@ const CreateParty = () => {
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message);
+        return;
       }
-
-      return;
     }
 
-    navigate('/group/' + result.id);
+    navigate('/group/' + result?.id);
+    setIsConfirmationOpen(false);
+    setIsOpen(false);
   };
-
-  const selectedActivity = watch('activity');
-
-  useEffect(() => {
-    setValue('size', 1);
-  }, [selectedActivity, setValue]);
 
   return (
     <>
-      <div ref={refs.setReference} {...getReferenceProps()}>
+      <div onClick={handleCreateParty}>
         <button
           className="btn hidden bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 xs:flex"
           type="button"
@@ -135,102 +146,93 @@ const CreateParty = () => {
           <PlusIcon className="h-6 w-6" />
         </button>
       </div>
-      <FloatingPortal>
-        {isMounted && (
-          <FloatingOverlay
-            className="grid place-items-center bg-black-pearl-950/30 px-4"
-            style={{ ...transitionStyles }}
-            lockScroll
-          >
-            <FloatingFocusManager context={context}>
-              <div
-                ref={refs.setFloating}
-                style={{ ...transitionStyles }}
-                {...getFloatingProps()}
-                className="modal-box w-full max-w-2xl scale-100 bg-black-pearl-900"
-              >
-                <button
-                  className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
-                  onClick={handleClose}
-                >
-                  <XMarkIcon className="h-5 w-5" />
-                </button>
-                <h3 className="mb-4 text-xl font-bold">Create party</h3>
-                <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                  <div>
-                    <Controller
-                      control={control}
-                      name="activity"
-                      render={({ field: { onChange, value } }) => (
-                        <Select
-                          value={value}
-                          options={ACTIVITIES}
-                          onChange={onChange}
-                          placeholder="Choose activity"
-                          {...(errors.activity && {
-                            className:
-                              'outline outline-2 outline-error/50 focus:outline-error',
-                          })}
-                        />
-                      )}
-                      rules={{ required: 'Please select an activity.' }}
-                    />
-                    {errors.activity && (
-                      <p className="mt-2 text-sm text-error">
-                        {errors.activity.message}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="mb-2 block text-sm">
-                      Party name
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      placeholder="This is a party name"
-                      className={`input w-full bg-black-pearl-950 ${
-                        errors.name
-                          ? 'outline outline-2 outline-offset-2 outline-error/50 focus:outline-error'
-                          : ''
-                      }`}
-                      {...register('name', {
-                        required: 'Name is required.',
-                      })}
-                    />
-                    {errors.name && (
-                      <p className="mt-2 text-sm text-error">
-                        {errors.name.message}
-                      </p>
-                    )}
-                  </div>
-                  {selectedActivity && selectedActivity[0].entity?.teamSize && (
-                    <div>
-                      <label htmlFor="email" className="mb-2 block text-sm">
-                        {`Players needed: ${watch('size')}`}
-                      </label>
-                      <input
-                        type="range"
-                        min={1}
-                        max={selectedActivity[0].entity.teamSize - 1}
-                        className="range range-primary"
-                        {...register('size')}
-                      />
-                    </div>
-                  )}
-                  <button className="btn mt-5 w-full bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300">
-                    {!isLoading ? (
-                      'Create party'
-                    ) : (
-                      <span className="loading loading-spinner"></span>
-                    )}
-                  </button>
-                </form>
-              </div>
-            </FloatingFocusManager>
-          </FloatingOverlay>
-        )}
-      </FloatingPortal>
+      <Dialog
+        title={'Create party'}
+        isOpen={isOpen}
+        onClose={handleClose}
+        primaryAction={{
+          label: 'Create group',
+          onClick: handleSubmit(onSubmit),
+        }}
+        isLoading={isLoading}
+      >
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <Controller
+              control={control}
+              name="activity"
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  value={value}
+                  options={ACTIVITIES}
+                  onChange={onChange}
+                  placeholder="Choose activity"
+                  {...(errors.activity && {
+                    className:
+                      'outline outline-2 outline-error/50 focus:outline-error',
+                  })}
+                />
+              )}
+              rules={{ required: 'Please select an activity.' }}
+            />
+            {errors.activity && (
+              <p className="mt-2 text-sm text-error">
+                {errors.activity.message}
+              </p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="email" className="mb-2 block text-sm">
+              Party name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="This is a party name"
+              className={`input w-full bg-black-pearl-950 ${
+                errors.name
+                  ? 'outline outline-2 outline-offset-2 outline-error/50 focus:outline-error'
+                  : ''
+              }`}
+              {...register('name', {
+                required: 'Name is required.',
+              })}
+            />
+            {errors.name && (
+              <p className="mt-2 text-sm text-error">{errors.name.message}</p>
+            )}
+          </div>
+          {selectedActivity && selectedActivity[0].entity?.teamSize && (
+            <div>
+              <label htmlFor="email" className="mb-2 block text-sm">
+                {`Players needed: ${watch('size')}`}
+              </label>
+              <input
+                type="range"
+                min={1}
+                max={selectedActivity[0].entity.teamSize - 1}
+                className="range range-primary"
+                {...register('size')}
+              />
+            </div>
+          )}
+        </form>
+      </Dialog>
+
+      <Dialog
+        title="You already have an open group"
+        size="small"
+        isOpen={isConfirmationOpen}
+        isLoading={isLoading}
+        primaryAction={{ label: 'Confirm', onClick: handleConfirm }}
+        secondaryAction={{ label: 'Cancel', onClick: handleConfirmCancel }}
+        onClose={handleConfirmCancel}
+      >
+        <p>
+          Are you sure you want to create a new group? Your current group will
+          be closed.
+        </p>
+      </Dialog>
     </>
   );
 };
