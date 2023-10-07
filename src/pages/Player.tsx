@@ -18,11 +18,12 @@ const Player = () => {
   return (
     <div className="flex flex-col">
       {username}
-      {Object.entries(player.stats.skills).map(([key, value]) => (
-        <p key={key}>
-          {key}: {value.level}
-        </p>
-      ))}
+      {player?.stats &&
+        Object.entries(player.stats.skills).map(([key, value]) => (
+          <p key={key}>
+            {key}: {value.level}
+          </p>
+        ))}
     </div>
   );
 };
