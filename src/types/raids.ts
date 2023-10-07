@@ -1,5 +1,5 @@
 export enum Raid {
-  ChambersOfXeric = 'chambersOfXeric',
-  TheatreOfBlood = 'theatreOfBlood',
-  TombsOfAmascut = 'tombsOfAmascut',
+  TheatreOfBlood = 1,
+  ChambersOfXeric = 2,
+  TombsOfAmascut = 3,
 }

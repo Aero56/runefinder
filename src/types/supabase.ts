@@ -30,6 +30,24 @@ export type QueryParams = {
 export interface Database {
   public: {
     Tables: {
+      activities: {
+        Row: {
+          id: number;
+          max_size: number;
+          name: string;
+        };
+        Insert: {
+          id?: number;
+          max_size: number;
+          name: string;
+        };
+        Update: {
+          id?: number;
+          max_size?: number;
+          name?: string;
+        };
+        Relationships: [];
+      };
       groups: {
         Row: {
           created_at: string;
@@ -37,14 +55,16 @@ export interface Database {
           id: string;
           name: string;
           size: number;
+          type: number | null;
           updated_at: string;
         };
         Insert: {
           created_at?: string;
-          created_by: string;
+          created_by?: string;
           id?: string;
           name: string;
           size: number;
+          type?: number | null;
           updated_at?: string;
         };
         Update: {
@@ -53,6 +73,7 @@ export interface Database {
           id?: string;
           name?: string;
           size?: number;
+          type?: number | null;
           updated_at?: string;
         };
         Relationships: [
@@ -61,7 +82,13 @@ export interface Database {
             columns: ['created_by'];
             referencedRelation: 'users';
             referencedColumns: ['id'];
-          }
+          },
+          {
+            foreignKeyName: 'groups_type_fkey';
+            columns: ['type'];
+            referencedRelation: 'activities';
+            referencedColumns: ['id'];
+          },
         ];
       };
       users: {
@@ -69,22 +96,22 @@ export interface Database {
           created_at: string;
           group_id: string | null;
           id: string;
-          stats: Stats;
-          username: string;
+          stats: Stats | null;
+          username: string | null;
         };
         Insert: {
           created_at?: string;
           group_id?: string | null;
           id: string;
-          stats?: Stats;
-          username: string;
+          stats?: Stats | null;
+          username?: string | null;
         };
         Update: {
           created_at?: string;
           group_id?: string | null;
           id?: string;
-          stats?: Stats;
-          username?: string;
+          stats?: Stats | null;
+          username?: string | null;
         };
         Relationships: [
           {
@@ -98,7 +125,7 @@ export interface Database {
             columns: ['id'];
             referencedRelation: 'users';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
     };

@@ -21,7 +21,7 @@ type Entity = Activity;
 
 export interface Option {
   label: string;
-  value?: string;
+  value?: string | number | null;
   options?: Option[];
   entity?: Entity;
 }
@@ -32,6 +32,7 @@ interface SelectProps {
   options: Option[];
   isMulti?: boolean;
   onChange: (selected: Option[]) => void;
+  className?: string;
 }
 
 const Select = ({
@@ -40,6 +41,7 @@ const Select = ({
   onChange,
   isMulti = false,
   placeholder = 'Select',
+  className,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<Set<Option>>(new Set(value));
@@ -95,7 +97,7 @@ const Select = ({
         type="button"
         ref={refs.setReference}
         {...getReferenceProps()}
-        className="border-bg btn border-2 border-black-pearl-900 bg-black-pearl-950 hover:border-black-pearl-900 hover:bg-black-pearl-900"
+        className={`border-bg btn border-2 border-black-pearl-900 bg-black-pearl-950 hover:border-black-pearl-900 hover:bg-black-pearl-900 ${className}`}
       >
         {[...selected][0]?.label ?? placeholder}
         <ChevronDownIcon className="h-6 w-6" />
