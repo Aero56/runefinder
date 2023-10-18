@@ -8,7 +8,9 @@ import { useAuth } from '@contexts/AuthContext';
 import Select, { Option } from '../Select';
 import useGroupMutation from '@hooks/mutations/useGroupMutation';
 import toast from 'react-hot-toast/headless';
-import Dialog from '../Dialog';
+import Dialog from '../Dialog/Dialog';
+import DialogFooter from '@components/Dialog/DialogFooter';
+import DialogHeader from '@components/Dialog/DialogHeader';
 
 const DEFAULT_SIZE = 10;
 
@@ -146,16 +148,8 @@ const CreateParty = () => {
           <PlusIcon className="h-6 w-6" />
         </button>
       </div>
-      <Dialog
-        title={'Create party'}
-        isOpen={isOpen}
-        onClose={handleClose}
-        primaryAction={{
-          label: 'Create group',
-          onClick: handleSubmit(onSubmit),
-        }}
-        isLoading={isLoading}
-      >
+      <Dialog isOpen={isOpen} onClose={handleClose} isLoading={isLoading}>
+        <DialogHeader title="Create party" />
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Controller
@@ -217,21 +211,30 @@ const CreateParty = () => {
             </div>
           )}
         </form>
+        <DialogFooter
+          primaryAction={{
+            label: 'Create group',
+            onClick: handleSubmit(onSubmit),
+          }}
+        />
       </Dialog>
 
       <Dialog
-        title="You already have an open group"
-        size="small"
         isOpen={isConfirmationOpen}
         isLoading={isLoading}
-        primaryAction={{ label: 'Confirm', onClick: handleConfirm }}
-        secondaryAction={{ label: 'Cancel', onClick: handleConfirmCancel }}
         onClose={handleConfirmCancel}
+        size="small"
       >
+        <DialogHeader title="You already have an open group" />
         <p>
           Are you sure you want to create a new group? Your current group will
           be closed.
         </p>
+        <DialogFooter
+          primaryAction={{ label: 'Confirm', onClick: handleConfirm }}
+          secondaryAction={{ label: 'Cancel', onClick: handleConfirmCancel }}
+          size="small"
+        />
       </Dialog>
     </>
   );
