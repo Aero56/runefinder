@@ -6,8 +6,10 @@ import { Group as GroupType } from '@/types/group';
 import { toast } from 'react-hot-toast/headless';
 import useGroupQuery from '@hooks/queries/useGroupQuery';
 import queryClient from '@api/queryClient';
+import { useAuth } from '@contexts/AuthContext';
 
 const Group = () => {
+  const { user } = useAuth();
   const { id = '' } = useParams();
 
   const { data: group, isLoading } = useGroupQuery(id);
@@ -24,33 +26,35 @@ const Group = () => {
           filter: `group_id=eq.${id}`,
         },
         (payload) => {
-          queryClient.setQueryData(
-            ['group', id],
-            (oldData?: GroupType | null) => {
-              const newUser = {
-                id: payload.new.id,
-                username: payload.new.username,
-              };
+          if (payload.new.id !== user?.id) {
+            queryClient.setQueryData(
+              ['group', id],
+              (oldData?: GroupType | null) => {
+                const newUser = {
+                  id: payload.new.id,
+                  username: payload.new.username,
+                };
 
-              if (oldData) {
-                const users = [...oldData.users];
+                if (oldData) {
+                  const users = [...oldData.users];
 
-                if (!users.some((user) => user.id === newUser.id)) {
-                  users.push(newUser);
+                  if (!users.some((user) => user.id === newUser.id)) {
+                    users.push(newUser);
+                  }
+
+                  return { ...oldData, users };
                 }
 
-                return { ...oldData, users };
-              }
+                return null;
+              },
+            );
 
-              return null;
-            },
-          );
-
-          toast(`${payload.new.username} has joined the group!`);
+            toast(`${payload.new.username} has joined the group!`);
+          }
         },
       )
       .subscribe();
-  }, [id]);
+  }, [id, user]);
 
   if (isLoading) {
     return <p>Loading...</p>;
