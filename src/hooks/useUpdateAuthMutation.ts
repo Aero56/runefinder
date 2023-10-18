@@ -1,13 +1,13 @@
 import { supabase } from '@api/supabase';
 import { useMutation } from '@tanstack/react-query';
 
-interface UpdateUserProps {
+interface UpdateAuthProps {
   email?: string;
   password?: string;
 }
 
-const useUpdateUserMutation = () => {
-  return useMutation(async ({ email, password }: UpdateUserProps) => {
+const useUpdateAuthMutation = () => {
+  return useMutation(async ({ email, password }: UpdateAuthProps) => {
     const { error } = await supabase.auth.updateUser({
       email,
       password,
@@ -19,4 +19,4 @@ const useUpdateUserMutation = () => {
   });
 };
 
-export default useUpdateUserMutation;
+export default useUpdateAuthMutation;

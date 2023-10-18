@@ -1,4 +1,4 @@
-import useUpdateUserMutation from '@hooks/useUpdateUserMutation';
+import useUpdateAuthMutation from '@hooks/useUpdateAuthMutation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ interface FormData {
 const ChangePassword = () => {
   const navigate = useNavigate();
 
-  const { mutateAsync: changePassword, isLoading } = useUpdateUserMutation();
+  const { mutateAsync: changePassword, isLoading } = useUpdateAuthMutation();
 
   const {
     handleSubmit,
