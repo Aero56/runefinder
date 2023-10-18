@@ -46,7 +46,7 @@ const Group = () => {
             },
           );
 
-          toast('A player has joined the group!');
+          toast(`${payload.new.username} has joined the group!`);
         },
       )
       .subscribe();
