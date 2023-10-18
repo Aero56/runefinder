@@ -1,5 +1,3 @@
-import { Size } from './Dialog';
-
 type Action = {
   label: string;
   onClick: () => void;
@@ -9,16 +7,16 @@ interface DialogFooterProps {
   primaryAction: Action;
   secondaryAction?: Action;
   isLoading?: boolean;
-  size?: Size;
+  isCompact?: boolean;
 }
 
 const DialogFooter = ({
-  size,
-  isLoading,
   primaryAction,
   secondaryAction,
+  isLoading,
+  isCompact,
 }: DialogFooterProps) => {
-  return size === 'small' ? (
+  return isCompact ? (
     <div className="mt-5 flex flex-row-reverse gap-2">
       <button
         className="btn w-28 bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300"

@@ -20,7 +20,6 @@ interface DialogProps {
   isOpen: boolean;
   children: ReactNode;
   size?: Size;
-  isLoading?: boolean;
   onClose: () => void;
 }
 

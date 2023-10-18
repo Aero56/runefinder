@@ -4,6 +4,9 @@ import useSignupMutation from '@hooks/mutations/useSignupMutation';
 import toast from 'react-hot-toast/headless';
 import { AuthProviders } from '@/types/supabase';
 import useLoginWithProviderMutation from '@hooks/mutations/useLoginWithProviderMutation';
+import Dialog from '@components/Dialog/Dialog';
+import DialogHeader from '@components/Dialog/DialogHeader';
+import DialogFooter from '@components/Dialog/DialogFooter';
 
 interface FormData {
   email: string;
@@ -13,9 +16,10 @@ interface FormData {
 
 interface SignupProps {
   onClose: () => void;
+  isOpen: boolean;
 }
 
-const Signup = ({ onClose }: SignupProps) => {
+const Signup = ({ onClose, isOpen }: SignupProps) => {
   const navigate = useNavigate();
 
   const { mutateAsync: signup, isLoading } = useSignupMutation();
@@ -54,13 +58,9 @@ const Signup = ({ onClose }: SignupProps) => {
   };
 
   return (
-    <>
-      <h3 className="mb-4 text-xl font-bold">Create account on RuneFinder</h3>
-      <form
-        method="dialog"
-        className="space-y-6"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <Dialog isOpen={isOpen} onClose={onClose} size="small">
+      <DialogHeader title="Create account on RuneFinder" />
+      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="email" className="mb-2 block text-sm">
             Your email
@@ -145,13 +145,10 @@ const Signup = ({ onClose }: SignupProps) => {
             </p>
           )}
         </div>
-        <button className="btn mt-5 w-full bg-anzac-400 text-black-pearl-900 hover:bg-anzac-300">
-          {!isLoading ? (
-            'Sign up'
-          ) : (
-            <span className="loading loading-spinner"></span>
-          )}
-        </button>
+        <DialogFooter
+          primaryAction={{ label: 'Sign up', onClick: handleSubmit(onSubmit) }}
+          isLoading={isLoading}
+        />
         <div className="text-center text-sm font-medium">
           Already have an account?
           <span
@@ -199,7 +196,7 @@ const Signup = ({ onClose }: SignupProps) => {
           Sign up with Google
         </button>
       </div>
-    </>
+    </Dialog>
   );
 };
 

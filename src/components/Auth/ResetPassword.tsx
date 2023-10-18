@@ -2,16 +2,20 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
 import useResetPasswordMutation from '@hooks/mutations/useResetPasswordMutation';
 import { useNavigate } from 'react-router-dom';
+import Dialog from '@components/Dialog/Dialog';
+import DialogHeader from '@components/Dialog/DialogHeader';
+import DialogFooter from '@components/Dialog/DialogFooter';
 
 interface FormData {
   email: string;
 }
 
-interface LoginProps {
+interface ResetPasswordProps {
   onClose: () => void;
+  isOpen: boolean;
 }
 
-const ResetPassword = ({ onClose }: LoginProps) => {
+const ResetPassword = ({ onClose, isOpen }: ResetPasswordProps) => {
   const navigate = useNavigate();
 
   const { mutateAsync: resetPassword, isLoading } = useResetPasswordMutation();
@@ -39,17 +43,13 @@ const ResetPassword = ({ onClose }: LoginProps) => {
   };
 
   return (
-    <>
-      <h3 className="mb-4 text-xl font-bold">Forgot password?</h3>
+    <Dialog isOpen={isOpen} onClose={onClose} size="small">
+      <DialogHeader title="Forgot password?" />
       <h4 className="mb-4 text-sm">
         Please provide your email address, an email will be sent with a link to
         reset your password.
       </h4>
-      <form
-        method="dialog"
-        className="space-y-6"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="email" className="mb-2 block text-sm">
             Email
@@ -75,13 +75,13 @@ const ResetPassword = ({ onClose }: LoginProps) => {
             <p className="mt-2 text-sm text-error">{errors.email.message}</p>
           )}
         </div>
-        <button className="btn mt-5 w-full bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300">
-          {!isLoading ? (
-            'Reset password'
-          ) : (
-            <span className="loading loading-spinner"></span>
-          )}
-        </button>
+        <DialogFooter
+          primaryAction={{
+            label: 'Reset password',
+            onClick: handleSubmit(onSubmit),
+          }}
+          isLoading={isLoading}
+        />
         <div className="text-center text-sm font-medium">
           Remember your password again?
           <span
@@ -92,7 +92,7 @@ const ResetPassword = ({ onClose }: LoginProps) => {
           </span>
         </div>
       </form>
-    </>
+    </Dialog>
   );
 };
 

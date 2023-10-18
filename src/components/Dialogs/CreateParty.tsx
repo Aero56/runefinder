@@ -148,7 +148,7 @@ const CreateParty = () => {
           <PlusIcon className="h-6 w-6" />
         </button>
       </div>
-      <Dialog isOpen={isOpen} onClose={handleClose} isLoading={isLoading}>
+      <Dialog isOpen={isOpen} onClose={handleClose}>
         <DialogHeader title="Create party" />
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
@@ -216,12 +216,12 @@ const CreateParty = () => {
             label: 'Create group',
             onClick: handleSubmit(onSubmit),
           }}
+          isLoading={isLoading}
         />
       </Dialog>
 
       <Dialog
         isOpen={isConfirmationOpen}
-        isLoading={isLoading}
         onClose={handleConfirmCancel}
         size="small"
       >
@@ -233,7 +233,8 @@ const CreateParty = () => {
         <DialogFooter
           primaryAction={{ label: 'Confirm', onClick: handleConfirm }}
           secondaryAction={{ label: 'Cancel', onClick: handleConfirmCancel }}
-          size="small"
+          isLoading={isLoading}
+          isCompact
         />
       </Dialog>
     </>
