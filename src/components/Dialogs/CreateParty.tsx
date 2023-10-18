@@ -5,10 +5,10 @@ import { Raid } from '@/types/raids';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
-import Select, { Option } from './Select';
+import Select, { Option } from '../Select';
 import useGroupMutation from '@hooks/mutations/useGroupMutation';
 import toast from 'react-hot-toast/headless';
-import Dialog from './Dialog';
+import Dialog from '../Dialog';
 
 const DEFAULT_SIZE = 10;
 
