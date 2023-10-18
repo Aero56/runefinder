@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import usePlayerQuery from '@hooks/usePlayerQuery';
+import usePlayerQuery from '@hooks/queries/usePlayerQuery';
 
 const Player = () => {
   const { username = '' } = useParams();

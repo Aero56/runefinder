@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { Group as GroupType } from '@/types/group';
 import { toast } from 'react-hot-toast/headless';
-import useGroupQuery from '@hooks/useGroupQuery';
+import useGroupQuery from '@hooks/queries/useGroupQuery';
 import queryClient from '@api/queryClient';
 
 const Group = () => {

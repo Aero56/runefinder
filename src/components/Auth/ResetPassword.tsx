@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
-import useResetPasswordMutation from '@hooks/useResetPasswordMutation';
+import useResetPasswordMutation from '@hooks/mutations/useResetPasswordMutation';
 import { useNavigate } from 'react-router-dom';
 
 interface FormData {

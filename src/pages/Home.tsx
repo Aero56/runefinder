@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import useGroupsQuery from '@hooks/useGroupsQuery';
+import useGroupsQuery from '@hooks/queries/useGroupsQuery';
 import { useAuth } from '@contexts/AuthContext';
 import CreateParty from '@components/CreateParty';
 import Select, { Option } from '@components/Select';

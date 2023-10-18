@@ -3,9 +3,9 @@ import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast/headless';
-import useUpdatePlayerMutation from '@hooks/useUpdatePlayerMutation';
+import useUpdatePlayerMutation from '@hooks/mutations/useUpdatePlayerMutation';
 import queryClient from '@api/queryClient';
-import useUserQuery from '@hooks/useUserQuery';
+import useUserQuery from '@hooks/queries/useUserQuery';
 
 const Account = () => {
   const { user } = useAuth();

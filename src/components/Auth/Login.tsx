@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import useLoginMutation from '@hooks/useLoginMutation';
+import useLoginMutation from '@hooks/mutations/useLoginMutation';
 import toast from 'react-hot-toast/headless';
 import { AuthProviders } from '@/types/supabase';
-import useLoginWithProviderMutation from '@hooks/useLoginWithProviderMutation';
+import useLoginWithProviderMutation from '@hooks/mutations/useLoginWithProviderMutation';
 
 interface FormData {
   email: string;

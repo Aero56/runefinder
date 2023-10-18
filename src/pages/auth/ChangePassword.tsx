@@ -1,4 +1,4 @@
-import useUpdateAuthMutation from '@hooks/useUpdateAuthMutation';
+import useUpdateAuthMutation from '@hooks/mutations/useUpdateAuthMutation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
