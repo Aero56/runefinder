@@ -11,6 +11,7 @@ import toast from 'react-hot-toast/headless';
 import Dialog from '../Dialog/Dialog';
 import DialogFooter from '@components/Dialog/DialogFooter';
 import DialogHeader from '@components/Dialog/DialogHeader';
+import queryClient from '@api/queryClient';
 
 const DEFAULT_SIZE = 10;
 
@@ -129,6 +130,8 @@ const CreateParty = () => {
     navigate('/group/' + result?.id);
     setIsConfirmationOpen(false);
     setIsOpen(false);
+
+    queryClient.invalidateQueries(['groups']);
   };
 
   return (

@@ -3,6 +3,7 @@ import useUpdateUserMutation from '@hooks/mutations/useUpdateUserMutation';
 import { MouseEvent } from 'react';
 import toast from 'react-hot-toast/headless';
 import { Link, useNavigate } from 'react-router-dom';
+import queryClient from '@api/queryClient';
 
 interface GroupProps {
   group: GroupType;
@@ -26,6 +27,9 @@ const Group = ({ group }: GroupProps) => {
 
     toast(`You joined group "${group.name}"!`);
     navigate(`/group/${group.id}`);
+
+    queryClient.invalidateQueries(['groups']);
+    queryClient.invalidateQueries(['group', group.id]);
   };
 
   return (
