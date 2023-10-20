@@ -13,7 +13,7 @@ const Account = () => {
 
   const [username, setUsername] = useState('');
 
-  const { data: player } = useUserQuery(user!.id, { enabled: !!user });
+  const { data: player } = useUserQuery();
   const { mutateAsync, isLoading: isUpdateLoading } = useUpdatePlayerMutation();
 
   const handleSignOut = async () => {

@@ -1,26 +1,26 @@
 import { Table } from '@/types/supabase';
 import { supabase } from '@api/supabase';
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useAuth } from '@contexts/AuthContext';
+import { useQuery } from '@tanstack/react-query';
 
-const useUserQuery = (
-  id: string,
-  options?: UseQueryOptions<Table<'users'> | null>
-) => {
-  const queryKey = ['player', id];
+const useUserQuery = () => {
+  const { user } = useAuth();
 
-  return useQuery<Table<'users'> | null>(
-    queryKey,
-    async () => {
-      const { data } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', id)
-        .single();
+  const queryKey = ['player', user?.id];
 
-      return data;
-    },
-    options
-  );
+  return useQuery<Table<'users'> | null>(queryKey, async () => {
+    if (!user) {
+      return null;
+    }
+
+    const { data } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', user!.id)
+      .single();
+
+    return data;
+  });
 };
 
 export default useUserQuery;

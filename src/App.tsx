@@ -14,7 +14,7 @@ const AuthRoute = () => {
   const { session } = useAuth();
 
   if (!session) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/?signin" replace />;
   }
 
   return <Outlet />;
