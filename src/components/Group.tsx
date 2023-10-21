@@ -18,6 +18,11 @@ const Group = ({ group }: GroupProps) => {
     useUpdateUserMutation();
 
   const handleJoinGroup = async (group: GroupType) => {
+    if (!user) {
+      navigate('?signin');
+      return;
+    }
+
     try {
       await updateUser({ group: group.id });
     } catch (error) {
@@ -73,37 +78,35 @@ const Group = ({ group }: GroupProps) => {
             ))}
           </p>
         </div>
-        {user && (
-          <button
-            className="btn btn-ghost w-16"
-            onClick={(event: MouseEvent) => {
-              event.stopPropagation();
+        <button
+          className="btn btn-ghost w-16"
+          onClick={(event: MouseEvent) => {
+            event.stopPropagation();
 
-              if (
-                group.users.find((currentUser) => currentUser.id === user.id) ||
-                group.created_by === user.id
-              ) {
-                handleLeaveGroup(group);
-              } else {
-                handleJoinGroup(group);
-              }
-            }}
-          >
-            {!isUpdateUserLoading ? (
-              group.created_by === user.id ? (
-                'Close'
-              ) : group.users.find(
-                  (currentUser) => currentUser.id === user.id,
-                ) ? (
-                'Leave'
-              ) : (
-                'Join'
-              )
+            if (
+              group.users.find((currentUser) => currentUser.id === user?.id) ||
+              group.created_by === user?.id
+            ) {
+              handleLeaveGroup(group);
+            } else {
+              handleJoinGroup(group);
+            }
+          }}
+        >
+          {!isUpdateUserLoading ? (
+            group.created_by === user?.id ? (
+              'Close'
+            ) : group.users.find(
+                (currentUser) => currentUser.id === user?.id,
+              ) ? (
+              'Leave'
             ) : (
-              <span className="loading loading-spinner"></span>
-            )}
-          </button>
-        )}
+              'Join'
+            )
+          ) : (
+            <span className="loading loading-spinner"></span>
+          )}
+        </button>
       </div>
     </div>
   );
