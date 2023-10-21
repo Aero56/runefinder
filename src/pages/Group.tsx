@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '@api/supabase';
 import { useEffect } from 'react';
 
-import { Group as GroupType } from '@/types/group';
+import { Group as GroupType } from '@/types/groups';
 import { toast } from 'react-hot-toast/headless';
 import useGroupQuery from '@hooks/queries/useGroupQuery';
 import queryClient from '@api/queryClient';

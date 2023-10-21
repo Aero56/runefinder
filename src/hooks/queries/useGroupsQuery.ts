@@ -1,4 +1,4 @@
-import { Group } from '@/types/group';
+import { Group } from '@/types/groups';
 import { QueryParams } from '@/types/supabase';
 import { supabase } from '@api/supabase';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
@@ -14,8 +14,11 @@ const useGroupsQuery = (
     async () => {
       let query = supabase
         .from('groups')
-        .select('*, users!users_group_id_fkey(id, username)')
-        .eq('status', 'open');
+        .select(
+          '*, users!users_group_id_fkey(id, username), type!inner(id, name)',
+        )
+        .eq('status', 'open')
+        .returns<Group[]>();
 
       if (params?.order) {
         query = query.order(params.order.column, params.order.options);

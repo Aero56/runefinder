@@ -55,6 +55,7 @@ export interface Database {
           id: string;
           name: string;
           size: number;
+          status: Database['public']['Enums']['group_status_enum'];
           type: number | null;
           updated_at: string;
         };
@@ -64,6 +65,7 @@ export interface Database {
           id?: string;
           name: string;
           size: number;
+          status?: Database['public']['Enums']['group_status_enum'];
           type?: number | null;
           updated_at?: string;
         };
@@ -73,6 +75,7 @@ export interface Database {
           id?: string;
           name?: string;
           size?: number;
+          status?: Database['public']['Enums']['group_status_enum'];
           type?: number | null;
           updated_at?: string;
         };
@@ -136,7 +139,7 @@ export interface Database {
       [_ in never]: never;
     };
     Enums: {
-      [_ in never]: never;
+      group_status_enum: 'open' | 'closed';
     };
     CompositeTypes: {
       [_ in never]: never;

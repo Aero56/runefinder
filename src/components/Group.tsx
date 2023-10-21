@@ -1,4 +1,4 @@
-import { Group as GroupType } from '@/types/group';
+import { Group as GroupType } from '@/types/groups';
 import useUpdateUserMutation from '@hooks/mutations/useUpdateUserMutation';
 import { MouseEvent } from 'react';
 import toast from 'react-hot-toast/headless';
@@ -61,9 +61,10 @@ const Group = ({ group }: GroupProps) => {
       className="cursor-pointer rounded bg-black-pearl-900 p-4 transition-colors duration-300 hover:bg-gray-900"
       onClick={() => navigate(`/group/${group.id}`)}
     >
-      <div className="flex justify-between">
-        <div className="flex flex-col text-left">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col  text-left">
           <p>{group.name}</p>
+          <p>{group.type.name}</p>
           <p>
             {group.users.map((user, i) => (
               <span key={user.id}>
