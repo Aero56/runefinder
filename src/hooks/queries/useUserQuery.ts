@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 const useUserQuery = () => {
   const { user } = useAuth();
 
-  const queryKey = ['player', user?.id];
+  const queryKey = ['user', user?.id];
 
   return useQuery<Table<'users'> | null>(queryKey, async () => {
     if (!user) {

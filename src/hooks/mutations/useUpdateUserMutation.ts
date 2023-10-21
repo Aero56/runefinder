@@ -3,7 +3,7 @@ import { useAuth } from '@contexts/AuthContext';
 import { useMutation } from '@tanstack/react-query';
 
 interface UpdateUserMutationProps {
-  group: string;
+  group: string | null;
 }
 
 const useUpdateUserMutation = () => {

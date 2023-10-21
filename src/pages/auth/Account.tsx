@@ -34,7 +34,7 @@ const Account = () => {
     }
 
     if (user) {
-      queryClient.invalidateQueries(['player', user.id]);
+      queryClient.invalidateQueries(['user', user.id]);
     }
   };
 
