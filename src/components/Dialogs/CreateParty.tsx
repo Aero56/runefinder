@@ -5,13 +5,14 @@ import { Raid } from '@/types/raids';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
-import Select, { Option } from '../Select';
+import { Option } from '../Select';
 import useGroupMutation from '@hooks/mutations/useGroupMutation';
 import toast from 'react-hot-toast/headless';
 import Dialog from '../Dialog/Dialog';
 import DialogFooter from '@components/Dialog/DialogFooter';
 import DialogHeader from '@components/Dialog/DialogHeader';
 import queryClient from '@api/queryClient';
+import ActivitySelect from '@components/ActivitySelect';
 
 const DEFAULT_SIZE = 10;
 
@@ -43,7 +44,7 @@ export const ACTIVITIES = [
 interface FormData {
   name: string;
   players: number;
-  activity: Option[];
+  activity: Option;
   size: number;
 }
 
@@ -115,10 +116,10 @@ const CreateParty = () => {
     try {
       result = await createGroup({
         name: data.name,
-        size: data.activity[0].entity?.teamSize
+        size: data.activity.entity?.teamSize
           ? Number(data.size) + 1
           : DEFAULT_SIZE,
-        type: data.activity[0].value ? Number(data.activity[0].value) : null,
+        type: data.activity.value ? Number(data.activity.value) : null,
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -159,11 +160,9 @@ const CreateParty = () => {
               control={control}
               name="activity"
               render={({ field: { onChange, value } }) => (
-                <Select
+                <ActivitySelect
                   value={value}
-                  options={ACTIVITIES}
                   onChange={onChange}
-                  placeholder="Choose activity"
                   {...(errors.activity && {
                     className:
                       'outline outline-2 outline-error/50 focus:outline-error',
@@ -199,7 +198,7 @@ const CreateParty = () => {
               <p className="mt-2 text-sm text-error">{errors.name.message}</p>
             )}
           </div>
-          {selectedActivity && selectedActivity[0].entity?.teamSize && (
+          {selectedActivity && selectedActivity.entity?.teamSize && (
             <div>
               <label htmlFor="email" className="mb-2 block text-sm">
                 {`Players needed: ${watch('size')}`}
@@ -207,7 +206,7 @@ const CreateParty = () => {
               <input
                 type="range"
                 min={1}
-                max={selectedActivity[0].entity.teamSize - 1}
+                max={selectedActivity.entity.teamSize - 1}
                 className="range range-primary"
                 {...register('size')}
               />
