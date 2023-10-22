@@ -1,13 +1,18 @@
 import { Group } from '@/types/groups';
-import { QueryParams } from '@/types/supabase';
+import { QueryModifiers } from '@/types/supabase';
 import { supabase } from '@api/supabase';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
+interface Filters {
+  type?: number;
+}
+
 const useGroupsQuery = (
-  params?: QueryParams,
+  filters?: Filters,
+  modifiers?: QueryModifiers,
   options?: UseQueryOptions<Group[] | null>,
 ) => {
-  const queryKey = ['groups'];
+  const queryKey = ['groups', filters];
 
   return useQuery<Group[] | null>(
     queryKey,
@@ -17,14 +22,17 @@ const useGroupsQuery = (
         .select(
           '*, users!users_group_id_fkey(id, username), type!inner(id, name)',
         )
-        .eq('status', 'open')
-        .returns<Group[]>();
+        .eq('status', 'open');
 
-      if (params?.order) {
-        query = query.order(params.order.column, params.order.options);
+      if (filters?.type) {
+        query = query.eq('type', filters.type);
       }
 
-      const { data } = await query;
+      if (modifiers?.order) {
+        query = query.order(modifiers.order.column, modifiers.order.options);
+      }
+
+      const { data } = await query.returns<Group[]>();
 
       return data;
     },

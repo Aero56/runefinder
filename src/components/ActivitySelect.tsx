@@ -28,7 +28,7 @@ export const ACTIVITIES = [
 ];
 
 interface ActivitySelectProps {
-  value: Option;
+  value: Option | null;
   onChange: (value: Option) => void;
   className?: string;
 }
@@ -38,7 +38,9 @@ const ActivitySelect = ({
   onChange,
   className,
 }: ActivitySelectProps) => {
-  const [selected, setSelected] = useState<Option>(value);
+  const [selected, setSelected] = useState<Option>(
+    value !== null ? value : ACTIVITIES[0],
+  );
 
   const handleChange = (value: Option[]) => {
     onChange(value[0]);

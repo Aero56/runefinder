@@ -16,7 +16,7 @@ export type Json =
 export type Table<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Row'];
 
-export type QueryParams = {
+export type QueryModifiers = {
   order?: {
     column: string;
     options: {
