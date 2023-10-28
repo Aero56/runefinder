@@ -94,6 +94,40 @@ export interface Database {
           },
         ];
       };
+      player_votes: {
+        Row: {
+          created_at: string;
+          player_id: string;
+          user_id: string;
+          vote: number;
+        };
+        Insert: {
+          created_at?: string;
+          player_id: string;
+          user_id?: string;
+          vote?: number;
+        };
+        Update: {
+          created_at?: string;
+          player_id?: string;
+          user_id?: string;
+          vote?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'player_votes_player_id_fkey';
+            columns: ['player_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'player_votes_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       users: {
         Row: {
           created_at: string;
@@ -136,7 +170,12 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      get_player_votes: {
+        Args: {
+          var_player_id: string;
+        };
+        Returns: number;
+      };
     };
     Enums: {
       group_status_enum: 'open' | 'closed';
