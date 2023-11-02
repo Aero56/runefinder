@@ -6,6 +6,7 @@ import Stats from '@components/Stats';
 import PlayerVote from '@components/PlayerVote';
 import Description from '@components/Description';
 import { useAuth } from '@contexts/AuthContext';
+import Comments from '@components/Comments';
 
 const Player = () => {
   const { user } = useAuth();
@@ -48,6 +49,7 @@ const Player = () => {
           </p>
         </div>
         {player.stats && <Stats stats={player.stats} />}
+        <Comments />
       </div>
     </div>
   );
