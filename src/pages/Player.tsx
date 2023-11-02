@@ -4,8 +4,12 @@ import { format } from 'date-fns';
 import usePlayerQuery from '@hooks/queries/usePlayerQuery';
 import Stats from '@components/Stats';
 import PlayerVote from '@components/PlayerVote';
+import Description from '@components/Description';
+import { useAuth } from '@contexts/AuthContext';
 
 const Player = () => {
+  const { user } = useAuth();
+
   const { username = '' } = useParams();
 
   const { data: player, isLoading } = usePlayerQuery(username);
@@ -18,16 +22,25 @@ const Player = () => {
     return <p>This player does not exist on runefinder.</p>;
   }
 
+  const isPlayerMe = player.id === user?.id;
+
   return (
     <div className="container pt-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
         <div className="col-span-1 rounded-xl bg-black-pearl-900 p-4 sm:col-span-2">
-          <div className="align flex items-center justify-between">
+          <div className="align mb-2 flex items-center justify-between">
             <p className="text-xl font-bold">{username}</p>
             <PlayerVote playerId={player.id} />
           </div>
+          {isPlayerMe ? (
+            <Description value={player.description} />
+          ) : (
+            player.description && (
+              <p className="text-sm">{player.description}</p>
+            )
+          )}
           <div className="divider my-1" />
-          <p className="text-xs font-bold">
+          <p className="mt-2 text-xs font-bold">
             {'Member since: '}
             <span className="font-normal">
               {format(new Date(player.created_at), 'd MMM yyyy')}
