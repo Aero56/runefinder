@@ -19,6 +19,7 @@ const useCommentsQuery = (userId: string) => {
         'id, comment, created_at, commenter:users!comments_commenter_id_fkey(username)',
       )
       .eq('user_id', userId)
+      .order('created_at', { ascending: false })
       .returns<Comment[]>();
 
     return data;

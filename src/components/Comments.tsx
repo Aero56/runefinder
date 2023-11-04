@@ -1,12 +1,47 @@
+import queryClient from '@api/queryClient';
+import useCommentMutation from '@hooks/mutations/useCommentMutation';
 import useCommentsQuery from '@hooks/queries/useCommentsQuery';
 import { format } from 'date-fns';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast/headless';
+
+const MAX_COMMENT_LENGTH = 500;
 
 interface CommentsProps {
   userId: string;
 }
 
+interface FormData {
+  comment: string;
+}
+
 const Comments = ({ userId }: CommentsProps) => {
   const { data: comments } = useCommentsQuery(userId);
+  const { mutateAsync: addComment, isLoading } = useCommentMutation();
+
+  const { handleSubmit, register, watch, reset } = useForm<FormData>({
+    defaultValues: { comment: '' },
+  });
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await addComment({
+        userId: userId,
+        comment: data.comment,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        toast(error.message);
+        return;
+      }
+    }
+
+    reset();
+    toast('Comment added!');
+    queryClient.invalidateQueries(['comments', userId]);
+  };
+
+  const commentField = watch('comment');
 
   return (
     <div className="col-span-1 rounded-xl bg-black-pearl-900 sm:col-span-5">
@@ -15,12 +50,40 @@ const Comments = ({ userId }: CommentsProps) => {
       </div>
 
       <div className="flex flex-col p-4">
-        <textarea
-          className="textarea mb-4 h-14"
-          placeholder="Add a comment..."
-        />
+        <div className="flex flex-col items-end">
+          <textarea
+            className="textarea h-14 w-full"
+            placeholder="Add a comment..."
+            {...register('comment', { maxLength: MAX_COMMENT_LENGTH })}
+          />
+
+          {!!commentField?.trim() && (
+            <div className="mt-4 flex items-center gap-2">
+              <p
+                className={`text-sm ${
+                  commentField.length > MAX_COMMENT_LENGTH ? 'text-red-500' : ''
+                }`}
+              >{`${commentField.length}/${MAX_COMMENT_LENGTH}`}</p>
+              <button
+                className={`btn btn-sm  bg-anzac-400 text-black-pearl-950 hover:bg-anzac-300 ${
+                  commentField.length > MAX_COMMENT_LENGTH ? 'btn-disabled' : ''
+                }`}
+                onClick={handleSubmit(onSubmit)}
+              >
+                {!isLoading ? (
+                  'Add comment'
+                ) : (
+                  <span className="loading loading-spinner"></span>
+                )}
+              </button>
+            </div>
+          )}
+        </div>
         {comments?.map((comment) => (
-          <div key={comment.id} className="rounded-lg bg-black-pearl-950 p-4">
+          <div
+            key={comment.id}
+            className="mt-4 rounded-lg bg-black-pearl-950 p-4"
+          >
             <div className="mb-1 flex items-baseline">
               <h1 className="font-medium text-anzac-400">
                 {comment.commenter.username}
@@ -29,7 +92,7 @@ const Comments = ({ userId }: CommentsProps) => {
                 {format(new Date(comment.created_at), 'P p')}
               </p>
             </div>
-            <p>{comment.comment}</p>
+            <p className="break-words">{comment.comment}</p>
           </div>
         ))}
       </div>
