@@ -49,7 +49,7 @@ const Player = () => {
           </p>
         </div>
         {player.stats && <Stats stats={player.stats} />}
-        <Comments />
+        <Comments userId={player.id} />
       </div>
     </div>
   );

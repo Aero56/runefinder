@@ -44,7 +44,10 @@ const Stats = ({ stats }: StatsProps) => {
         <div className="w-96 py-4 sm:p-4">
           <div className="flex flex-wrap justify-center gap-2">
             {SKILLS.map((skill) => (
-              <div className="flex w-1/4 rounded-xl border-2 border-black-pearl-700 bg-black-pearl-800 p-1">
+              <div
+                key={skill}
+                className="flex w-1/4 rounded-xl border-2 border-black-pearl-700 bg-black-pearl-800 p-1"
+              >
                 <img
                   src={`src/assets/skills/${skill}.png`}
                   alt={`Skill icon of ${skill}`}

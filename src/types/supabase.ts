@@ -48,6 +48,45 @@ export interface Database {
         };
         Relationships: [];
       };
+      comments: {
+        Row: {
+          comment: string;
+          commenter_id: string;
+          created_at: string;
+          id: number;
+          user_id: string;
+        };
+        Insert: {
+          comment?: string;
+          commenter_id?: string;
+          created_at?: string;
+          id?: number;
+          user_id: string;
+        };
+        Update: {
+          comment?: string;
+          commenter_id?: string;
+          created_at?: string;
+          id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'comments_commenter_id_fkey';
+            columns: ['commenter_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'comments_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       groups: {
         Row: {
           created_at: string;

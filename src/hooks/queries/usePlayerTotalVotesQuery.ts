@@ -8,7 +8,6 @@ const usePlayerTotalVotesQuery = (playerId: string) => {
     const { data } = await supabase.rpc('get_player_votes', {
       var_player_id: playerId,
     });
-    console.log(data);
 
     return data ?? 0;
   });

@@ -4,7 +4,7 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 const usePlayerQuery = (
   username: string,
-  options?: UseQueryOptions<Table<'users'> | null>
+  options?: UseQueryOptions<Table<'users'> | null>,
 ) => {
   const queryKey = ['player', username];
 
@@ -19,7 +19,7 @@ const usePlayerQuery = (
 
       return data;
     },
-    options
+    options,
   );
 };
 
