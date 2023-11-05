@@ -1,9 +1,9 @@
 import queryClient from '@api/queryClient';
 import useCommentMutation from '@hooks/mutations/useCommentMutation';
 import useCommentsQuery from '@hooks/queries/useCommentsQuery';
-import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
+import Comment from './Comment';
 
 const MAX_COMMENT_LENGTH = 500;
 
@@ -17,7 +17,9 @@ interface FormData {
 
 const Comments = ({ userId }: CommentsProps) => {
   const { data: comments } = useCommentsQuery(userId);
-  const { mutateAsync: addComment, isLoading } = useCommentMutation();
+
+  const { mutateAsync: addComment, isLoading: isAddLoading } =
+    useCommentMutation();
 
   const { handleSubmit, register, watch, reset } = useForm<FormData>({
     defaultValues: { comment: '' },
@@ -65,12 +67,12 @@ const Comments = ({ userId }: CommentsProps) => {
                 }`}
               >{`${commentField.length}/${MAX_COMMENT_LENGTH}`}</p>
               <button
-                className={`btn btn-sm  bg-anzac-400 text-black-pearl-950 hover:bg-anzac-300 ${
+                className={`btn btn-sm w-36 bg-anzac-400 text-black-pearl-950 hover:bg-anzac-300 ${
                   commentField.length > MAX_COMMENT_LENGTH ? 'btn-disabled' : ''
                 }`}
                 onClick={handleSubmit(onSubmit)}
               >
-                {!isLoading ? (
+                {!isAddLoading ? (
                   'Add comment'
                 ) : (
                   <span className="loading loading-spinner"></span>
@@ -80,20 +82,7 @@ const Comments = ({ userId }: CommentsProps) => {
           )}
         </div>
         {comments?.map((comment) => (
-          <div
-            key={comment.id}
-            className="mt-4 rounded-lg bg-black-pearl-950 p-4"
-          >
-            <div className="mb-1 flex items-baseline">
-              <h1 className="font-medium text-anzac-400">
-                {comment.commenter.username}
-              </h1>
-              <p className="ml-2 text-xs text-black-pearl-100">
-                {format(new Date(comment.created_at), 'P p')}
-              </p>
-            </div>
-            <p className="break-words">{comment.comment}</p>
-          </div>
+          <Comment key={comment.id} comment={comment} userId={userId} />
         ))}
       </div>
     </div>
