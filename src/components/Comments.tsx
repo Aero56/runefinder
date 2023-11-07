@@ -4,6 +4,7 @@ import useCommentsQuery from '@hooks/queries/useCommentsQuery';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
 import Comment from './Comment';
+import Pagination from './Pagination';
 
 const MAX_COMMENT_LENGTH = 500;
 
@@ -41,6 +42,10 @@ const Comments = ({ userId }: CommentsProps) => {
     reset();
     toast('Comment added!');
     queryClient.invalidateQueries(['comments', userId]);
+  };
+
+  const handlePageChange = (page: number) => {
+    console.log(page);
   };
 
   const commentField = watch('comment');
@@ -84,6 +89,9 @@ const Comments = ({ userId }: CommentsProps) => {
         {comments?.map((comment) => (
           <Comment key={comment.id} comment={comment} userId={userId} />
         ))}
+        <div className="mx-auto mt-4">
+          <Pagination totalPages={9} onChange={handlePageChange} />
+        </div>
       </div>
     </div>
   );
