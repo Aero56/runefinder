@@ -2,6 +2,8 @@ import { Table } from '@/types/supabase';
 import { supabase } from '@api/supabase';
 import { useQuery } from '@tanstack/react-query';
 
+export const RECORD_LIMIT = 10;
+
 export interface Comment
   extends Omit<Table<'comments'>, 'commenter_id' | 'user_id'> {
   commenter: {
@@ -10,21 +12,39 @@ export interface Comment
   };
 }
 
-const useCommentsQuery = (userId: string) => {
-  const queryKey = ['comments', userId];
+interface CommentsQueryProps {
+  userId: string;
+  page: number;
+}
 
-  return useQuery<Comment[] | null>(queryKey, async () => {
-    const { data } = await supabase
-      .from('comments')
-      .select(
-        'id, comment, created_at, commenter:users!comments_commenter_id_fkey(id, username)',
-      )
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .returns<Comment[]>();
+interface CommentsQueryData {
+  comments: Comment[] | null;
+  count: number | null;
+}
 
-    return data;
-  });
+const useCommentsQuery = ({ userId, page }: CommentsQueryProps) => {
+  const queryKey = ['comments', userId, page];
+
+  const offset = RECORD_LIMIT * page;
+
+  return useQuery<CommentsQueryData>(
+    queryKey,
+    async () => {
+      const { data, count } = await supabase
+        .from('comments')
+        .select(
+          'id, comment, created_at, commenter:users!comments_commenter_id_fkey(id, username)',
+          { count: 'exact' },
+        )
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .range(offset - RECORD_LIMIT, offset)
+        .returns<Comment[]>();
+
+      return { comments: data, count };
+    },
+    { keepPreviousData: true },
+  );
 };
 
 export default useCommentsQuery;

@@ -1,10 +1,13 @@
 import queryClient from '@api/queryClient';
 import useCommentMutation from '@hooks/mutations/useCommentMutation';
-import useCommentsQuery from '@hooks/queries/useCommentsQuery';
+import useCommentsQuery, {
+  RECORD_LIMIT,
+} from '@hooks/queries/useCommentsQuery';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
 import Comment from './Comment';
 import Pagination from './Pagination';
+import { useState } from 'react';
 
 const MAX_COMMENT_LENGTH = 500;
 
@@ -17,7 +20,8 @@ interface FormData {
 }
 
 const Comments = ({ userId }: CommentsProps) => {
-  const { data: comments } = useCommentsQuery(userId);
+  const [page, setPage] = useState(1);
+  const { data, isLoading } = useCommentsQuery({ userId, page });
 
   const { mutateAsync: addComment, isLoading: isAddLoading } =
     useCommentMutation();
@@ -45,7 +49,7 @@ const Comments = ({ userId }: CommentsProps) => {
   };
 
   const handlePageChange = (page: number) => {
-    console.log(page);
+    setPage(page);
   };
 
   const commentField = watch('comment');
@@ -86,12 +90,19 @@ const Comments = ({ userId }: CommentsProps) => {
             </div>
           )}
         </div>
-        {comments?.map((comment) => (
-          <Comment key={comment.id} comment={comment} userId={userId} />
-        ))}
-        <div className="mx-auto mt-4">
-          <Pagination totalPages={9} onChange={handlePageChange} />
-        </div>
+        {!isLoading &&
+          data?.comments?.map((comment) => (
+            <Comment key={comment.id} comment={comment} userId={userId} />
+          ))}
+        {!isLoading && data?.count && data.count > RECORD_LIMIT && (
+          <div className="mx-auto mt-4">
+            <Pagination
+              count={data.count}
+              limit={RECORD_LIMIT}
+              onChange={handlePageChange}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

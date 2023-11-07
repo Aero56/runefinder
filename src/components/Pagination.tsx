@@ -5,12 +5,15 @@ const LARGE_PAGE_RANGE = 5;
 const SMALL_PAGE_RANGE = 3;
 
 interface PaginationProps {
-  totalPages: number;
+  count: number;
+  limit: number;
   onChange: (page: number) => void;
 }
 
-const Pagination = ({ totalPages, onChange }: PaginationProps) => {
+const Pagination = ({ count, limit, onChange }: PaginationProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(count / limit);
 
   const handleClick = (page: number) => {
     setCurrentPage(page);
