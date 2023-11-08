@@ -28,7 +28,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/player/:username" element={<Player />} />
+        <Route path="/player/:id" element={<Player />} />
         <Route path="/group/:id" element={<Group />} />
 
         <Route element={<AuthRoute />}>

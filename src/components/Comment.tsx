@@ -5,6 +5,7 @@ import useDeleteCommentMutation from '@hooks/mutations/useDeleteCommentMutation'
 import { Comment as CommentType } from '@hooks/queries/useCommentsQuery';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast/headless';
+import { Link } from 'react-router-dom';
 
 interface CommentProps {
   comment: CommentType;
@@ -37,9 +38,12 @@ const Comment = ({ comment, userId }: CommentProps) => {
     <div key={comment.id} className="mt-4 rounded-lg bg-black-pearl-950 p-4">
       <div className="flex justify-between">
         <div className="mb-2 flex flex-wrap items-baseline">
-          <h1 className="mr-1 font-medium text-anzac-400">
+          <Link
+            to={`/player/${comment.commenter.id}`}
+            className="mr-1 font-medium text-anzac-400 hover:underline"
+          >
             {comment.commenter.username}
-          </h1>
+          </Link>
           {isCommentMe && <p className="mr-1 text-sm text-gray-600">(You)</p>}
           <p className="text-xs text-black-pearl-100">
             {format(new Date(comment.created_at), 'P p')}

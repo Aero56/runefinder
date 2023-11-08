@@ -11,9 +11,9 @@ import Comments from '@components/Comments';
 const Player = () => {
   const { user } = useAuth();
 
-  const { username = '' } = useParams();
+  const { id = '' } = useParams();
 
-  const { data: player, isLoading } = usePlayerQuery(username);
+  const { data: player, isLoading } = usePlayerQuery(id);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -30,7 +30,9 @@ const Player = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
         <div className="col-span-1 rounded-xl bg-black-pearl-900 p-4 sm:col-span-2">
           <div className="align mb-2 flex items-center justify-between">
-            <p className="text-xl font-bold">{username}</p>
+            <p className="text-xl font-bold text-anzac-400">
+              {player.username}
+            </p>
             <PlayerVote playerId={player.id} />
           </div>
           {isPlayerMe ? (
