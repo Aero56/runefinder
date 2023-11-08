@@ -94,7 +94,7 @@ const Comments = ({ userId }: CommentsProps) => {
           data?.comments?.map((comment) => (
             <Comment key={comment.id} comment={comment} userId={userId} />
           ))}
-        {!isLoading && data?.count && data.count > RECORD_LIMIT && (
+        {!isLoading && !!data?.count && data.count > RECORD_LIMIT && (
           <div className="mx-auto mt-4">
             <Pagination
               count={data.count}
