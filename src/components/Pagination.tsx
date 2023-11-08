@@ -44,6 +44,8 @@ const Pagination = ({ count, limit, onChange }: PaginationProps) => {
   const style =
     'btn join-item w-8 xs:w-10 sm:w-12 border-none bg-black-pearl-800 p-0 text-black-pearl-50 hover:bg-black-pearl-700 disabled:bg-black-pearl-800 disabled:opacity-50 disabled:text-black-pearl-200 xs:w-10 sm:flex';
 
+  const activeStyle = '!bg-anzac-400 !text-black-pearl-950 !opacity-100';
+
   return (
     <div className="join">
       <button
@@ -58,11 +60,7 @@ const Pagination = ({ count, limit, onChange }: PaginationProps) => {
       <button
         onClick={() => handleClick(1)}
         disabled={currentPage === 1}
-        className={`${style} ${
-          currentPage === 1
-            ? '!bg-anzac-400 !text-black-pearl-950 !opacity-100'
-            : ''
-        }`}
+        className={`${style} ${currentPage === 1 ? activeStyle : ''}`}
       >
         1
       </button>
@@ -80,11 +78,7 @@ const Pagination = ({ count, limit, onChange }: PaginationProps) => {
           key={index}
           onClick={() => handleClick(page)}
           disabled={currentPage === page}
-          className={`${style} ${
-            currentPage === page
-              ? '!bg-anzac-400 !text-black-pearl-950 !opacity-100'
-              : ''
-          } ${
+          className={`${style} ${currentPage === page ? activeStyle : ''} ${
             !getPaginationRange(SMALL_PAGE_RANGE).includes(page) ? 'hidden' : ''
           }`}
         >
@@ -105,9 +99,7 @@ const Pagination = ({ count, limit, onChange }: PaginationProps) => {
           onClick={() => handleClick(totalPages)}
           disabled={currentPage === totalPages}
           className={`${style} ${
-            currentPage === totalPages
-              ? '!bg-anzac-400 !text-black-pearl-950 !opacity-100'
-              : ''
+            currentPage === totalPages ? activeStyle : ''
           }`}
         >
           {totalPages}
