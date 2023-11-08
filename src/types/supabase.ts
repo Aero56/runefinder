@@ -48,6 +48,21 @@ export interface Database {
         };
         Relationships: [];
       };
+      badges: {
+        Row: {
+          id: number;
+          name: string;
+        };
+        Insert: {
+          id?: number;
+          name: string;
+        };
+        Update: {
+          id?: number;
+          name?: string;
+        };
+        Relationships: [];
+      };
       comments: {
         Row: {
           comment: string;
@@ -100,7 +115,7 @@ export interface Database {
         };
         Insert: {
           created_at?: string;
-          created_by?: string;
+          created_by: string;
           id?: string;
           name: string;
           size: number;
@@ -164,6 +179,39 @@ export interface Database {
           },
           {
             foreignKeyName: 'player_votes_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      user_badges: {
+        Row: {
+          badge_id: number;
+          id: number;
+          user_id: string;
+        };
+        Insert: {
+          badge_id: number;
+          id?: number;
+          user_id: string;
+        };
+        Update: {
+          badge_id?: number;
+          id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'user_badges_badge_id_fkey';
+            columns: ['badge_id'];
+            isOneToOne: false;
+            referencedRelation: 'badges';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'user_badges_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: false;
             referencedRelation: 'users';

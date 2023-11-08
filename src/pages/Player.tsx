@@ -19,8 +19,8 @@ const Player = () => {
     return <p>Loading...</p>;
   }
 
-  if (!player) {
-    return <p>This player does not exist on runefinder.</p>;
+  if (!player?.username) {
+    return <p>This player does not exist on RuneFinder.</p>;
   }
 
   const isPlayerMe = player.id === user?.id;
