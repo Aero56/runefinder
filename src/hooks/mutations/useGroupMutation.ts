@@ -1,4 +1,5 @@
 import { supabase } from '@api/supabase';
+import { useAuth } from '@contexts/AuthContext';
 import { useMutation } from '@tanstack/react-query';
 
 interface GroupMutationProps {
@@ -8,10 +9,16 @@ interface GroupMutationProps {
 }
 
 const useGroupMutation = () => {
+  const { user } = useAuth();
+
   return useMutation(async ({ name, size, type }: GroupMutationProps) => {
+    if (!user) {
+      throw new Error('You must be logged in to do this.');
+    }
+
     const { data, error } = await supabase
       .from('groups')
-      .insert({ name, size, type })
+      .insert({ name, size, type, created_by: user.id })
       .select('id')
       .single();
 
