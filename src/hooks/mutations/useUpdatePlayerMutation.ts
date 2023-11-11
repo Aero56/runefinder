@@ -1,4 +1,5 @@
 import { supabase } from '@api/supabase';
+import { FunctionsHttpError } from '@supabase/supabase-js';
 import { useMutation } from '@tanstack/react-query';
 
 const useUpdatePlayerMutation = () => {
@@ -8,9 +9,22 @@ const useUpdatePlayerMutation = () => {
     });
 
     if (error) {
-      throw new Error(
-        'Oops! Something went wrong while updating your player data.'
-      );
+      if (error instanceof FunctionsHttpError) {
+        const errorStatus = error.context.status;
+
+        switch (errorStatus) {
+          case 429:
+            throw new Error(
+              'You already updated your player in the last minute, try again later.',
+            );
+          case 404:
+            throw new Error('Player not found!');
+          default:
+            throw new Error('Something went wrong!');
+        }
+      } else {
+        throw new Error('Something went wrong!');
+      }
     }
   });
 };
