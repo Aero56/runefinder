@@ -1,7 +1,11 @@
 import { useAuth } from '@contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import {
+  UserIcon,
+  QuestionMarkCircleIcon,
+  Cog6ToothIcon,
+} from '@heroicons/react/24/outline';
 
 const Header = () => {
   const { user } = useAuth();
@@ -40,12 +44,20 @@ const Header = () => {
       </div>
       <div className="navbar-end gap-1">
         {user ? (
-          <Link
-            to="/account"
-            className="btn btn-ghost w-12 p-0 hover:bg-black-pearl-800"
-          >
-            <UserIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
-          </Link>
+          <>
+            <Link
+              to={`/player/${user.id}`}
+              className="btn btn-ghost w-12 p-0 hover:bg-black-pearl-800"
+            >
+              <UserIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
+            </Link>
+            <Link
+              to="/settings"
+              className="btn btn-ghost w-12 p-0 hover:bg-black-pearl-800"
+            >
+              <Cog6ToothIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
+            </Link>
+          </>
         ) : (
           <>
             <button

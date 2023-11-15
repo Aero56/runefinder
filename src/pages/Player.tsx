@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 
-import usePlayerQuery from '@hooks/queries/usePlayerQuery';
+import useUserQuery from '@hooks/queries/useUserQuery';
 import Stats from '@components/Stats';
 import PlayerVote from '@components/PlayerVote';
 import Description from '@components/Description';
@@ -13,7 +13,7 @@ const Player = () => {
 
   const { id = '' } = useParams();
 
-  const { data: player, isLoading } = usePlayerQuery(id);
+  const { data: player, isLoading } = useUserQuery(id);
 
   if (isLoading) {
     return <p>Loading...</p>;

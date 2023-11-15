@@ -1,26 +1,35 @@
 import { Table } from '@/types/supabase';
 import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-const useUserQuery = () => {
+const useUserQuery = (
+  id?: string,
+  options?: UseQueryOptions<Table<'users'> | null>,
+) => {
   const { user } = useAuth();
 
-  const queryKey = ['user', user?.id];
+  const userId = id ?? user?.id;
 
-  return useQuery<Table<'users'> | null>(queryKey, async () => {
-    if (!user) {
-      return null;
-    }
+  const queryKey = ['user', userId];
 
-    const { data } = await supabase
-      .from('users')
-      .select('*')
-      .eq('id', user!.id)
-      .single();
+  return useQuery<Table<'users'> | null>(
+    queryKey,
+    async () => {
+      if (!userId) {
+        return null;
+      }
 
-    return data;
-  });
+      const { data } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      return data;
+    },
+    options,
+  );
 };
 
 export default useUserQuery;
