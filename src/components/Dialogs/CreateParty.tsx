@@ -1,7 +1,6 @@
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Raid } from '@/types/raids';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
@@ -13,39 +12,19 @@ import DialogFooter from '@components/Dialog/DialogFooter';
 import DialogHeader from '@components/Dialog/DialogHeader';
 import queryClient from '@api/queryClient';
 import ActivitySelect from '@components/ActivitySelect';
+import ExperienceSelect from '@components/ExperienceSelect';
+import ModeSelect from '@components/ModeSelect';
 
 const DEFAULT_SIZE = 10;
-
-export const ACTIVITIES = [
-  { label: 'Anything', value: null },
-  {
-    label: 'Raids',
-    options: [
-      {
-        label: 'Theatre of Blood',
-        value: Raid.TheatreOfBlood,
-        entity: { teamSize: 4 },
-      },
-      {
-        label: 'Chambers of Xeric',
-        value: Raid.ChambersOfXeric,
-        entity: { teamSize: 100 },
-      },
-      {
-        label: 'Tombs of Amascut',
-        value: Raid.TombsOfAmascut,
-        entity: { teamSize: 8 },
-      },
-    ],
-  },
-  { label: 'Test', options: [{ label: 'Test', value: 'test' }] },
-];
 
 interface FormData {
   name: string;
   players: number;
   activity: Option;
   size: number;
+  experience: Option;
+  world: number;
+  mode: Option;
 }
 
 const CreateParty = () => {
@@ -154,8 +133,11 @@ const CreateParty = () => {
       </div>
       <Dialog isOpen={isOpen} onClose={handleClose}>
         <DialogHeader title="Create party" />
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div>
+        <form
+          className="row-auto grid grid-cols-4 gap-x-6 gap-y-4 "
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="col-span-full row-start-1">
             <Controller
               control={control}
               name="activity"
@@ -177,7 +159,7 @@ const CreateParty = () => {
               </p>
             )}
           </div>
-          <div>
+          <div className="col-span-4 row-start-2">
             <label htmlFor="email" className="mb-2 block text-sm">
               Party name
             </label>
@@ -198,8 +180,86 @@ const CreateParty = () => {
               <p className="mt-2 text-sm text-error">{errors.name.message}</p>
             )}
           </div>
+          <div className="col-span-2 row-start-3">
+            <label htmlFor="email" className="mb-2 block text-sm">
+              Experience level
+            </label>
+            <Controller
+              control={control}
+              name="experience"
+              render={({ field: { onChange, value } }) => (
+                <ExperienceSelect
+                  value={value}
+                  onChange={onChange}
+                  className="w-full"
+                  {...(errors.activity && {
+                    className:
+                      'outline outline-2 outline-error/50 focus:outline-error',
+                  })}
+                />
+              )}
+              rules={{ required: 'Please select an activity.' }}
+            />
+            {errors.activity && (
+              <p className="mt-2 text-sm text-error">
+                {errors.activity.message}
+              </p>
+            )}
+          </div>
+          <div className="col-span-2 row-start-3">
+            <label htmlFor="email" className="mb-2 block text-sm">
+              Mode
+            </label>
+            <Controller
+              control={control}
+              name="mode"
+              render={({ field: { onChange, value } }) => (
+                <ModeSelect
+                  value={value}
+                  onChange={onChange}
+                  className="w-full"
+                  {...(errors.activity && {
+                    className:
+                      'outline outline-2 outline-error/50 focus:outline-error',
+                  })}
+                />
+              )}
+              rules={{ required: 'Please select an activity.' }}
+            />
+            {errors.activity && (
+              <p className="mt-2 text-sm text-error">
+                {errors.activity.message}
+              </p>
+            )}
+          </div>
+          <div className="col-span-1 row-start-4">
+            <label htmlFor="email" className="mb-2 block text-sm">
+              World
+            </label>
+            <Controller
+              control={control}
+              name="world"
+              render={({ field: { onChange } }) => (
+                <input
+                  onChange={onChange}
+                  type="number"
+                  className={`input w-full ${
+                    errors.activity
+                      ? 'outline outline-2 outline-error/50 focus:outline-error'
+                      : ''
+                  }`}
+                />
+              )}
+              rules={{ required: 'Please select an activity.' }}
+            />
+            {errors.activity && (
+              <p className="mt-2 text-sm text-error">
+                {errors.activity.message}
+              </p>
+            )}
+          </div>
           {selectedActivity && selectedActivity.entity?.teamSize && (
-            <div>
+            <div className="col-span-full row-start-5">
               <label htmlFor="email" className="mb-2 block text-sm">
                 {`Players needed: ${watch('size')}`}
               </label>
