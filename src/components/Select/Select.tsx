@@ -97,9 +97,11 @@ const Select = ({
         type="button"
         ref={refs.setReference}
         {...getReferenceProps()}
-        className={`border-bg btn border-2 border-black-pearl-900 bg-black-pearl-950 hover:border-black-pearl-900 hover:bg-black-pearl-900 ${className} flex justify-between `}
+        className={`border-bg btn border-2 border-black-pearl-900 bg-black-pearl-950 hover:border-black-pearl-900 hover:bg-black-pearl-900 ${className} flex flex-nowrap justify-between`}
       >
-        {[...selected][0]?.label ?? placeholder}
+        <p className="overflow-hidden text-ellipsis whitespace-nowrap">
+          {[...selected][0]?.label ?? placeholder}
+        </p>
         <ChevronDownIcon className="h-6 w-6" />
       </button>
       {isMounted && (
