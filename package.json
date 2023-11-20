@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@nx/eslint-plugin": "16.8.1",
-    "@nx/js": "16.8.1",
+    "@nx/js": "17.1.2",
     "@nx/linter": "16.9.1",
     "@nx/playwright": "16.9.1",
     "@nx/react": "16.9.1",
