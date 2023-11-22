@@ -1,33 +1,48 @@
 import { supabase } from '@api/supabase';
+import { Experience } from '@components/ExperienceSelect';
+import { Mode } from '@components/ModeSelect';
 import { useAuth } from '@contexts/AuthContext';
 import { useMutation } from '@tanstack/react-query';
 
 interface GroupMutationProps {
   name: string;
   size: number;
-  type?: number | null;
+  type: number | null;
+  level: string | null;
+  mode: string | null;
+  world: number;
 }
 
 const useGroupMutation = () => {
   const { user } = useAuth();
 
-  return useMutation(async ({ name, size, type }: GroupMutationProps) => {
-    if (!user) {
-      throw new Error('You must be logged in to do this.');
-    }
+  return useMutation(
+    async ({ name, size, type, level, mode, world }: GroupMutationProps) => {
+      if (!user) {
+        throw new Error('You must be logged in to do this.');
+      }
 
-    const { data, error } = await supabase
-      .from('groups')
-      .insert({ name, size, type, created_by: user.id })
-      .select('id')
-      .single();
+      const { data, error } = await supabase
+        .from('groups')
+        .insert({
+          name,
+          size,
+          type,
+          created_by: user.id,
+          level: level as Experience, // @todo fix these types
+          mode: mode as Mode,
+          world,
+        })
+        .select('id')
+        .single();
 
-    if (error) {
-      throw new Error(error.message);
-    }
+      if (error) {
+        throw new Error(error.message);
+      }
 
-    return data;
-  });
+      return data;
+    },
+  );
 };
 
 export default useGroupMutation;

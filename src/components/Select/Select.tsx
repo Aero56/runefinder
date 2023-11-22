@@ -31,6 +31,7 @@ interface SelectProps {
   placeholder?: string;
   options: Option[];
   isMulti?: boolean;
+  isClearable?: boolean;
   onChange: (selected: Option[]) => void;
   className?: string;
 }
@@ -40,11 +41,12 @@ const Select = ({
   options,
   onChange,
   isMulti = false,
+  isClearable = false,
   placeholder = 'Select',
   className,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<Set<Option>>(new Set(value));
+  const [selected, setSelected] = useState<Set<Option>>(new Set(value ?? []));
 
   const { context, refs, floatingStyles } = useFloating({
     placement: 'bottom-start',
@@ -83,7 +85,9 @@ const Select = ({
         selection.add(value);
       }
     } else {
-      selection.delete(value);
+      if (selection.size > 1 || isClearable) {
+        selection.delete(value);
+      }
     }
 
     setSelected(new Set(selection));

@@ -99,6 +99,9 @@ const CreateParty = () => {
           ? Number(data.size) + 1
           : DEFAULT_SIZE,
         type: data.activity.value ? Number(data.activity.value) : null,
+        level: data.experience.value ? String(data.experience.value) : null,
+        mode: data.mode.value ? String(data.mode.value) : null,
+        world: data.world,
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -243,6 +246,7 @@ const CreateParty = () => {
                 <input
                   onChange={onChange}
                   type="number"
+                  placeholder="302"
                   className={`input w-full ${
                     errors.activity
                       ? 'outline outline-2 outline-error/50 focus:outline-error'

@@ -34,7 +34,7 @@ const Home = () => {
         groups && (
           <div className="mt-5 flex flex-col gap-5">
             {groups.map((group) => (
-              <Group group={group} />
+              <Group key={group.id} group={group} />
             ))}
           </div>
         )

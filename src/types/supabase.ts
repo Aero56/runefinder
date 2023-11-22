@@ -107,31 +107,40 @@ export interface Database {
           created_at: string;
           created_by: string;
           id: string;
+          level: Database['public']['Enums']['group_level_enum'] | null;
+          mode: Database['public']['Enums']['group_mode_enum'] | null;
           name: string;
           size: number;
           status: Database['public']['Enums']['group_status_enum'];
           type: number | null;
           updated_at: string;
+          world: number;
         };
         Insert: {
           created_at?: string;
           created_by: string;
           id?: string;
+          level?: Database['public']['Enums']['group_level_enum'] | null;
+          mode?: Database['public']['Enums']['group_mode_enum'] | null;
           name: string;
           size: number;
           status?: Database['public']['Enums']['group_status_enum'];
           type?: number | null;
           updated_at?: string;
+          world?: number;
         };
         Update: {
           created_at?: string;
           created_by?: string;
           id?: string;
+          level?: Database['public']['Enums']['group_level_enum'] | null;
+          mode?: Database['public']['Enums']['group_mode_enum'] | null;
           name?: string;
           size?: number;
           status?: Database['public']['Enums']['group_status_enum'];
           type?: number | null;
           updated_at?: string;
+          world?: number;
         };
         Relationships: [
           {
@@ -274,6 +283,8 @@ export interface Database {
       };
     };
     Enums: {
+      group_level_enum: 'beginner' | 'average' | 'experienced';
+      group_mode_enum: 'ironman' | 'hardcore' | 'ultimate';
       group_status_enum: 'open' | 'closed';
     };
     CompositeTypes: {

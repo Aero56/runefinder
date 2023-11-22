@@ -49,7 +49,7 @@ const ActivitySelect = ({
 
   return (
     <Select
-      value={[selected]}
+      value={selected ? [selected] : []}
       onChange={handleChange}
       options={ACTIVITIES}
       placeholder="Choose activity"
