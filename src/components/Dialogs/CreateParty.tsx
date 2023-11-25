@@ -22,7 +22,7 @@ interface FormData {
   name: string;
   players: number;
   activity: Option<Raid | null>;
-  size: number;
+  size: string;
   experience: Option<Experience | null>;
   world: number;
   mode: Option<Mode | null>;
@@ -76,7 +76,7 @@ const CreateParty = () => {
   const selectedActivity = watch('activity');
 
   useEffect(() => {
-    setValue('size', 1);
+    setValue('size', '1');
   }, [selectedActivity, setValue]);
 
   const handleConfirm = async () => {
@@ -96,10 +96,12 @@ const CreateParty = () => {
     try {
       result = await createGroup({
         name: data.name,
-        size: data.activity.entity?.teamSize ? data.size + 1 : DEFAULT_SIZE,
-        type: data.activity.value ?? null,
-        level: data.experience.value ?? null,
-        mode: data.mode.value ?? null,
+        size: data.activity.entity?.teamSize
+          ? Number(data.size) + 1
+          : DEFAULT_SIZE,
+        type: data.activity?.value ?? null,
+        level: data.experience?.value ?? null,
+        mode: data.mode?.value ?? null,
         world: data.world,
       });
     } catch (error) {
@@ -175,7 +177,7 @@ const CreateParty = () => {
                   : ''
               }`}
               {...register('name', {
-                required: 'Name is required.',
+                required: 'Please enter a party name.',
               })}
             />
             {errors.name && (
@@ -194,19 +196,9 @@ const CreateParty = () => {
                   value={value}
                   onChange={onChange}
                   className="w-full"
-                  {...(errors.activity && {
-                    className:
-                      'outline outline-2 outline-error/50 focus:outline-error',
-                  })}
                 />
               )}
-              rules={{ required: 'Please select an activity.' }}
             />
-            {errors.activity && (
-              <p className="mt-2 text-sm text-error">
-                {errors.activity.message}
-              </p>
-            )}
           </div>
           <div className="col-span-full row-start-4 xs:col-span-2 xs:row-start-3">
             <label htmlFor="email" className="mb-2 block text-sm">
@@ -220,19 +212,9 @@ const CreateParty = () => {
                   value={value}
                   onChange={onChange}
                   className="w-full"
-                  {...(errors.activity && {
-                    className:
-                      'outline outline-2 outline-error/50 focus:outline-error',
-                  })}
                 />
               )}
-              rules={{ required: 'Please select an activity.' }}
             />
-            {errors.activity && (
-              <p className="mt-2 text-sm text-error">
-                {errors.activity.message}
-              </p>
-            )}
           </div>
           <div className="col-span-full row-start-5  xs:row-start-4">
             <label htmlFor="email" className="mb-2 block text-sm">
@@ -247,18 +229,16 @@ const CreateParty = () => {
                   type="number"
                   placeholder="302"
                   className={`input w-24 ${
-                    errors.activity
+                    errors.world
                       ? 'outline outline-2 outline-error/50 focus:outline-error'
                       : ''
                   }`}
                 />
               )}
-              rules={{ required: 'Please select an activity.' }}
+              rules={{ required: 'Please enter the world you are in.' }}
             />
-            {errors.activity && (
-              <p className="mt-2 text-sm text-error">
-                {errors.activity.message}
-              </p>
+            {errors.world && (
+              <p className="mt-2 text-sm text-error">{errors.world.message}</p>
             )}
           </div>
           {selectedActivity && selectedActivity.entity?.teamSize && (
