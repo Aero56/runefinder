@@ -182,7 +182,7 @@ const CreateParty = () => {
               <p className="mt-2 text-sm text-error">{errors.name.message}</p>
             )}
           </div>
-          <div className="col-span-2 row-start-3">
+          <div className="col-span-full row-start-3 xs:col-span-2">
             <label htmlFor="email" className="mb-2 block text-sm">
               Experience level
             </label>
@@ -208,7 +208,7 @@ const CreateParty = () => {
               </p>
             )}
           </div>
-          <div className="col-span-2 row-start-3">
+          <div className="col-span-full row-start-4 xs:col-span-2 xs:row-start-3">
             <label htmlFor="email" className="mb-2 block text-sm">
               Mode
             </label>
@@ -234,7 +234,7 @@ const CreateParty = () => {
               </p>
             )}
           </div>
-          <div className="col-span-1 row-start-4">
+          <div className="col-span-full row-start-5  xs:row-start-4">
             <label htmlFor="email" className="mb-2 block text-sm">
               World
             </label>
@@ -246,7 +246,7 @@ const CreateParty = () => {
                   onChange={onChange}
                   type="number"
                   placeholder="302"
-                  className={`input w-full ${
+                  className={`input w-24 ${
                     errors.activity
                       ? 'outline outline-2 outline-error/50 focus:outline-error'
                       : ''
@@ -262,7 +262,7 @@ const CreateParty = () => {
             )}
           </div>
           {selectedActivity && selectedActivity.entity?.teamSize && (
-            <div className="col-span-full row-start-5">
+            <div className="col-span-full row-start-6 xs:row-start-5">
               <label htmlFor="email" className="mb-2 block text-sm">
                 {`Players needed: ${watch('size')}`}
               </label>
