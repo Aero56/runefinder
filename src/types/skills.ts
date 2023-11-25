@@ -22,7 +22,7 @@ export interface Skills {
   firemaking: Skill;
   woodcutting: Skill;
   construction: Skill;
-  runecrafting: Skill;
+  runecraft: Skill;
 }
 
 export interface Skill {

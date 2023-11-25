@@ -234,6 +234,7 @@ export interface Database {
           description: string | null;
           group_id: string | null;
           id: string;
+          mode: Database['public']['Enums']['user_mode_enum'] | null;
           stats: Stats | null;
           username: string | null;
         };
@@ -242,6 +243,7 @@ export interface Database {
           description?: string | null;
           group_id?: string | null;
           id: string;
+          mode?: Database['public']['Enums']['user_mode_enum'] | null;
           stats?: Stats | null;
           username?: string | null;
         };
@@ -250,6 +252,7 @@ export interface Database {
           description?: string | null;
           group_id?: string | null;
           id?: string;
+          mode?: Database['public']['Enums']['user_mode_enum'] | null;
           stats?: Stats | null;
           username?: string | null;
         };
@@ -286,6 +289,7 @@ export interface Database {
       group_level_enum: 'beginner' | 'average' | 'experienced';
       group_mode_enum: 'ironman' | 'hardcore' | 'ultimate';
       group_status_enum: 'open' | 'closed';
+      user_mode_enum: 'main' | 'ironman' | 'hardcore' | 'ultimate';
     };
     CompositeTypes: {
       [_ in never]: never;

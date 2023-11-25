@@ -24,7 +24,7 @@ const SKILLS: Array<keyof Skills> = [
   'magic',
   'fletching',
   'woodcutting',
-  'runecrafting',
+  'runecraft',
   'slayer',
   'farming',
   'construction',

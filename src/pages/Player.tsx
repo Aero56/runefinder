@@ -30,9 +30,18 @@ const Player = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
         <div className="col-span-1 rounded-xl bg-black-pearl-900 p-4 sm:col-span-2">
           <div className="align mb-2 flex items-center justify-between">
-            <p className="text-xl font-bold text-anzac-400">
-              {player.username}
-            </p>
+            <div className="flex items-center gap-1">
+              {player.mode && (
+                <img
+                  src={`src/assets/modes/${player.mode}.png`}
+                  alt={`${player.mode} icon`}
+                  className="h-4 w-4 object-contain"
+                />
+              )}
+              <p className="text-xl font-bold text-anzac-400">
+                {player.username}
+              </p>
+            </div>
             <PlayerVote playerId={player.id} />
           </div>
           {isPlayerMe ? (
