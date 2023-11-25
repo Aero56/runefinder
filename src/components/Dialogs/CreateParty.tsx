@@ -12,19 +12,20 @@ import DialogFooter from '@components/Dialog/DialogFooter';
 import DialogHeader from '@components/Dialog/DialogHeader';
 import queryClient from '@api/queryClient';
 import ActivitySelect from '@components/ActivitySelect';
-import ExperienceSelect from '@components/ExperienceSelect';
-import ModeSelect from '@components/ModeSelect';
+import ExperienceSelect, { Experience } from '@components/ExperienceSelect';
+import ModeSelect, { Mode } from '@components/ModeSelect';
+import { Raid } from '@/types/raids';
 
 const DEFAULT_SIZE = 10;
 
 interface FormData {
   name: string;
   players: number;
-  activity: Option;
+  activity: Option<Raid | null>;
   size: number;
-  experience: Option;
+  experience: Option<Experience | null>;
   world: number;
-  mode: Option;
+  mode: Option<Mode | null>;
 }
 
 const CreateParty = () => {
@@ -95,12 +96,10 @@ const CreateParty = () => {
     try {
       result = await createGroup({
         name: data.name,
-        size: data.activity.entity?.teamSize
-          ? Number(data.size) + 1
-          : DEFAULT_SIZE,
-        type: data.activity.value ? Number(data.activity.value) : null,
-        level: data.experience.value ? String(data.experience.value) : null,
-        mode: data.mode.value ? String(data.mode.value) : null,
+        size: data.activity.entity?.teamSize ? data.size + 1 : DEFAULT_SIZE,
+        type: data.activity.value ?? null,
+        level: data.experience.value ?? null,
+        mode: data.mode.value ?? null,
         world: data.world,
       });
     } catch (error) {

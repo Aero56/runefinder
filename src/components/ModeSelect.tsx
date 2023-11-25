@@ -28,15 +28,17 @@ export const MODES = [
 ];
 
 interface ExperienceSelectProps {
-  value: Option | null;
-  onChange: (value: Option) => void;
+  value: Option<Mode | null> | null;
+  onChange: (value: Option<Mode | null>) => void;
   className?: string;
 }
 
 const ModeSelect = ({ value, onChange, className }: ExperienceSelectProps) => {
-  const [selected, setSelected] = useState<Option>(value ?? MODES[0]);
+  const [selected, setSelected] = useState<Option<Mode | null>>(
+    value ?? MODES[0],
+  );
 
-  const handleChange = (value: Option[]) => {
+  const handleChange = (value: Option<Mode | null>[]) => {
     onChange(value[0]);
     setSelected(value[0]);
   };

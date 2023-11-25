@@ -19,24 +19,26 @@ import SelectMenu from './SelectMenu';
 
 type Entity = Activity;
 
-export interface Option {
+type OptionValue = string | number | null;
+
+export interface Option<T extends OptionValue> {
   label: string;
-  value?: string | number | null;
-  options?: Option[];
+  value?: T;
+  options?: Option<T>[];
   entity?: Entity;
 }
 
-interface SelectProps {
-  value: Option[];
+interface SelectProps<T extends OptionValue> {
+  value: Option<T>[];
   placeholder?: string;
-  options: Option[];
+  options: Option<T>[];
   isMulti?: boolean;
   isClearable?: boolean;
-  onChange: (selected: Option[]) => void;
+  onChange: (selected: Option<T>[]) => void;
   className?: string;
 }
 
-const Select = ({
+const Select = <T extends OptionValue>({
   value,
   options,
   onChange,
@@ -44,9 +46,11 @@ const Select = ({
   isClearable = false,
   placeholder = 'Select',
   className,
-}: SelectProps) => {
+}: SelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<Set<Option>>(new Set(value ?? []));
+  const [selected, setSelected] = useState<Set<Option<T>>>(
+    new Set(value ?? []),
+  );
 
   const { context, refs, floatingStyles } = useFloating({
     placement: 'bottom-start',
@@ -75,7 +79,7 @@ const Select = ({
 
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context);
 
-  const handleSelect = (value: Option) => {
+  const handleSelect = (value: Option<T>) => {
     let selection = selected;
 
     if (!selection.has(value)) {

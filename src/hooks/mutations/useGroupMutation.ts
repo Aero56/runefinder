@@ -1,3 +1,4 @@
+import { Raid } from '@/types/raids';
 import { supabase } from '@api/supabase';
 import { Experience } from '@components/ExperienceSelect';
 import { Mode } from '@components/ModeSelect';
@@ -7,9 +8,9 @@ import { useMutation } from '@tanstack/react-query';
 interface GroupMutationProps {
   name: string;
   size: number;
-  type: number | null;
-  level: string | null;
-  mode: string | null;
+  type: Raid | null;
+  level: Experience | null;
+  mode: Mode | null;
   world: number;
 }
 

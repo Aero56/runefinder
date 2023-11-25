@@ -28,8 +28,8 @@ export const EXPERIENCE_TYPES = [
 ];
 
 interface ExperienceSelectProps {
-  value: Option | null;
-  onChange: (value: Option) => void;
+  value: Option<Experience | null> | null;
+  onChange: (value: Option<Experience | null>) => void;
   className?: string;
 }
 
@@ -38,11 +38,11 @@ const ExperienceSelect = ({
   onChange,
   className,
 }: ExperienceSelectProps) => {
-  const [selected, setSelected] = useState<Option>(
+  const [selected, setSelected] = useState<Option<Experience | null>>(
     value ?? EXPERIENCE_TYPES[0],
   );
 
-  const handleChange = (value: Option[]) => {
+  const handleChange = (value: Option<Experience | null>[]) => {
     onChange(value[0]);
     setSelected(value[0]);
   };
