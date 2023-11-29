@@ -2,15 +2,19 @@ import useGroupsQuery from '@hooks/queries/useGroupsQuery';
 import { useAuth } from '@contexts/AuthContext';
 import CreateParty from '@components/Dialogs/CreateParty';
 import { Option } from '@components/Select';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Group from '@components/Group';
 import ActivitySelect from '@components/ActivitySelect';
 import { Raid } from '@/types/raids';
 import ModeSelect, { Mode } from '@components/ModeSelect';
 import ExperienceSelect, { Experience } from '@components/ExperienceSelect';
+import useDebounce from '@hooks/useDebounce';
 
 const Home = () => {
   const { user } = useAuth();
+
+  const [term, setTerm] = useState('');
+  const debouncedValue = useDebounce(term);
 
   const [selectedActivity, setSelectedActivity] =
     useState<Option<Raid | null> | null>(null);
@@ -20,8 +24,13 @@ const Home = () => {
     null,
   );
 
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setTerm(event.target.value);
+  };
+
   const { data: groups, isLoading } = useGroupsQuery(
     {
+      name: debouncedValue ? debouncedValue.trim() : undefined,
       type: selectedActivity?.value ? selectedActivity.value : undefined,
       level: selectedLevel?.value ? selectedLevel.value : undefined,
       mode: selectedMode?.value ? selectedMode.value : undefined,
@@ -49,6 +58,7 @@ const Home = () => {
         <input
           className="input w-full bg-black-pearl-900 xs:w-auto"
           placeholder="Search groups..."
+          onChange={handleSearch}
         />
         {user && <CreateParty />}
       </div>

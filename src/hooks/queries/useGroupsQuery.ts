@@ -6,6 +6,7 @@ import { Mode } from '@components/ModeSelect';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 interface Filters {
+  name?: string;
   type?: number;
   level?: Experience;
   mode?: Mode;
@@ -27,6 +28,12 @@ const useGroupsQuery = (
           '*, users!users_group_id_fkey(id, username), type!inner(id, name)',
         )
         .eq('status', 'open');
+
+      if (filters?.name) {
+        console.log(filters.name);
+
+        query = query.ilike('name', `%${filters.name}%`);
+      }
 
       if (filters?.type) {
         query = query.eq('type', filters.type);
