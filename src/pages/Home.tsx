@@ -38,6 +38,7 @@ const Home = () => {
     {
       order: { column: 'updated_at', options: { ascending: false } },
     },
+    { keepPreviousData: true },
   );
 
   const handleChangeActivity = (selected: Option<Raid | null>) => {
