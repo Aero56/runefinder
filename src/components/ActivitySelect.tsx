@@ -3,7 +3,7 @@ import Select, { Option } from './Select';
 import { useState } from 'react';
 
 export const ACTIVITIES = [
-  { label: 'Anything', value: null },
+  { label: 'Any activity', value: null },
   {
     label: 'Raids',
     options: [
@@ -28,7 +28,7 @@ export const ACTIVITIES = [
 ];
 
 interface ActivitySelectProps {
-  value: Option<Raid | null>;
+  value: Option<Raid | null> | null;
   onChange: (value: Option<Raid | null>) => void;
   className?: string;
 }

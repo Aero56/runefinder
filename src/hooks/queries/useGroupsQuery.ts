@@ -1,10 +1,14 @@
 import { Group } from '@/types/groups';
 import { QueryModifiers } from '@/types/supabase';
 import { supabase } from '@api/supabase';
+import { Experience } from '@components/ExperienceSelect';
+import { Mode } from '@components/ModeSelect';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 interface Filters {
   type?: number;
+  level?: Experience;
+  mode?: Mode;
 }
 
 const useGroupsQuery = (
@@ -26,6 +30,14 @@ const useGroupsQuery = (
 
       if (filters?.type) {
         query = query.eq('type', filters.type);
+      }
+
+      if (filters?.level) {
+        query = query.eq('level', filters.level);
+      }
+
+      if (filters?.mode) {
+        query = query.eq('mode', filters.mode);
       }
 
       if (modifiers?.order) {

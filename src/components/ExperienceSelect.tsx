@@ -9,7 +9,7 @@ export enum Experience {
 
 export const EXPERIENCE_TYPES = [
   {
-    label: 'Any',
+    label: 'Any level',
     value: null,
     entity: { teamSize: 4 },
   },
