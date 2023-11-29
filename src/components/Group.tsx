@@ -37,6 +37,7 @@ const Group = ({ group }: GroupProps) => {
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
+    queryClient.invalidateQueries(['user', user!.id]);
   };
 
   const handleLeaveGroup = async (group: GroupType) => {
@@ -53,6 +54,7 @@ const Group = ({ group }: GroupProps) => {
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
+    queryClient.invalidateQueries(['user', user!.id]);
   };
 
   return (

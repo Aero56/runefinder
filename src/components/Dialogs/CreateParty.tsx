@@ -116,6 +116,7 @@ const CreateParty = () => {
     setIsOpen(false);
 
     queryClient.invalidateQueries(['groups']);
+    queryClient.invalidateQueries(['user', user!.id]);
   };
 
   return (
