@@ -4,12 +4,13 @@ import CreateParty from '@components/Dialogs/CreateParty';
 import { Option } from '@components/Select';
 import { useState } from 'react';
 import Group from '@components/Group';
-import ActivitySelect from '@components/ActivitySelect';
+import ActivitySelect, { ACTIVITIES } from '@components/ActivitySelect';
+import { Raid } from '@/types/raids';
 
 const Home = () => {
   const { user } = useAuth();
 
-  const [selected, setSelected] = useState<Option | null>(null);
+  const [selected, setSelected] = useState<Option<Raid | null>>(ACTIVITIES[0]);
 
   const { data: groups, isLoading } = useGroupsQuery(
     { type: selected?.value ? Number(selected?.value) : undefined },
@@ -18,7 +19,7 @@ const Home = () => {
     },
   );
 
-  const handleChangeFilter = (selected: Option) => {
+  const handleChangeFilter = (selected: Option<Raid | null>) => {
     setSelected(selected);
   };
 
