@@ -42,7 +42,11 @@ const Header = () => {
             alt="RuneFinder logo"
             className="h-8 w-8 object-contain"
           />
-          <p className="hidden text-xl text-black-pearl-100 xs:block">
+          <p
+            className={`text-xl text-black-pearl-100 ${
+              !user ? 'hidden xs:block' : ''
+            }`}
+          >
             RuneFinder
           </p>
         </Link>
@@ -54,7 +58,7 @@ const Header = () => {
               <NavLink
                 to={`/group/${data.group_id}`}
                 className={({ isActive }) =>
-                  `btn btn-ghost font-extrabold hover:bg-black-pearl-800 ${
+                  `btn btn-ghost hidden font-extrabold hover:bg-black-pearl-800 sm:flex ${
                     isActive ? 'text-anzac-400' : ''
                   }`
                 }
@@ -64,12 +68,12 @@ const Header = () => {
               </NavLink>
             )}
             {shouldShowDivider && (
-              <div className="divider divider-horizontal p-2" />
+              <div className="divider divider-horizontal hidden p-2 sm:flex" />
             )}
             <NavLink
               to={`/player/${user.id}`}
               className={({ isActive }) =>
-                `btn btn-ghost w-12 p-0 hover:bg-black-pearl-800 ${
+                `btn btn-ghost hidden w-12 p-0 hover:bg-black-pearl-800 sm:flex ${
                   isActive ? 'text-anzac-400' : ''
                 }`
               }
@@ -79,7 +83,7 @@ const Header = () => {
             <NavLink
               to="/settings"
               className={({ isActive }) =>
-                `btn btn-ghost w-12 p-0 hover:bg-black-pearl-800 ${
+                `btn btn-ghost hidden w-12 p-0 hover:bg-black-pearl-800 sm:flex ${
                   isActive ? 'text-anzac-400' : ''
                 }`
               }

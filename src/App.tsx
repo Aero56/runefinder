@@ -9,6 +9,7 @@ import Header from '@components/Header';
 import ChangePassword from '@pages/auth/ChangePassword';
 import Auth from '@components/Auth';
 import Settings from '@pages/auth/Settings';
+import BottomNavigation from '@components/BottomNavigation';
 
 const AuthRoute = () => {
   const { session } = useAuth();
@@ -21,9 +22,12 @@ const AuthRoute = () => {
 };
 
 const App = () => {
+  const { session } = useAuth();
+
   return (
-    <>
+    <div className={session ? 'pb-8 sm:pb-0' : ''}>
       <Header />
+      <BottomNavigation />
       <Notifications />
 
       <Routes>
@@ -43,7 +47,7 @@ const App = () => {
       </Routes>
 
       <Auth />
-    </>
+    </div>
   );
 };
 

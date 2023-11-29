@@ -130,7 +130,7 @@ const CreateParty = () => {
           Create party
         </button>
         <button
-          className="btn btn-circle fixed bottom-6 right-6 flex border-none bg-anzac-400 text-black-pearl-900 shadow hover:bg-anzac-300 xs:hidden"
+          className="btn btn-circle fixed bottom-24 right-6 flex border-none bg-anzac-400 text-black-pearl-900 shadow hover:bg-anzac-300 xs:hidden"
           type="button"
         >
           <PlusIcon className="h-6 w-6" />

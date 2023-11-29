@@ -46,7 +46,10 @@ const PlayerSettings = () => {
       <div className="p-4">
         <h1 className="mb-1">RuneScape Username</h1>
         <div className="flex">
-          <input className="input" {...register('username')}></input>
+          <input
+            className="input w-full max-w-xs"
+            {...register('username')}
+          ></input>
           <button
             className="btn ml-2 w-12 bg-anzac-400 p-0 text-black-pearl-950 hover:bg-anzac-300"
             onClick={handleSubmit(handleUpdatePlayerData)}
