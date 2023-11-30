@@ -50,8 +50,8 @@ devDependencies:
     specifier: 16.9.1
     version: 16.9.1(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1)
   '@nx/playwright':
-    specifier: 16.9.1
-    version: 16.9.1(@playwright/test@1.38.1)(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1)
+    specifier: 17.1.3
+    version: 17.1.3(@playwright/test@1.38.1)(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1)
   '@nx/react':
     specifier: 16.9.1
     version: 16.9.1(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1)(typescript@5.2.2)(webpack@5.88.2)
@@ -1965,14 +1965,6 @@ packages:
       - nx
     dev: true
 
-  /@nrwl/devkit@17.1.3(nx@17.1.3):
-    resolution: {integrity: sha512-8HfIY7P3yIYfQ/XKuHoq0GGLA9GpwWtBlI9kPQ0ygjuJ9BkpiGMtQvO6003zs7c6vpc2vNeG+Jmi72+EKvoN5A==}
-    dependencies:
-      '@nx/devkit': 17.1.3(nx@17.1.3)
-    transitivePeerDependencies:
-      - nx
-    dev: true
-
   /@nrwl/eslint-plugin-nx@16.8.1(@swc/core@1.3.93)(@types/node@20.10.1)(@typescript-eslint/parser@5.62.0)(eslint-config-prettier@8.10.0)(eslint@8.50.0)(nx@16.8.1)(typescript@5.2.2):
     resolution: {integrity: sha512-Vdy+XGQAbDE76ovWis3Bg/bWlsozcfBXIXK8OiAEQfjyqceWXtH6B2EFTVU0GiHNDydpZR9ahcGJDAuoKDOo3A==}
     dependencies:
@@ -2272,7 +2264,7 @@ packages:
     peerDependencies:
       nx: '>= 16 <= 18'
     dependencies:
-      '@nrwl/devkit': 17.1.3(nx@17.1.3)
+      '@nrwl/devkit': 17.1.3(nx@16.8.1)
       ejs: 3.1.9
       enquirer: 2.3.6
       ignore: 5.2.4
@@ -2314,6 +2306,32 @@ packages:
       - nx
       - supports-color
       - typescript
+      - verdaccio
+    dev: true
+
+  /@nx/eslint@17.1.3(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1):
+    resolution: {integrity: sha512-AQZ67Q3JzLZxguCat7mhBfvxr4ztc97ogDj6jD40Sql8cb/eVYTf/0mszIxxPFsTNG3YBqP5Eb2saAKKxUrfMw==}
+    peerDependencies:
+      eslint: ^8.0.0
+    peerDependenciesMeta:
+      eslint:
+        optional: true
+    dependencies:
+      '@nx/devkit': 17.1.3(nx@16.8.1)
+      '@nx/js': 17.1.3(@swc/core@1.3.93)(@types/node@20.10.1)(nx@16.8.1)(typescript@5.2.2)
+      '@nx/linter': 17.1.3(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1)
+      eslint: 8.50.0
+      tslib: 2.6.2
+      typescript: 5.2.2
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - debug
+      - nx
+      - supports-color
       - verdaccio
     dev: true
 
@@ -2536,6 +2554,23 @@ packages:
       - '@swc/wasm'
       - '@types/node'
       - debug
+      - nx
+      - supports-color
+      - verdaccio
+    dev: true
+
+  /@nx/linter@17.1.3(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1):
+    resolution: {integrity: sha512-KAeZ+kMxahQ67B2DFlikOPKILErdxRtpC3RbcHd9Oi+x0M7pGlmbBdnyP23CQplMsvYqzhTziF/W8CllYAKmCg==}
+    dependencies:
+      '@nx/eslint': 17.1.3(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1)
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - debug
+      - eslint
       - nx
       - supports-color
       - verdaccio
@@ -2811,16 +2846,16 @@ packages:
     dev: true
     optional: true
 
-  /@nx/playwright@16.9.1(@playwright/test@1.38.1)(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1):
-    resolution: {integrity: sha512-GO8BJ0/pq65Z5/2IrKYmkRokvQCc+ObusqNDXLSqpMkRhdv2jQTBGGWUaCdkUrPmgvWXNftLXHokCLWmzp/CIQ==}
+  /@nx/playwright@17.1.3(@playwright/test@1.38.1)(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1):
+    resolution: {integrity: sha512-1vgTByL3L4QdWBLHruZ7Dgn8DBu7R5KqlWRis09v0buo+D4pPYJ/5xoT1eCAU99ydI+pRlPF+bv7EmunEgoP7w==}
     peerDependencies:
       '@playwright/test': ^1.36.0
     peerDependenciesMeta:
       '@playwright/test':
         optional: true
     dependencies:
-      '@nx/devkit': 16.9.1(nx@16.8.1)
-      '@nx/linter': 16.9.1(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1)
+      '@nx/devkit': 17.1.3(nx@16.8.1)
+      '@nx/eslint': 17.1.3(@swc/core@1.3.93)(@types/node@20.10.1)(eslint@8.50.0)(nx@16.8.1)
       '@playwright/test': 1.38.1
       tslib: 2.6.2
     transitivePeerDependencies:
