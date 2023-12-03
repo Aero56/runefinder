@@ -2,12 +2,12 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { AuthProviders } from '@/types/supabase';
-import Dialog from '@components/Dialog/Dialog';
-import DialogFooter from '@components/Dialog/DialogFooter';
-import DialogHeader from '@components/Dialog/DialogHeader';
-import useLoginMutation from '@hooks/mutations/useLoginMutation';
-import useLoginWithProviderMutation from '@hooks/mutations/useLoginWithProviderMutation';
+import Dialog from 'components/Dialog/Dialog';
+import DialogFooter from 'components/Dialog/DialogFooter';
+import DialogHeader from 'components/Dialog/DialogHeader';
+import useLoginMutation from 'hooks/mutations/useLoginMutation';
+import useLoginWithProviderMutation from 'hooks/mutations/useLoginWithProviderMutation';
+import { AuthProviders } from 'types/supabase';
 
 interface FormData {
   email: string;

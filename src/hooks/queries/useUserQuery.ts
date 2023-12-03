@@ -1,8 +1,8 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-import { Table } from '@/types/supabase';
-import { supabase } from '@api/supabase';
-import { useAuth } from '@contexts/AuthContext';
+import { supabase } from 'api/supabase';
+import { useAuth } from 'contexts/AuthContext';
+import { Table } from 'types/supabase';
 
 const useUserQuery = (
   id?: string,

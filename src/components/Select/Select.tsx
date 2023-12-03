@@ -17,7 +17,7 @@ import { useState } from 'react';
 
 import SelectMenu from './SelectMenu';
 
-import { Activity } from '@/types/generic';
+import { Activity } from 'types/generic';
 
 type Entity = Activity;
 
@@ -118,7 +118,7 @@ const Select = <T extends OptionValue>({
         <FloatingPortal>
           <FloatingFocusManager context={context} modal={false}>
             <div
-              className="menu rounded-box block w-56 overflow-y-auto bg-black-pearl-800"
+              className="menu block w-56 overflow-y-auto rounded-box bg-black-pearl-800"
               ref={refs.setFloating}
               style={{ ...floatingStyles, ...transitionStyles }}
               {...getFloatingProps()}

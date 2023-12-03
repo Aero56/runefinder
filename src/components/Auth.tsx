@@ -5,7 +5,7 @@ import Login from './Dialogs/Login';
 import ResetPassword from './Dialogs/ResetPassword';
 import Signup from './Dialogs/Signup';
 
-import { useAuth } from '@contexts/AuthContext';
+import { useAuth } from 'contexts/AuthContext';
 
 const Auth = () => {
   const { user } = useAuth();

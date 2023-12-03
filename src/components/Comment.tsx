@@ -3,11 +3,10 @@ import { format } from 'date-fns';
 import toast from 'react-hot-toast/headless';
 import { Link } from 'react-router-dom';
 
-import queryClient from '@api/queryClient';
-import { useAuth } from '@contexts/AuthContext';
-import useDeleteCommentMutation from '@hooks/mutations/useDeleteCommentMutation';
-import { Comment as CommentType } from '@hooks/queries/useCommentsQuery';
-
+import queryClient from 'api/queryClient';
+import { useAuth } from 'contexts/AuthContext';
+import useDeleteCommentMutation from 'hooks/mutations/useDeleteCommentMutation';
+import { Comment as CommentType } from 'hooks/queries/useCommentsQuery';
 
 interface CommentProps {
   comment: CommentType;

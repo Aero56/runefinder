@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-import { Group } from '@/types/groups';
-import { supabase } from '@api/supabase';
+import { supabase } from 'api/supabase';
+import { Group } from 'types/groups';
 
 const useGroupQuery = (id: string, options?: UseQueryOptions<Group | null>) => {
   const queryKey = ['group', id];

@@ -5,13 +5,9 @@ import toast from 'react-hot-toast/headless';
 import Comment from './Comment';
 import Pagination from './Pagination';
 
-import queryClient from '@api/queryClient';
-import useCommentMutation from '@hooks/mutations/useCommentMutation';
-import useCommentsQuery, {
-  RECORD_LIMIT,
-} from '@hooks/queries/useCommentsQuery';
-
-
+import queryClient from 'api/queryClient';
+import useCommentMutation from 'hooks/mutations/useCommentMutation';
+import useCommentsQuery, { RECORD_LIMIT } from 'hooks/queries/useCommentsQuery';
 
 const MAX_COMMENT_LENGTH = 500;
 

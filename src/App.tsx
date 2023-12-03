@@ -1,16 +1,16 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
-import Auth from '@components/Auth';
-import BottomNavigation from '@components/BottomNavigation';
-import Header from '@components/Header';
-import Notifications from '@components/Notifications';
-import { useAuth } from '@contexts/AuthContext';
-import Group from '@pages/Group';
-import Home from '@pages/Home';
-import NotFound from '@pages/NotFound';
-import Player from '@pages/Player';
-import ChangePassword from '@pages/auth/ChangePassword';
-import Settings from '@pages/auth/Settings';
+import Auth from 'components/Auth';
+import BottomNavigation from 'components/BottomNavigation';
+import Header from 'components/Header';
+import Notifications from 'components/Notifications';
+import { useAuth } from 'contexts/AuthContext';
+import Group from 'pages/Group';
+import Home from 'pages/Home';
+import NotFound from 'pages/NotFound';
+import Player from 'pages/Player';
+import ChangePassword from 'pages/auth/ChangePassword';
+import Settings from 'pages/auth/Settings';
 
 const AuthRoute = () => {
   const { session } = useAuth();

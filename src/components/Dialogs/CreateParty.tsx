@@ -7,16 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
 import { Option } from '../Select';
 
-import { Raid } from '@/types/raids';
-import queryClient from '@api/queryClient';
-import { supabase } from '@api/supabase';
-import ActivitySelect from '@components/ActivitySelect';
-import DialogFooter from '@components/Dialog/DialogFooter';
-import DialogHeader from '@components/Dialog/DialogHeader';
-import ExperienceSelect, { Experience } from '@components/ExperienceSelect';
-import ModeSelect, { Mode } from '@components/ModeSelect';
-import { useAuth } from '@contexts/AuthContext';
-import useGroupMutation from '@hooks/mutations/useGroupMutation';
+import queryClient from 'api/queryClient';
+import { supabase } from 'api/supabase';
+import ActivitySelect from 'components/ActivitySelect';
+import DialogFooter from 'components/Dialog/DialogFooter';
+import DialogHeader from 'components/Dialog/DialogHeader';
+import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
+import ModeSelect, { Mode } from 'components/ModeSelect';
+import { useAuth } from 'contexts/AuthContext';
+import useGroupMutation from 'hooks/mutations/useGroupMutation';
+import { Raid } from 'types/raids';
 
 const DEFAULT_SIZE = 10;
 

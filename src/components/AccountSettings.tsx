@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
 
-import { supabase } from '@api/supabase';
+import { supabase } from 'api/supabase';
 
 const AccountSettings = () => {
   const navigate = useNavigate();

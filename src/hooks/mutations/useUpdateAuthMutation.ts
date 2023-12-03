@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { supabase } from '@api/supabase';
+import { supabase } from 'api/supabase';
 
 interface UpdateAuthProps {
   email?: string;

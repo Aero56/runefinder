@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
-import { useAuth } from '@contexts/AuthContext';
+import { useAuth } from 'contexts/AuthContext';
 
 const Header = () => {
   const { user, data } = useAuth();

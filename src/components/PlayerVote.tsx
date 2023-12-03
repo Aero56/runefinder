@@ -1,12 +1,11 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast/headless';
 
-import queryClient from '@api/queryClient';
-import { useAuth } from '@contexts/AuthContext';
-import usePlayerVoteMutation from '@hooks/mutations/usePlayerVoteMutation';
-import usePlayerTotalVotesQuery from '@hooks/queries/usePlayerTotalVotesQuery';
-import usePlayerVoteQuery from '@hooks/queries/usePlayerVoteQuery';
-
+import queryClient from 'api/queryClient';
+import { useAuth } from 'contexts/AuthContext';
+import usePlayerVoteMutation from 'hooks/mutations/usePlayerVoteMutation';
+import usePlayerTotalVotesQuery from 'hooks/queries/usePlayerTotalVotesQuery';
+import usePlayerVoteQuery from 'hooks/queries/usePlayerVoteQuery';
 
 interface PlayerVoteProps {
   playerId: string;
@@ -53,8 +52,8 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
           totalVotes && totalVotes > 0
             ? 'text-green-500'
             : totalVotes && totalVotes < 0
-            ? 'text-red-500'
-            : ''
+              ? 'text-red-500'
+              : ''
         }`}
       >
         {totalVotes ?? 0}

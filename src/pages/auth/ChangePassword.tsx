@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
 
-import useUpdateAuthMutation from '@hooks/mutations/useUpdateAuthMutation';
+import useUpdateAuthMutation from 'hooks/mutations/useUpdateAuthMutation';
 
 interface FormData {
   password: string;

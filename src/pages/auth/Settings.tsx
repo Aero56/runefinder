@@ -1,5 +1,5 @@
-import AccountSettings from '@components/AccountSettings';
-import PlayerSettings from '@components/PlayerSettings';
+import AccountSettings from 'components/AccountSettings';
+import PlayerSettings from 'components/PlayerSettings';
 
 const Settings = () => {
   return (

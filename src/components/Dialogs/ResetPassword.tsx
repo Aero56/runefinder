@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
 
-import Dialog from '@components/Dialog/Dialog';
-import DialogFooter from '@components/Dialog/DialogFooter';
-import DialogHeader from '@components/Dialog/DialogHeader';
-import useResetPasswordMutation from '@hooks/mutations/useResetPasswordMutation';
+import Dialog from 'components/Dialog/Dialog';
+import DialogFooter from 'components/Dialog/DialogFooter';
+import DialogHeader from 'components/Dialog/DialogHeader';
+import useResetPasswordMutation from 'hooks/mutations/useResetPasswordMutation';
 
 interface FormData {
   email: string;

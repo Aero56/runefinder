@@ -7,9 +7,9 @@ import {
   useState,
 } from 'react';
 
-import { Table } from '@/types/supabase';
-import { supabase } from '@api/supabase';
-import useUserQuery from '@hooks/queries/useUserQuery';
+import { supabase } from 'api/supabase';
+import useUserQuery from 'hooks/queries/useUserQuery';
+import { Table } from 'types/supabase';
 
 interface AuthContext {
   session: Session | null;

@@ -21,12 +21,12 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@api/*": ["./src/api/*"],
-      "@contexts/*": ["./src/contexts/*"],
-      "@/types/*": ["./src/types/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "components/*": ["./src/components/*"],
+      "api/*": ["./src/api/*"],
+      "contexts/*": ["./src/contexts/*"],
+      "types/*": ["./src/types/*"],
+      "pages/*": ["./src/pages/*"],
+      "hooks/*": ["./src/hooks/*"]
     }
   },
   "include": ["src"],

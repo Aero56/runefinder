@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { supabase } from '@api/supabase';
+import { supabase } from 'api/supabase';
 
 const usePlayerTotalVotesQuery = (playerId: string) => {
   const queryKey = ['playerTotalVotes', playerId];

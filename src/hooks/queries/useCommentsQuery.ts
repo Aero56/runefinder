@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { Table } from '@/types/supabase';
-import { supabase } from '@api/supabase';
+import { supabase } from 'api/supabase';
+import { Table } from 'types/supabase';
 
 export const RECORD_LIMIT = 10;
 

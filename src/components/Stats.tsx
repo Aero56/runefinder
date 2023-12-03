@@ -1,5 +1,5 @@
-import { Skills } from '@/types/skills';
-import { Stats as StatsType } from '@/types/stats';
+import { Skills } from 'types/skills';
+import { Stats as StatsType } from 'types/stats';
 
 interface StatsProps {
   stats: StatsType;

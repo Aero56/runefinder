@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Select, { Option } from './Select';
 
-import { Raid } from '@/types/raids';
+import { Raid } from 'types/raids';
 
 export const ACTIVITIES = [
   { label: 'Any activity', value: null },

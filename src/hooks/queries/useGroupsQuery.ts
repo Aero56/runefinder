@@ -1,10 +1,10 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-import { Group } from '@/types/groups';
-import { QueryModifiers } from '@/types/supabase';
-import { supabase } from '@api/supabase';
-import { Experience } from '@components/ExperienceSelect';
-import { Mode } from '@components/ModeSelect';
+import { supabase } from 'api/supabase';
+import { Experience } from 'components/ExperienceSelect';
+import { Mode } from 'components/ModeSelect';
+import { Group } from 'types/groups';
+import { QueryModifiers } from 'types/supabase';
 
 interface Filters {
   name?: string;
