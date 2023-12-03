@@ -55,6 +55,37 @@ const CreateParty = () => {
     setIsOpen(false);
   };
 
+  const handleCreateGroup = async () => {
+    const data = getValues();
+
+    let result;
+
+    try {
+      result = await createGroup({
+        name: data.name,
+        size: data.activity.entity?.teamSize
+          ? Number(data.size) + 1
+          : DEFAULT_SIZE,
+        type: data.activity?.value ?? null,
+        level: data.experience?.value ?? null,
+        mode: data.mode?.value ?? null,
+        world: data.world,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        toast(error.message);
+        return;
+      }
+    }
+
+    navigate('/group/' + result?.id);
+    setIsConfirmationOpen(false);
+    setIsOpen(false);
+
+    queryClient.invalidateQueries(['groups']);
+    queryClient.invalidateQueries(['user', user!.id]);
+  };
+
   const onSubmit = async () => {
     if (user) {
       const { data } = await supabase
@@ -86,37 +117,6 @@ const CreateParty = () => {
   const handleConfirmCancel = () => {
     setIsConfirmationOpen(false);
     setIsOpen(true);
-  };
-
-  const handleCreateGroup = async () => {
-    const data = getValues();
-
-    let result;
-
-    try {
-      result = await createGroup({
-        name: data.name,
-        size: data.activity.entity?.teamSize
-          ? Number(data.size) + 1
-          : DEFAULT_SIZE,
-        type: data.activity?.value ?? null,
-        level: data.experience?.value ?? null,
-        mode: data.mode?.value ?? null,
-        world: data.world,
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        toast(error.message);
-        return;
-      }
-    }
-
-    navigate('/group/' + result?.id);
-    setIsConfirmationOpen(false);
-    setIsOpen(false);
-
-    queryClient.invalidateQueries(['groups']);
-    queryClient.invalidateQueries(['user', user!.id]);
   };
 
   return (

@@ -1,17 +1,9 @@
-const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
-const { join } = require('path');
-
-const defaultTheme = require('tailwindcss/defaultTheme')
+import defaultTheme from 'tailwindcss/defaultTheme';
+import daisyui from 'daisyui';
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    join(
-      __dirname,
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'
-    ),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
+export default {
+  content: ["./src/**/*.{html,ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -58,7 +50,7 @@ module.exports = {
       },
   },
   plugins: [
-    require("daisyui"),
+    daisyui,
   ],
   daisyui: {
     base: true, // applies background color and foreground color for root element by default

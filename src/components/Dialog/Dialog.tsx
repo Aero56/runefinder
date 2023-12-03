@@ -24,6 +24,10 @@ interface DialogProps {
 }
 
 const Dialog = ({ isOpen, children, size = 'large', onClose }: DialogProps) => {
+  const handleClose = () => {
+    onClose();
+  };
+
   const { context, refs } = useFloating({
     open: isOpen,
     onOpenChange: (open) => !open && handleClose(),
@@ -40,10 +44,6 @@ const Dialog = ({ isOpen, children, size = 'large', onClose }: DialogProps) => {
     duration: 300,
     initial: { opacity: 0, transform: 'scale(0.95)' },
   });
-
-  const handleClose = () => {
-    onClose();
-  };
 
   const getSize = () => {
     switch (size) {
