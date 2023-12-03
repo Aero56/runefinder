@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import Select, { Option } from './Select';
+import Select, { Option, Tint } from './Select';
 
 import { Raid } from 'types/raids';
 
@@ -33,12 +33,14 @@ interface ActivitySelectProps {
   value: Option<Raid | null> | null;
   onChange: (value: Option<Raid | null>) => void;
   className?: string;
+  tint?: Tint;
 }
 
 const ActivitySelect = ({
   value,
   onChange,
   className,
+  tint,
 }: ActivitySelectProps) => {
   const [selected, setSelected] = useState<Option<Raid | null>>(
     value !== null ? value : ACTIVITIES[0],
@@ -56,6 +58,7 @@ const ActivitySelect = ({
       options={ACTIVITIES}
       placeholder="Choose activity"
       className={className}
+      tint={tint}
     />
   );
 };

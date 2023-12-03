@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import Select, { Option } from './Select';
+import Select, { Option, Tint } from './Select';
 
 export enum Mode {
   Ironman = 'ironman',
@@ -32,9 +32,15 @@ interface ExperienceSelectProps {
   value: Option<Mode | null> | null;
   onChange: (value: Option<Mode | null>) => void;
   className?: string;
+  tint?: Tint;
 }
 
-const ModeSelect = ({ value, onChange, className }: ExperienceSelectProps) => {
+const ModeSelect = ({
+  value,
+  onChange,
+  className,
+  tint,
+}: ExperienceSelectProps) => {
   const [selected, setSelected] = useState<Option<Mode | null>>(
     value ?? MODES[0],
   );
@@ -51,6 +57,7 @@ const ModeSelect = ({ value, onChange, className }: ExperienceSelectProps) => {
       options={MODES}
       placeholder="Select mode"
       className={className}
+      tint={tint}
     />
   );
 };

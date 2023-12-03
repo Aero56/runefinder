@@ -69,16 +69,19 @@ const Home = () => {
           value={selectedActivity}
           onChange={handleChangeActivity}
           className="w-full xs:w-auto"
+          tint="light"
         />
         <ExperienceSelect
           value={selectedLevel}
           onChange={handleChangeLevel}
           className="flex-grow xs:flex-grow-0"
+          tint="light"
         />
         <ModeSelect
           value={selectedMode}
           onChange={handleChangeMode}
           className="flex-grow xs:flex-grow-0"
+          tint="light"
         />
       </div>
       {isLoading ? (

@@ -147,7 +147,7 @@ const Login = ({ onClose, isOpen }: LoginProps) => {
       </div>
       <div className="space-y-4">
         <button
-          className="btn w-full border-none bg-black-pearl-800 font-bold hover:bg-gray-800"
+          className="btn w-full border-none bg-black-pearl-800 font-bold hover:bg-black-pearl-700/50"
           onClick={() => handleLoginWithProvider(AuthProviders.Google)}
         >
           {!isLoginProviderSuccess ? (

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import Select, { Option } from './Select';
+import Select, { Option, Tint } from './Select';
 
 export enum Experience {
   Beginner = 'beginner',
@@ -32,12 +32,14 @@ interface ExperienceSelectProps {
   value: Option<Experience | null> | null;
   onChange: (value: Option<Experience | null>) => void;
   className?: string;
+  tint?: Tint;
 }
 
 const ExperienceSelect = ({
   value,
   onChange,
   className,
+  tint,
 }: ExperienceSelectProps) => {
   const [selected, setSelected] = useState<Option<Experience | null>>(
     value ?? EXPERIENCE_TYPES[0],
@@ -55,6 +57,7 @@ const ExperienceSelect = ({
       options={EXPERIENCE_TYPES}
       placeholder="Select experience"
       className={className}
+      tint={tint}
     />
   );
 };

@@ -23,6 +23,8 @@ type Entity = Activity;
 
 type OptionValue = string | number | null;
 
+export type Tint = 'light' | 'dark';
+
 export interface Option<T extends OptionValue> {
   label: string;
   value?: T;
@@ -38,6 +40,7 @@ interface SelectProps<T extends OptionValue> {
   isClearable?: boolean;
   onChange: (selected: Option<T>[]) => void;
   className?: string;
+  tint?: Tint;
 }
 
 const Select = <T extends OptionValue>({
@@ -48,6 +51,7 @@ const Select = <T extends OptionValue>({
   isClearable = false,
   placeholder = 'Select',
   className,
+  tint = 'dark',
 }: SelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<Set<Option<T>>>(
@@ -107,7 +111,11 @@ const Select = <T extends OptionValue>({
         type="button"
         ref={refs.setReference}
         {...getReferenceProps()}
-        className={`border-bg btn border-2 border-black-pearl-900 bg-black-pearl-950 hover:border-black-pearl-900 hover:bg-black-pearl-900 ${className} flex flex-nowrap justify-between`}
+        className={`border-bg btn border-2 ${className} flex flex-nowrap justify-between ${
+          tint === 'dark'
+            ? 'border-black-pearl-950 bg-black-pearl-950 hover:border-black-pearl-800 hover:bg-black-pearl-800'
+            : 'border-black-pearl-900 bg-black-pearl-900 hover:border-black-pearl-900 hover:bg-black-pearl-950'
+        }`}
       >
         <p className="overflow-hidden text-ellipsis whitespace-nowrap">
           {[...selected][0]?.label ?? placeholder}
@@ -118,7 +126,9 @@ const Select = <T extends OptionValue>({
         <FloatingPortal>
           <FloatingFocusManager context={context} modal={false}>
             <div
-              className="menu block w-56 overflow-y-auto rounded-box bg-black-pearl-800"
+              className={`menu block w-56 overflow-y-auto rounded-box ${
+                tint === 'dark' ? 'bg-black-pearl-950' : 'bg-black-pearl-900'
+              }`}
               ref={refs.setFloating}
               style={{ ...floatingStyles, ...transitionStyles }}
               {...getFloatingProps()}

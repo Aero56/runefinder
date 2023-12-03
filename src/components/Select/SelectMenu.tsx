@@ -33,7 +33,11 @@ const SelectMenu = <T extends OptionValue>({
           ) : (
             <button
               onClick={() => handleSelect(option)}
-              className={`${selected.has(option) ? 'active' : ''}`}
+              className={`active:!bg-anzac-400 active:!text-black-pearl-950 ${
+                selected.has(option)
+                  ? '!bg-anzac-400 font-medium !text-black-pearl-950'
+                  : ''
+              }`}
             >
               {option.label}
             </button>
