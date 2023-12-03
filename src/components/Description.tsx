@@ -1,6 +1,7 @@
-import useUpdateUserMutation from '@hooks/mutations/useUpdateUserMutation';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast/headless';
+
+import useUpdateUserMutation from '@hooks/mutations/useUpdateUserMutation';
 
 interface DescriptionProps {
   value: string | null;

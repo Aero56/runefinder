@@ -1,10 +1,11 @@
-import { Group as GroupType } from '@/types/groups';
-import useUpdateUserMutation from '@hooks/mutations/useUpdateUserMutation';
 import { MouseEvent } from 'react';
 import toast from 'react-hot-toast/headless';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { Group as GroupType } from '@/types/groups';
 import queryClient from '@api/queryClient';
 import { useAuth } from '@contexts/AuthContext';
+import useUpdateUserMutation from '@hooks/mutations/useUpdateUserMutation';
 
 interface GroupProps {
   group: GroupType;

@@ -1,9 +1,11 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useAuth } from '@contexts/AuthContext';
-import ResetPassword from './Dialogs/ResetPassword';
+
 import Login from './Dialogs/Login';
+import ResetPassword from './Dialogs/ResetPassword';
 import Signup from './Dialogs/Signup';
+
+import { useAuth } from '@contexts/AuthContext';
 
 const Auth = () => {
   const { user } = useAuth();

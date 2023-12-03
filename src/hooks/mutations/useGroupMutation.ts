@@ -1,9 +1,10 @@
+import { useMutation } from '@tanstack/react-query';
+
 import { Raid } from '@/types/raids';
 import { supabase } from '@api/supabase';
 import { Experience } from '@components/ExperienceSelect';
 import { Mode } from '@components/ModeSelect';
 import { useAuth } from '@contexts/AuthContext';
-import { useMutation } from '@tanstack/react-query';
 
 interface GroupMutationProps {
   name: string;

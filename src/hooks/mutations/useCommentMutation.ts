@@ -1,5 +1,6 @@
-import { supabase } from '@api/supabase';
 import { useMutation } from '@tanstack/react-query';
+
+import { supabase } from '@api/supabase';
 
 interface CommentMutationProps {
   userId: string;

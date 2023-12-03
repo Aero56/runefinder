@@ -1,20 +1,22 @@
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '@api/supabase';
-import { useAuth } from '@contexts/AuthContext';
-import { Option } from '../Select';
-import useGroupMutation from '@hooks/mutations/useGroupMutation';
 import toast from 'react-hot-toast/headless';
+import { useNavigate } from 'react-router-dom';
+
 import Dialog from '../Dialog/Dialog';
+import { Option } from '../Select';
+
+import { Raid } from '@/types/raids';
+import queryClient from '@api/queryClient';
+import { supabase } from '@api/supabase';
+import ActivitySelect from '@components/ActivitySelect';
 import DialogFooter from '@components/Dialog/DialogFooter';
 import DialogHeader from '@components/Dialog/DialogHeader';
-import queryClient from '@api/queryClient';
-import ActivitySelect from '@components/ActivitySelect';
 import ExperienceSelect, { Experience } from '@components/ExperienceSelect';
 import ModeSelect, { Mode } from '@components/ModeSelect';
-import { Raid } from '@/types/raids';
+import { useAuth } from '@contexts/AuthContext';
+import useGroupMutation from '@hooks/mutations/useGroupMutation';
 
 const DEFAULT_SIZE = 10;
 

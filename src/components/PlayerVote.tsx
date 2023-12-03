@@ -1,10 +1,12 @@
+import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/outline';
+import toast from 'react-hot-toast/headless';
+
 import queryClient from '@api/queryClient';
 import { useAuth } from '@contexts/AuthContext';
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/outline';
 import usePlayerVoteMutation from '@hooks/mutations/usePlayerVoteMutation';
 import usePlayerTotalVotesQuery from '@hooks/queries/usePlayerTotalVotesQuery';
 import usePlayerVoteQuery from '@hooks/queries/usePlayerVoteQuery';
-import toast from 'react-hot-toast/headless';
+
 
 interface PlayerVoteProps {
   playerId: string;

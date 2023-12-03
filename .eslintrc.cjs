@@ -8,7 +8,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: [],
+  plugins: ['import'],
   rules: {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
@@ -21,5 +21,19 @@ module.exports = {
         format: ['PascalCase'],
       },
     ],
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        alphabetize: { order: 'asc' },
+      },
+    ],
+    'import/no-anonymous-default-export': 'error',
+    'import/no-unresolved': 'error',
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
   },
 };

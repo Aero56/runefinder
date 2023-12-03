@@ -1,6 +1,3 @@
-import { Table } from '@/types/supabase';
-import { supabase } from '@api/supabase';
-import useUserQuery from '@hooks/queries/useUserQuery';
 import { Session, User } from '@supabase/supabase-js';
 import {
   ReactNode,
@@ -9,6 +6,10 @@ import {
   useEffect,
   useState,
 } from 'react';
+
+import { Table } from '@/types/supabase';
+import { supabase } from '@api/supabase';
+import useUserQuery from '@hooks/queries/useUserQuery';
 
 interface AuthContext {
   session: Session | null;

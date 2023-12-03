@@ -1,6 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
+
 import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
-import { useQuery } from '@tanstack/react-query';
 
 const usePlayerVoteQuery = (playerId: string) => {
   const { user } = useAuth();

@@ -1,5 +1,3 @@
-import { XMarkIcon } from '@heroicons/react/20/solid';
-
 import {
   FloatingFocusManager,
   FloatingOverlay,
@@ -12,6 +10,7 @@ import {
   useRole,
   useTransitionStyles,
 } from '@floating-ui/react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 import { ReactNode } from 'react';
 
 export type Size = 'small' | 'large';

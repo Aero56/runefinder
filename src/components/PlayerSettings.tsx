@@ -1,11 +1,13 @@
-import queryClient from '@api/queryClient';
-import { useAuth } from '@contexts/AuthContext';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
-import useUpdatePlayerMutation from '@hooks/mutations/useUpdatePlayerMutation';
-import useUserQuery from '@hooks/queries/useUserQuery';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
+
+import queryClient from '@api/queryClient';
+import { useAuth } from '@contexts/AuthContext';
+import useUpdatePlayerMutation from '@hooks/mutations/useUpdatePlayerMutation';
+import useUserQuery from '@hooks/queries/useUserQuery';
+
 
 interface FormData {
   username: string;

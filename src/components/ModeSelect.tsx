@@ -1,5 +1,6 @@
-import Select, { Option } from './Select';
 import { useState } from 'react';
+
+import Select, { Option } from './Select';
 
 export enum Mode {
   Ironman = 'ironman',

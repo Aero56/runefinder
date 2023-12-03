@@ -1,6 +1,7 @@
+import { useMutation } from '@tanstack/react-query';
+
 import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
-import { useMutation } from '@tanstack/react-query';
 
 interface UpdateUserMutationProps {
   group?: string | null;

@@ -1,12 +1,12 @@
-import { useParams } from 'react-router-dom';
-import { supabase } from '@api/supabase';
 import { useEffect } from 'react';
+import { toast } from 'react-hot-toast/headless';
+import { useParams } from 'react-router-dom';
 
 import { Group as GroupType } from '@/types/groups';
-import { toast } from 'react-hot-toast/headless';
-import useGroupQuery from '@hooks/queries/useGroupQuery';
 import queryClient from '@api/queryClient';
+import { supabase } from '@api/supabase';
 import { useAuth } from '@contexts/AuthContext';
+import useGroupQuery from '@hooks/queries/useGroupQuery';
 
 const Group = () => {
   const { user } = useAuth();

@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import {
   FloatingFocusManager,
   FloatingPortal,
@@ -13,9 +12,12 @@ import {
   useRole,
   useTransitionStyles,
 } from '@floating-ui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
-import { Activity } from '@/types/generic';
+
 import SelectMenu from './SelectMenu';
+
+import { Activity } from '@/types/generic';
 
 type Entity = Activity;
 

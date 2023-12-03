@@ -1,12 +1,13 @@
-import { useAuth } from '@contexts/AuthContext';
-import { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   UserIcon,
   QuestionMarkCircleIcon,
   Cog6ToothIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
+import { useAuth } from '@contexts/AuthContext';
 
 const Header = () => {
   const { user, data } = useAuth();

@@ -1,12 +1,12 @@
-import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
+import { useParams } from 'react-router-dom';
 
-import useUserQuery from '@hooks/queries/useUserQuery';
-import Stats from '@components/Stats';
-import PlayerVote from '@components/PlayerVote';
-import Description from '@components/Description';
-import { useAuth } from '@contexts/AuthContext';
 import Comments from '@components/Comments';
+import Description from '@components/Description';
+import PlayerVote from '@components/PlayerVote';
+import Stats from '@components/Stats';
+import { useAuth } from '@contexts/AuthContext';
+import useUserQuery from '@hooks/queries/useUserQuery';
 
 const Player = () => {
   const { user } = useAuth();

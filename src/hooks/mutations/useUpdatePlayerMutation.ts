@@ -1,6 +1,7 @@
-import { supabase } from '@api/supabase';
 import { FunctionsHttpError } from '@supabase/supabase-js';
 import { useMutation } from '@tanstack/react-query';
+
+import { supabase } from '@api/supabase';
 
 const useUpdatePlayerMutation = () => {
   return useMutation(async (username: string) => {
