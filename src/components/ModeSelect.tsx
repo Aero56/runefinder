@@ -10,20 +10,20 @@ export enum Mode {
 
 export const MODES = [
   {
-    label: 'Open To Anyone',
+    label: 'Open to anyone',
     value: null,
     entity: { teamSize: 4 },
   },
   {
-    label: 'Ironman Only',
+    label: 'Ironman only',
     value: Mode.Ironman,
   },
   {
-    label: 'Hardcore Ironman Only',
+    label: 'Hardcore Ironman only',
     value: Mode.Hardcore,
   },
   {
-    label: 'Ultimate Ironman Only',
+    label: 'Ultimate Ironman only',
     value: Mode.Ultimate,
   },
 ];

@@ -129,7 +129,7 @@ const CreateParty = () => {
           type="button"
         >
           <PlusIcon className="h-6 w-6" />
-          Create party
+          Create group
         </button>
         <button
           className="btn btn-circle fixed bottom-24 right-6 flex border-none bg-anzac-400 text-black-pearl-900 shadow hover:bg-anzac-300 xs:hidden"
@@ -139,7 +139,7 @@ const CreateParty = () => {
         </button>
       </div>
       <Dialog isOpen={isOpen} onClose={handleClose}>
-        <DialogHeader title="Create party" />
+        <DialogHeader title="Create group" />
         <form
           className="row-auto grid grid-cols-4 gap-x-6 gap-y-4 "
           onSubmit={handleSubmit(onSubmit)}
