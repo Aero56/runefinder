@@ -26,7 +26,7 @@ const Player = () => {
   const isPlayerMe = player.id === user?.id;
 
   return (
-    <div className="container mb-12 pt-4">
+    <div className="container mb-4 pt-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
         <div className="col-span-1 rounded-xl bg-black-pearl-900 p-4 sm:col-span-2">
           <div className="align mb-2 flex items-center justify-between">
