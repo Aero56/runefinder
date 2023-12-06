@@ -1,10 +1,15 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
+} from '@tanstack/react-query';
 
 import { supabase } from 'api/supabase';
 import { Experience } from 'components/ExperienceSelect';
 import { Mode } from 'components/ModeSelect';
 import { Group } from 'types/groups';
 import { QueryModifiers } from 'types/supabase';
+
+export const RECORD_LIMIT = 20;
 
 interface Filters {
   name?: string;
@@ -16,23 +21,26 @@ interface Filters {
 const useGroupsQuery = (
   filters?: Filters,
   modifiers?: QueryModifiers,
-  options?: UseQueryOptions<Group[] | null>,
+  options?: UseInfiniteQueryOptions<Group[] | null>,
 ) => {
   const queryKey = ['groups', filters];
 
-  return useQuery<Group[] | null>(
+  return useInfiniteQuery<Group[] | null>(
     queryKey,
-    async () => {
+    async ({ pageParam = 1 }) => {
+      const offset = RECORD_LIMIT * pageParam;
+
+      console.log(pageParam);
+
       let query = supabase
         .from('groups')
         .select(
           '*, users!users_group_id_fkey(id, username), type!inner(id, name)',
         )
-        .eq('status', 'open');
+        .eq('status', 'open')
+        .range(offset - RECORD_LIMIT, offset - 1);
 
       if (filters?.name) {
-        console.log(filters.name);
-
         query = query.ilike('name', `%${filters.name}%`);
       }
 
@@ -56,7 +64,13 @@ const useGroupsQuery = (
 
       return data;
     },
-    options,
+    {
+      ...options,
+      getNextPageParam: (lastPage, pages) =>
+        lastPage?.length === RECORD_LIMIT
+          ? Math.ceil(lastPage.length / RECORD_LIMIT) + pages.length
+          : undefined,
+    },
   );
 };
 

@@ -26,7 +26,7 @@ const App = () => {
   const { session } = useAuth();
 
   return (
-    <div className={session ? 'pb-8 sm:pb-0' : ''}>
+    <div className={session ? 'pb-16 sm:pb-0' : ''}>
       <Header />
       <BottomNavigation />
       <Notifications />
