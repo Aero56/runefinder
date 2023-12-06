@@ -39,7 +39,7 @@ const useCommentsQuery = ({ userId, page }: CommentsQueryProps) => {
         )
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
-        .range(offset - RECORD_LIMIT, offset)
+        .range(offset - RECORD_LIMIT, offset - 1)
         .returns<Comment[]>();
 
       return { comments: data, count };
