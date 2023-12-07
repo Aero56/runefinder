@@ -57,7 +57,7 @@ const Dialog = ({ isOpen, children, size = 'large', onClose }: DialogProps) => {
     <FloatingPortal>
       {isMounted && (
         <FloatingOverlay
-          className="grid place-items-center bg-black-pearl-950/30 px-4"
+          className="z-50 grid place-items-center bg-black-pearl-950/50 px-4"
           style={{ ...transitionStyles }}
           lockScroll
         >

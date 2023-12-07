@@ -29,7 +29,7 @@ const Header = () => {
 
   return (
     <div
-      className={`navbar sticky top-0 z-50 bg-black-pearl-900 ${
+      className={`navbar sticky top-0 z-40 bg-black-pearl-900 ${
         !top && `shadow-md`
       }`}
     >
