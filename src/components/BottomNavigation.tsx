@@ -16,7 +16,7 @@ const BottomNavigation = () => {
   }
 
   return (
-    <div className="btm-nav flex bg-black-pearl-900 sm:hidden">
+    <div className="btm-nav z-50 flex bg-black-pearl-900 sm:hidden">
       <NavLink
         to="/"
         className={({ isActive }) => (isActive ? 'active text-anzac-400' : '')}
