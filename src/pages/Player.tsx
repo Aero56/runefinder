@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
 
+import { getCombatLevel } from '../utils/common';
+
 import Comments from 'components/Comments';
 import Description from 'components/Description';
 import PlayerVote from 'components/PlayerVote';
@@ -42,6 +44,11 @@ const Player = () => {
                 {player.username}
               </p>
             </div>
+            {player.stats && (
+              <div className="badge badge-primary font-semibold">
+                {getCombatLevel(player.stats.skills)}
+              </div>
+            )}
           </div>
           <div className="mb-4">
             {isPlayerMe ? (

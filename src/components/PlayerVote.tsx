@@ -36,19 +36,17 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
 
   return (
     <div className="mx-auto flex max-w-xs items-center justify-between gap-4 rounded-lg bg-black-pearl-950 p-3">
-      <div title={isPlayerMe ? 'You can not rate yourself' : 'Downvote'}>
-        <button
-          onClick={() => handleVote(playerVote === -1 ? 0 : -1)}
-          className={`hover:bg-overhead w-7 bg-center bg-no-repeat ${
-            playerVote === -1 ? 'bg-overhead' : ''
-          } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
-        >
-          <img
-            src="src/assets/icons/Magic.png"
-            className="[image-rendering:pixelated]"
-          />
-        </button>
-      </div>
+      <button
+        onClick={() => handleVote(playerVote === -1 ? 0 : -1)}
+        className={`hover:bg-overhead bg-center bg-no-repeat ${
+          playerVote === -1 ? 'bg-overhead' : ''
+        } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
+      >
+        <img
+          src="src/assets/icons/Magic.png"
+          className="[image-rendering:pixelated]"
+        />
+      </button>
       <p
         className={`${
           totalVotes && totalVotes > 0
@@ -62,7 +60,7 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
       </p>
       <button
         onClick={() => handleVote(playerVote === 1 ? 0 : 1)}
-        className={`hover:bg-overhead w-7 bg-center bg-no-repeat ${
+        className={`hover:bg-overhead bg-center bg-no-repeat ${
           playerVote === 1 ? 'bg-overhead' : ''
         } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
       >
