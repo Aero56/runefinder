@@ -40,6 +40,9 @@ const config = {
           950: '#030c13',
         },
       },
+      backgroundImage: {
+        'overhead': "url('assets/icons/Overhead_Background.png')"
+      }
     },
     container: {
       center: true,

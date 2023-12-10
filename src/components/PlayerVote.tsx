@@ -1,4 +1,3 @@
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast/headless';
 
 import queryClient from 'api/queryClient';
@@ -36,17 +35,20 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
   const isPlayerMe = user?.id === playerId;
 
   return (
-    <div className="flex items-center gap-1">
-      {!isPlayerMe && (
+    <div className="mx-auto flex max-w-xs items-center justify-between gap-4 rounded-lg bg-black-pearl-950 p-3">
+      <div title={isPlayerMe ? 'You can not rate yourself' : 'Downvote'}>
         <button
-          className={`btn btn-circle btn-ghost btn-sm ${
-            playerVote === 1 ? 'btn-active' : ''
-          }`}
-          onClick={() => handleVote(playerVote === 1 ? 0 : 1)}
+          onClick={() => handleVote(playerVote === -1 ? 0 : -1)}
+          className={`hover:bg-overhead w-7 bg-center bg-no-repeat ${
+            playerVote === -1 ? 'bg-overhead' : ''
+          } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
         >
-          <ArrowUpIcon className="h-5 w-5" />
+          <img
+            src="src/assets/icons/Magic.png"
+            className="[image-rendering:pixelated]"
+          />
         </button>
-      )}
+      </div>
       <p
         className={`${
           totalVotes && totalVotes > 0
@@ -56,18 +58,19 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
               : ''
         }`}
       >
-        {totalVotes ?? 0}
+        {totalVotes ? (totalVotes > 0 ? `+${totalVotes}` : totalVotes) : 0}
       </p>
-      {!isPlayerMe && (
-        <button
-          className={`btn btn-circle btn-ghost btn-sm ${
-            playerVote === -1 ? 'btn-active' : ''
-          }`}
-          onClick={() => handleVote(playerVote === -1 ? 0 : -1)}
-        >
-          <ArrowDownIcon className="h-5 w-5" />
-        </button>
-      )}
+      <button
+        onClick={() => handleVote(playerVote === 1 ? 0 : 1)}
+        className={`hover:bg-overhead w-7 bg-center bg-no-repeat ${
+          playerVote === 1 ? 'bg-overhead' : ''
+        } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
+      >
+        <img
+          src="src/assets/icons/Dampen_Magic.png"
+          className="rotate-180 [image-rendering:pixelated]"
+        />
+      </button>
     </div>
   );
 };

@@ -42,15 +42,17 @@ const Player = () => {
                 {player.username}
               </p>
             </div>
-            <PlayerVote playerId={player.id} />
           </div>
-          {isPlayerMe ? (
-            <Description value={player.description} />
-          ) : (
-            player.description && (
-              <p className="text-sm">{player.description}</p>
-            )
-          )}
+          <div className="mb-4">
+            {isPlayerMe ? (
+              <Description value={player.description} />
+            ) : (
+              player.description && (
+                <p className="text-sm">{player.description}</p>
+              )
+            )}
+          </div>
+          <PlayerVote playerId={player.id} />
           <div className="divider my-1" />
           <p className="mt-2 text-xs font-bold">
             {'Member since: '}
