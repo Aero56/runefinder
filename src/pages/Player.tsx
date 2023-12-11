@@ -6,6 +6,7 @@ import { getCombatLevel } from '../utils/common';
 import Comments from 'components/Comments';
 import Description from 'components/Description';
 import PlayerVote from 'components/PlayerVote';
+import Rankings from 'components/Rankings';
 import Stats from 'components/Stats';
 import { useAuth } from 'contexts/AuthContext';
 import useUserQuery from 'hooks/queries/useUserQuery';
@@ -68,7 +69,12 @@ const Player = () => {
             </span>
           </p>
         </div>
-        {player.stats && <Stats stats={player.stats} />}
+        {player.stats && (
+          <>
+            <Stats stats={player.stats} />
+            <Rankings stats={player.stats} />
+          </>
+        )}
         <Comments userId={player.id} />
       </div>
     </div>

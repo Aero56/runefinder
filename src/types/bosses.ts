@@ -1,8 +1,13 @@
 export interface Bosses {
-  nex: Boss;
+  theatreOfBlood: Boss;
+  theatreOfBloodHardMode: Boss;
+  tombsOfAmascut: Boss;
+  tombsOfAmascutExpertMode: Boss;
+  chambersOfXeric: Boss;
+  chambersOfXericChallengeMode: Boss;
 }
 
 interface Boss {
   rank: number;
-  kills: number;
+  score: number;
 }

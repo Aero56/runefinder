@@ -35,10 +35,10 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
   const isPlayerMe = user?.id === playerId;
 
   return (
-    <div className="mx-auto flex max-w-xs items-center justify-between gap-4 rounded-lg bg-black-pearl-950 p-3">
+    <div className="mx-auto flex max-w-xs items-center justify-between gap-4 rounded-xl bg-black-pearl-950 p-3">
       <button
         onClick={() => handleVote(playerVote === -1 ? 0 : -1)}
-        className={`hover:bg-overhead bg-center bg-no-repeat ${
+        className={`bg-center bg-no-repeat hover:bg-overhead ${
           playerVote === -1 ? 'bg-overhead' : ''
         } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
       >
@@ -60,7 +60,7 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
       </p>
       <button
         onClick={() => handleVote(playerVote === 1 ? 0 : 1)}
-        className={`hover:bg-overhead bg-center bg-no-repeat ${
+        className={`bg-center bg-no-repeat hover:bg-overhead ${
           playerVote === 1 ? 'bg-overhead' : ''
         } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
       >
