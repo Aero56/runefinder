@@ -1,3 +1,5 @@
+import { getRaidScore } from '../utils/common';
+
 import { Bosses } from 'types/bosses';
 import { Stats } from 'types/stats';
 
@@ -42,7 +44,16 @@ const Rankings = ({ stats }: RankingsProps) => {
       <div className="w-full">
         <div className="p-4">
           {rankings.filter(Boolean).length ? (
-            <div className="flex flex-wrap gap-2">{rankings}</div>
+            <>
+              <div className="flex flex-col items-center">
+                <h2 className="font-semibold">Raid score</h2>
+                <p className="text-4xl font-bold text-anzac-400">
+                  {getRaidScore(stats.bosses)}
+                </p>
+              </div>
+              <div className="divider my-4" />
+              <div className="flex flex-wrap gap-2">{rankings}</div>
+            </>
           ) : (
             <p className="p-4 text-center text-black-pearl-200/40">
               This player is not ranked on anything yet.
