@@ -5,6 +5,7 @@ export interface Bosses {
   tombsOfAmascutExpertMode: Boss;
   chambersOfXeric: Boss;
   chambersOfXericChallengeMode: Boss;
+  tzKalZuk: Boss;
 }
 
 interface Boss {

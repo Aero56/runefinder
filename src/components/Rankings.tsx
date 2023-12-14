@@ -7,7 +7,7 @@ interface RankingsProps {
   stats: Stats;
 }
 
-const RANKINGS: { [key in keyof Bosses]: { label: string } } = {
+const RANKINGS: { [key in keyof Partial<Bosses>]: { label: string } } = {
   theatreOfBlood: { label: 'Theatre of Blood' },
   theatreOfBloodHardMode: { label: 'Theatre of Blood (Hard mode)' },
   chambersOfXeric: { label: 'Chambers of Xeric' },

@@ -5,6 +5,7 @@ import { getCombatLevel } from '../utils/common';
 
 import Comments from 'components/Comments';
 import Description from 'components/Description';
+import PlayerBadges from 'components/PlayerBadges';
 import PlayerVote from 'components/PlayerVote';
 import Rankings from 'components/Rankings';
 import Stats from 'components/Stats';
@@ -61,6 +62,7 @@ const Player = () => {
             )}
           </div>
           <PlayerVote playerId={player.id} />
+          {player.stats && <PlayerBadges stats={player.stats} />}
           <div className="divider my-1" />
           <p className="mt-2 text-xs font-bold">
             {'Member since: '}
