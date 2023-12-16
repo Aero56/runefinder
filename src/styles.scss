@@ -3,3 +3,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.black-pearl.900');
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme('colors.black-pearl.800');
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.black-pearl.700');
+}
