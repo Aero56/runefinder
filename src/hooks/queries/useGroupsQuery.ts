@@ -30,8 +30,6 @@ const useGroupsQuery = (
     async ({ pageParam = 1 }) => {
       const offset = RECORD_LIMIT * pageParam;
 
-      console.log(pageParam);
-
       let query = supabase
         .from('groups')
         .select(

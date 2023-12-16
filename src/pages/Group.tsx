@@ -54,6 +54,10 @@ const Group = () => {
         },
       )
       .subscribe();
+
+    return () => {
+      supabase.channel('table-db-changes').unsubscribe();
+    };
   }, [id, user]);
 
   if (isLoading) {
