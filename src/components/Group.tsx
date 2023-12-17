@@ -2,7 +2,7 @@ import { UserIcon } from '@heroicons/react/20/solid';
 import {
   ArrowUturnLeftIcon,
   ArrowUturnRightIcon,
-  XMarkIcon,
+  LockClosedIcon,
 } from '@heroicons/react/24/outline';
 import { MouseEvent, useMemo } from 'react';
 import toast from 'react-hot-toast/headless';
@@ -171,7 +171,7 @@ const Group = ({ group }: GroupProps) => {
             {!isUpdateUserLoading ? (
               <div className="flex items-center justify-between gap-2">
                 <p className="hidden xs:block">Close</p>
-                <XMarkIcon className="h-6 w-6 rounded p-1 xs:h-5 xs:w-5 xs:bg-red-500/20 [&>path]:stroke-[2.5]" />
+                <LockClosedIcon className="h-6 w-6 rounded p-1 xs:h-5 xs:w-5 xs:bg-red-500/20 [&>path]:stroke-[2.5]" />
               </div>
             ) : (
               <span className="loading loading-spinner"></span>

@@ -11,7 +11,9 @@ const useGroupQuery = (id: string, options?: UseQueryOptions<Group | null>) => {
     async () => {
       const { data } = await supabase
         .from('groups')
-        .select('*, users!users_group_id_fkey(id, username)')
+        .select(
+          '*, users!users_group_id_fkey(id, username), type!inner(id, name)',
+        )
         .eq('id', id)
         .single<Group>();
 
