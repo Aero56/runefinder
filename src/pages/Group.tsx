@@ -103,7 +103,7 @@ const Group = () => {
   const playersNeeded = group.size - group.users.length;
 
   return (
-    <div className="container flex flex-col gap-4 pt-4">
+    <div className="container mb-4 flex flex-col gap-4 pt-4">
       <div className="flex justify-end">
         {group.created_by.id === user?.id ? (
           <button
@@ -166,7 +166,9 @@ const Group = () => {
           ></img>
           <div className="absolute h-44 w-full shadow-[inset_0_-80px_80px_0px_theme(colors.black-pearl.900)]" />
           <div className="absolute flex h-full flex-col justify-end p-4">
-            <p className="text-lg font-bold">{group.type.name}</p>
+            <p className="text-lg font-bold text-anzac-400">
+              {group.type.name}
+            </p>
             <p className="line-clamp-2 text-3xl font-bold">{group.name}</p>
           </div>
         </div>

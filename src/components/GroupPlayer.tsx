@@ -25,7 +25,7 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
           {isHost && (
             <div className="badge badge-primary font-semibold">Host</div>
           )}
-          <p className="text-xl">{player.username}</p>
+          <p className="text-xl font-semibold">{player.username}</p>
         </div>
         <div className="flex flex-wrap gap-1">
           {activityStats.score && (
