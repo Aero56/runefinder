@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { getCombatLevel, getRaidScore } from '../utils/common';
 
 import { Bosses } from 'types/bosses';
@@ -10,10 +12,15 @@ interface GroupPlayerProps {
 }
 
 const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
+  const navigate = useNavigate();
+
   const activityStats = player.stats.bosses[group.type.value as keyof Bosses];
 
   return (
-    <div className="flex gap-2 rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950 p-4">
+    <div
+      className="flex cursor-pointer gap-2 rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950 p-4 transition-colors hover:bg-black-pearl-950/30"
+      onClick={() => navigate(`/player/${player.id}`)}
+    >
       <div className="flex w-16 flex-col items-center justify-center">
         <p className="text-xl font-bold text-anzac-400">
           {getRaidScore(player.stats!.bosses)}
