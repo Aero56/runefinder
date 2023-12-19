@@ -28,7 +28,10 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
           <p className="text-xl font-semibold">{player.username}</p>
         </div>
         <div className="flex flex-wrap gap-1">
-          {activityStats.score && (
+          {activityStats.score === -1 && activityStats.rank === -1 && (
+            <div className="badge bg-black-pearl-800">Unranked</div>
+          )}
+          {activityStats.score !== -1 && (
             <div className="badge bg-black-pearl-800">
               {activityStats.score === -1 ? 0 : activityStats.score} kills
             </div>
