@@ -160,7 +160,7 @@ const Group = ({ group }: GroupProps) => {
           </div>
         </div>
 
-        {group.created_by === user?.id ? (
+        {group.created_by.id === user?.id ? (
           <button
             className="btn w-12 rounded-full border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50 xs:w-24 xs:rounded-btn"
             onClick={(event: MouseEvent) => {

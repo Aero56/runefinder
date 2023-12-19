@@ -33,7 +33,7 @@ const useGroupsQuery = (
       let query = supabase
         .from('groups')
         .select(
-          '*, users!users_group_id_fkey(id, username), type!inner(id, name)',
+          '*, users!users_group_id_fkey(id, username, stats), type!inner(id, name, value), created_by!inner(id, username, stats)',
         )
         .eq('status', 'open')
         .range(offset - RECORD_LIMIT, offset - 1);
