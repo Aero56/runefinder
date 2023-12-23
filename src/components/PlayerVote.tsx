@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast/headless';
+import { useNavigate } from 'react-router-dom';
 
 import queryClient from 'api/queryClient';
 import { useAuth } from 'contexts/AuthContext';
@@ -12,6 +13,7 @@ interface PlayerVoteProps {
 
 const PlayerVote = ({ playerId }: PlayerVoteProps) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const { mutateAsync } = usePlayerVoteMutation();
 
@@ -19,6 +21,11 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
   const { data: totalVotes } = usePlayerTotalVotesQuery(playerId);
 
   const handleVote = async (vote: number) => {
+    if (!user) {
+      navigate('?signin');
+      return;
+    }
+
     try {
       await mutateAsync({ playerId, vote }).then(() => {
         queryClient.setQueryData(['playerVote', playerId, user?.id], vote);

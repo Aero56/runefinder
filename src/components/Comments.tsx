@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast/headless';
+import { useNavigate } from 'react-router-dom';
 
 import Comment from './Comment';
 import Pagination from './Pagination';
 
 import queryClient from 'api/queryClient';
+import { useAuth } from 'contexts/AuthContext';
 import useCommentMutation from 'hooks/mutations/useCommentMutation';
 import useCommentsQuery, { RECORD_LIMIT } from 'hooks/queries/useCommentsQuery';
 
@@ -20,6 +22,9 @@ interface FormData {
 }
 
 const Comments = ({ userId }: CommentsProps) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const [page, setPage] = useState(1);
   const { data, isLoading } = useCommentsQuery({ userId, page });
 
@@ -31,6 +36,11 @@ const Comments = ({ userId }: CommentsProps) => {
   });
 
   const onSubmit = async (data: FormData) => {
+    if (!user) {
+      navigate('?signin');
+      return;
+    }
+
     try {
       await addComment({
         userId: userId,
