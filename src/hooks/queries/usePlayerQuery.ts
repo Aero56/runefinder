@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { supabase } from 'api/supabase';
 import { useAuth } from 'contexts/AuthContext';
+import { Player } from 'types/player';
 
 const usePlayerQuery = (id?: string) => {
   const { user } = useAuth();
@@ -10,7 +11,7 @@ const usePlayerQuery = (id?: string) => {
 
   const queryKey = ['player', userId];
 
-  return useQuery(queryKey, async () => {
+  return useQuery<Player | null>(queryKey, async () => {
     if (!userId) {
       return null;
     }
@@ -19,7 +20,7 @@ const usePlayerQuery = (id?: string) => {
       .from('users')
       .select('*, stats:statistics!statistics_id_fkey(*)')
       .eq('id', userId)
-      .single();
+      .single<Player>();
 
     return data;
   });

@@ -8,14 +8,14 @@ import {
 } from 'react';
 
 import { supabase } from 'api/supabase';
-import useUserQuery from 'hooks/queries/useUserQuery';
-import { Tables } from 'types/supabase';
+import usePlayerQuery from 'hooks/queries/usePlayerQuery';
+import { Player } from 'types/player';
 
 interface AuthContext {
   session: Session | null;
   user: User | null;
   loading: boolean;
-  data?: Tables<'users'> | null;
+  data?: Player | null;
 }
 
 const AuthContext = createContext<AuthContext>({
@@ -32,7 +32,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const { data } = useUserQuery(user?.id);
+  const { data } = usePlayerQuery(user?.id);
 
   useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {

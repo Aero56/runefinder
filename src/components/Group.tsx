@@ -1,13 +1,15 @@
 import { UserIcon } from '@heroicons/react/20/solid';
 import {
-  ArrowUturnLeftIcon,
-  ArrowUturnRightIcon,
+  ArrowLeftOnRectangleIcon,
+  ArrowRightOnRectangleIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/outline';
 import { MouseEvent, useMemo } from 'react';
 import toast from 'react-hot-toast/headless';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
+
+import { canJoinGroup } from '../utils/groups';
 
 import { DIALOG_SET_USERNAME } from './Dialogs/SetUsername';
 import { EXPERIENCE_TYPES } from './ExperienceSelect';
@@ -176,8 +178,8 @@ const Group = ({ group }: GroupProps) => {
           >
             {!isUpdateUserLoading ? (
               <div className="flex items-center justify-between gap-2">
+                <LockClosedIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
                 <p className="hidden xs:block">Close</p>
-                <LockClosedIcon className="h-6 w-6 rounded p-1 xs:h-5 xs:w-5 xs:bg-red-500/20 [&>path]:stroke-[2.5]" />
               </div>
             ) : (
               <span className="loading loading-spinner"></span>
@@ -193,8 +195,8 @@ const Group = ({ group }: GroupProps) => {
           >
             {!isUpdateUserLoading ? (
               <div className="flex items-center justify-between gap-2">
+                <ArrowRightOnRectangleIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
                 <p className="hidden xs:block">Leave</p>
-                <ArrowUturnLeftIcon className="h-6 w-6 rounded p-1 xs:h-5 xs:w-5 xs:bg-red-500/20 [&>path]:stroke-[2.5]" />
               </div>
             ) : (
               <span className="loading loading-spinner"></span>
@@ -202,16 +204,17 @@ const Group = ({ group }: GroupProps) => {
           </button>
         ) : (
           <button
-            className="btn w-12 rounded-full border-black-pearl-700 bg-black-pearl-800 hover:border-black-pearl-700 hover:bg-black-pearl-700 xs:w-24 xs:rounded-btn"
+            className="btn w-12 rounded-full border-black-pearl-700 bg-black-pearl-800 hover:border-black-pearl-700 hover:bg-black-pearl-700 disabled:bg-black-pearl-800 xs:w-24 xs:rounded-btn"
             onClick={(event: MouseEvent) => {
               event.stopPropagation();
               handleJoinGroup(group);
             }}
+            disabled={data?.stats ? !canJoinGroup(group, data) : false}
           >
             {!isUpdateUserLoading ? (
               <div className="flex items-center justify-between gap-2">
+                <ArrowLeftOnRectangleIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
                 <p className="hidden xs:block">Join</p>
-                <ArrowUturnRightIcon className="h-6 w-6 rounded p-1 xs:h-5 xs:w-5 xs:bg-black-pearl-700 [&>path]:stroke-[2.5]" />
               </div>
             ) : (
               <span className="loading loading-spinner"></span>

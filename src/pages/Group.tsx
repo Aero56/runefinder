@@ -7,6 +7,8 @@ import { MouseEvent, useEffect } from 'react';
 import { toast } from 'react-hot-toast/headless';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { canJoinGroup } from '../utils/groups';
+
 import queryClient from 'api/queryClient';
 import { supabase } from 'api/supabase';
 import { DIALOG_SET_USERNAME } from 'components/Dialogs/SetUsername';
@@ -147,11 +149,12 @@ const Group = () => {
           </button>
         ) : (
           <button
-            className="btn bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300"
+            className="btn bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 disabled:bg-black-pearl-900"
             onClick={(event: MouseEvent) => {
               event.stopPropagation();
               handleJoinGroup(group);
             }}
+            disabled={data?.stats ? !canJoinGroup(group, data) : false}
           >
             {!isUpdateUserLoading ? (
               <>
