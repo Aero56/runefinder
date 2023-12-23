@@ -1,8 +1,6 @@
 import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
 
-import { getCombatLevel } from '../utils/common';
-
 import Comments from 'components/Comments';
 import Description from 'components/Description';
 import PlayerBadges from 'components/PlayerBadges';
@@ -10,14 +8,14 @@ import PlayerVote from 'components/PlayerVote';
 import Rankings from 'components/Rankings';
 import Stats from 'components/Stats';
 import { useAuth } from 'contexts/AuthContext';
-import useUserQuery from 'hooks/queries/useUserQuery';
+import usePlayerQuery from 'hooks/queries/usePlayerQuery';
 
 const Player = () => {
   const { user } = useAuth();
 
   const { id = '' } = useParams();
 
-  const { data: player, isLoading } = useUserQuery(id);
+  const { data: player, isLoading } = usePlayerQuery(id);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -48,7 +46,7 @@ const Player = () => {
             </div>
             {player.stats && (
               <div className="badge badge-primary font-semibold">
-                {getCombatLevel(player.stats.skills)}
+                {player.stats.combat}
               </div>
             )}
           </div>

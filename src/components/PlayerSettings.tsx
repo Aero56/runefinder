@@ -37,6 +37,7 @@ const PlayerSettings = () => {
     }
 
     queryClient.invalidateQueries(['user', user?.id]);
+    queryClient.invalidateQueries(['player', user?.id]);
   };
 
   return (

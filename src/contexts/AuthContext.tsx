@@ -9,13 +9,13 @@ import {
 
 import { supabase } from 'api/supabase';
 import useUserQuery from 'hooks/queries/useUserQuery';
-import { Table } from 'types/supabase';
+import { Tables } from 'types/supabase';
 
 interface AuthContext {
   session: Session | null;
   user: User | null;
   loading: boolean;
-  data?: Table<'users'> | null;
+  data?: Tables<'users'> | null;
 }
 
 const AuthContext = createContext<AuthContext>({

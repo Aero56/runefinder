@@ -1,8 +1,8 @@
 import { Skills } from 'types/skills';
-import { Stats as StatsType } from 'types/stats';
+import { Tables } from 'types/supabase';
 
 interface StatsProps {
-  stats: StatsType;
+  stats: Tables<'statistics'>;
 }
 
 const SKILLS: Array<keyof Skills> = [

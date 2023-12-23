@@ -126,7 +126,7 @@ const Select = <T extends OptionValue>({
         <FloatingPortal>
           <FloatingFocusManager context={context} modal={false}>
             <div
-              className={`menu z-50 block w-56 overflow-y-auto rounded-box ${
+              className={`menu z-50 block w-56 overflow-y-auto rounded-box shadow-md ${
                 tint === 'dark' ? 'bg-black-pearl-950' : 'bg-black-pearl-900'
               }`}
               ref={refs.setFloating}

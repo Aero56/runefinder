@@ -1,13 +1,12 @@
-import { Stats } from './stats';
-import { Table } from './supabase';
+import { Tables } from './supabase';
 
 export interface GroupUser {
   id: string;
   username: string;
-  stats: Stats;
+  stats: Tables<'statistics'> | null;
 }
 
-export interface Group extends Omit<Table<'groups'>, 'type' | 'created_by'> {
+export interface Group extends Omit<Tables<'groups'>, 'type' | 'created_by'> {
   users: GroupUser[];
   type: {
     id: string;

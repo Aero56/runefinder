@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { supabase } from 'api/supabase';
-import { Table } from 'types/supabase';
+import { Tables } from 'types/supabase';
 
 export const RECORD_LIMIT = 10;
 
 export interface Comment
-  extends Omit<Table<'comments'>, 'commenter_id' | 'user_id'> {
+  extends Omit<Tables<'comments'>, 'commenter_id' | 'user_id'> {
   commenter: {
     id: string;
     username: string | null;

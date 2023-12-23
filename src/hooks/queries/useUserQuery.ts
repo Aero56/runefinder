@@ -2,11 +2,11 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { supabase } from 'api/supabase';
 import { useAuth } from 'contexts/AuthContext';
-import { Table } from 'types/supabase';
+import { Tables } from 'types/supabase';
 
 const useUserQuery = (
   id?: string,
-  options?: UseQueryOptions<Table<'users'> | null>,
+  options?: UseQueryOptions<Tables<'users'> | null>,
 ) => {
   const { user } = useAuth();
 
@@ -14,7 +14,7 @@ const useUserQuery = (
 
   const queryKey = ['user', userId];
 
-  return useQuery<Table<'users'> | null>(
+  return useQuery<Tables<'users'> | null>(
     queryKey,
     async () => {
       if (!userId) {

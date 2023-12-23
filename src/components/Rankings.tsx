@@ -1,10 +1,8 @@
-import { getRaidScore } from '../utils/common';
-
 import { Bosses } from 'types/bosses';
-import { Stats } from 'types/stats';
+import { Tables } from 'types/supabase';
 
 interface RankingsProps {
-  stats: Stats;
+  stats: Tables<'statistics'>;
 }
 
 const RANKINGS: { [key in keyof Partial<Bosses>]: { label: string } } = {
@@ -20,7 +18,7 @@ const Rankings = ({ stats }: RankingsProps) => {
   const rankings = Object.entries(RANKINGS).map(([key, ranking]) => {
     const boss = stats.bosses[key as keyof Bosses];
 
-    if (!boss || boss.score === -1) {
+    if (!boss.score) {
       return null;
     }
 
@@ -48,7 +46,7 @@ const Rankings = ({ stats }: RankingsProps) => {
               <div className="flex flex-col items-center">
                 <h2 className="font-semibold">Raid score</h2>
                 <p className="text-4xl font-bold text-anzac-400">
-                  {getRaidScore(stats.bosses)}
+                  {stats.raid_score}
                 </p>
               </div>
               <div className="divider my-4" />

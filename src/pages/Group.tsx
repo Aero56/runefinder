@@ -207,7 +207,7 @@ const Group = () => {
           {group.users
             .filter((user) => user.id !== group.created_by.id)
             .map((user) => (
-              <GroupPlayer group={group} player={user} />
+              <GroupPlayer key={user.id} group={group} player={user} />
             ))}
           {[...Array(playersNeeded)].map((_, index) => (
             <div

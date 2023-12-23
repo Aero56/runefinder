@@ -9,6 +9,6 @@ export interface Bosses {
 }
 
 interface Boss {
-  rank: number;
-  score: number;
+  rank: number | null;
+  score: number | null;
 }

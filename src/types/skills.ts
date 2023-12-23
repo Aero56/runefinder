@@ -27,6 +27,6 @@ export interface Skills {
 
 export interface Skill {
   level: number;
-  rank: number;
+  rank: number | null;
   xp: number;
 }

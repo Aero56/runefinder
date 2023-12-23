@@ -2,8 +2,6 @@ import { MouseEvent } from 'react';
 import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
 
-import { getCombatLevel, getRaidScore } from '../utils/common';
-
 import queryClient from 'api/queryClient';
 import { useAuth } from 'contexts/AuthContext';
 import useKickPlayerMutation from 'hooks/mutations/useKickPlayerMutation';
@@ -39,7 +37,7 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
     queryClient.invalidateQueries(['group', group.id]);
   };
 
-  const activityStats = player.stats.bosses[group.type.value as keyof Bosses];
+  const activityStats = player.stats?.bosses[group.type.value as keyof Bosses];
 
   return (
     <div
@@ -49,7 +47,7 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
       <div className="flex">
         <div className="flex w-16 flex-col items-center justify-center">
           <p className="text-xl font-bold text-anzac-400">
-            {getRaidScore(player.stats!.bosses)}
+            {player.stats?.raid_score}
           </p>
         </div>
         <div className="divider divider-horizontal mx-0"></div>
@@ -61,21 +59,21 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
             <p className="text-xl font-semibold">{player.username}</p>
           </div>
           <div className="flex flex-wrap gap-1">
-            {activityStats.score === -1 && activityStats.rank === -1 && (
+            {!activityStats?.score && !activityStats?.rank && (
               <div className="badge bg-black-pearl-800">Unranked</div>
             )}
-            {activityStats.score !== -1 && (
+            {activityStats?.score && (
               <div className="badge bg-black-pearl-800">
-                {activityStats.score === -1 ? 0 : activityStats.score} kills
+                {activityStats.score} kills
               </div>
             )}
-            {activityStats.rank !== -1 && (
+            {activityStats?.rank && (
               <div className="badge bg-black-pearl-800">
                 #{activityStats.rank}
               </div>
             )}
             <div className="badge bg-black-pearl-800">
-              Combat level {getCombatLevel(player.stats!.skills)}
+              Combat level {player.stats?.combat}
             </div>
           </div>
         </div>

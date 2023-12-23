@@ -1,20 +1,10 @@
-import { Stats } from './stats';
+import { Bosses } from './bosses';
+import { Skills } from './skills';
 
 export enum AuthProviders {
   Google = 'google',
   Discord = 'discord',
 }
-
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
-
-export type Table<T extends keyof Database['public']['Tables']> =
-  Database['public']['Tables'][T]['Row'];
 
 export type QueryModifiers = {
   order?: {
@@ -26,6 +16,14 @@ export type QueryModifiers = {
     };
   };
 };
+
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
 
 export interface Database {
   public: {
@@ -41,7 +39,7 @@ export interface Database {
           id?: number;
           max_size: number;
           name: string;
-          value?: string;
+          value: string;
         };
         Update: {
           id?: number;
@@ -198,6 +196,41 @@ export interface Database {
           },
         ];
       };
+      statistics: {
+        Row: {
+          bosses: Bosses;
+          combat: number;
+          created_at: string;
+          id: string;
+          raid_score: number;
+          skills: Skills;
+        };
+        Insert: {
+          bosses: Bosses;
+          combat: number;
+          created_at?: string;
+          id: string;
+          raid_score: number;
+          skills: Skills;
+        };
+        Update: {
+          bosses?: Bosses;
+          combat?: number;
+          created_at?: string;
+          id?: string;
+          raid_score?: number;
+          skills?: Skills;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'statistics_id_fkey';
+            columns: ['id'];
+            isOneToOne: true;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       user_badges: {
         Row: {
           badge_id: number;
@@ -238,7 +271,6 @@ export interface Database {
           group_id: string | null;
           id: string;
           mode: Database['public']['Enums']['user_mode_enum'] | null;
-          stats: Stats | null;
           username: string | null;
         };
         Insert: {
@@ -247,7 +279,6 @@ export interface Database {
           group_id?: string | null;
           id: string;
           mode?: Database['public']['Enums']['user_mode_enum'] | null;
-          stats?: Stats | null;
           username?: string | null;
         };
         Update: {
@@ -256,7 +287,6 @@ export interface Database {
           group_id?: string | null;
           id?: string;
           mode?: Database['public']['Enums']['user_mode_enum'] | null;
-          stats?: Stats | null;
           username?: string | null;
         };
         Relationships: [
