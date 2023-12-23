@@ -42,10 +42,10 @@ const Player = () => {
         <div className="col-span-1 rounded-xl bg-black-pearl-900 p-4 sm:col-span-2">
           <div className="align mb-2 flex items-center justify-between">
             <div className="flex items-center gap-1">
-              {player.mode && (
+              {player.stats.gamemode && (
                 <img
-                  src={`src/assets/modes/${player.mode}.png`}
-                  alt={`${player.mode} icon`}
+                  src={`src/assets/modes/${player.stats.gamemode}.png`}
+                  alt={`${player.stats.gamemode} icon`}
                   className="h-4 w-4 object-contain"
                 />
               )}

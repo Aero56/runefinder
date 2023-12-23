@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { supabase } from 'api/supabase';
 import { Experience } from 'components/ExperienceSelect';
-import { Mode } from 'components/ModeSelect';
+import { Gamemode } from 'components/ModeSelect';
 import { useAuth } from 'contexts/AuthContext';
 import { Raid } from 'types/raids';
 
@@ -11,7 +11,7 @@ interface GroupMutationProps {
   size: number;
   type: Raid | null;
   level: Experience | null;
-  mode: Mode | null;
+  gamemode: Gamemode | null;
   world: number;
 }
 
@@ -19,7 +19,14 @@ const useGroupMutation = () => {
   const { user } = useAuth();
 
   return useMutation(
-    async ({ name, size, type, level, mode, world }: GroupMutationProps) => {
+    async ({
+      name,
+      size,
+      type,
+      level,
+      gamemode,
+      world,
+    }: GroupMutationProps) => {
       if (!user) {
         throw new Error('You must be logged in to do this.');
       }
@@ -31,8 +38,8 @@ const useGroupMutation = () => {
           size,
           type,
           created_by: user.id,
-          level: level as Experience, // @todo fix these types
-          mode: mode as Mode,
+          level,
+          gamemode,
           world,
         })
         .select('id')

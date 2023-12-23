@@ -15,7 +15,7 @@ import ActivitySelect from 'components/ActivitySelect';
 import DialogFooter from 'components/Dialog/DialogFooter';
 import DialogHeader from 'components/Dialog/DialogHeader';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
-import ModeSelect, { Mode } from 'components/ModeSelect';
+import ModeSelect, { Gamemode } from 'components/ModeSelect';
 import { useAuth } from 'contexts/AuthContext';
 import useGroupMutation from 'hooks/mutations/useGroupMutation';
 import { Raid } from 'types/raids';
@@ -29,7 +29,7 @@ interface FormData {
   size: string;
   experience: Option<Experience | null>;
   world: number;
-  mode: Option<Mode | null>;
+  gamemode: Option<Gamemode | null>;
 }
 
 const CreateParty = () => {
@@ -76,7 +76,7 @@ const CreateParty = () => {
           : DEFAULT_SIZE,
         type: data.activity?.value ?? null,
         level: data.experience?.value ?? null,
-        mode: data.mode?.value ?? null,
+        gamemode: data.gamemode?.value ?? null,
         world: data.world,
       });
     } catch (error) {
@@ -215,7 +215,7 @@ const CreateParty = () => {
             </label>
             <Controller
               control={control}
-              name="mode"
+              name="gamemode"
               render={({ field: { onChange, value } }) => (
                 <ModeSelect
                   value={value}

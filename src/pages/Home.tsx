@@ -5,7 +5,7 @@ import ActivitySelect from 'components/ActivitySelect';
 import CreateParty from 'components/Dialogs/CreateParty';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
 import Group from 'components/Group';
-import ModeSelect, { Mode } from 'components/ModeSelect';
+import ModeSelect, { Gamemode } from 'components/ModeSelect';
 import { Option } from 'components/Select';
 import { useAuth } from 'contexts/AuthContext';
 import useGroupsQuery from 'hooks/queries/useGroupsQuery';
@@ -22,9 +22,8 @@ const Home = () => {
     useState<Option<Raid | null> | null>(null);
   const [selectedLevel, setSelectedLevel] =
     useState<Option<Experience | null> | null>(null);
-  const [selectedMode, setSelectedMode] = useState<Option<Mode | null> | null>(
-    null,
-  );
+  const [selectedMode, setSelectedMode] =
+    useState<Option<Gamemode | null> | null>(null);
 
   const { ref, inView } = useInView();
 
@@ -43,7 +42,7 @@ const Home = () => {
       name: debouncedValue ? debouncedValue.trim() : undefined,
       type: selectedActivity?.value ? selectedActivity.value : undefined,
       level: selectedLevel?.value ? selectedLevel.value : undefined,
-      mode: selectedMode?.value ? selectedMode.value : undefined,
+      gamemode: selectedMode?.value ? selectedMode.value : undefined,
     },
     {
       order: { column: 'updated_at', options: { ascending: false } },
@@ -59,7 +58,7 @@ const Home = () => {
     setSelectedLevel(selected);
   };
 
-  const handleChangeMode = (selected: Option<Mode | null>) => {
+  const handleChangeMode = (selected: Option<Gamemode | null>) => {
     setSelectedMode(selected);
   };
 

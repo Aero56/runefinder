@@ -12,7 +12,7 @@ import { supabase } from 'api/supabase';
 import { DIALOG_SET_USERNAME } from 'components/Dialogs/SetUsername';
 import { EXPERIENCE_TYPES } from 'components/ExperienceSelect';
 import GroupPlayer from 'components/GroupPlayer';
-import { MODES } from 'components/ModeSelect';
+import { GAMEMODES } from 'components/ModeSelect';
 import { useAuth } from 'contexts/AuthContext';
 import useUpdateUserMutation from 'hooks/mutations/useUpdateUserMutation';
 import useGroupQuery from 'hooks/queries/useGroupQuery';
@@ -189,9 +189,9 @@ const Group = () => {
                 }
               </div>
             )}
-            {group.mode && (
+            {group.gamemode && (
               <div className="badge badge-outline border-red-500 text-red-500">
-                {MODES.find((type) => type.value === group.mode)?.label}
+                {GAMEMODES.find((type) => type.value === group.gamemode)?.label}
               </div>
             )}
           </div>

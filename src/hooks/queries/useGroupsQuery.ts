@@ -5,7 +5,7 @@ import {
 
 import { supabase } from 'api/supabase';
 import { Experience } from 'components/ExperienceSelect';
-import { Mode } from 'components/ModeSelect';
+import { Gamemode } from 'components/ModeSelect';
 import { Group } from 'types/groups';
 import { QueryModifiers } from 'types/supabase';
 
@@ -15,7 +15,7 @@ interface Filters {
   name?: string;
   type?: number;
   level?: Experience;
-  mode?: Mode;
+  gamemode?: Gamemode;
 }
 
 const useGroupsQuery = (
@@ -50,8 +50,8 @@ const useGroupsQuery = (
         query = query.eq('level', filters.level);
       }
 
-      if (filters?.mode) {
-        query = query.eq('mode', filters.mode);
+      if (filters?.gamemode) {
+        query = query.eq('gamemode', filters.gamemode);
       }
 
       if (modifiers?.order) {

@@ -56,7 +56,16 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
             {isHost && (
               <div className="badge badge-primary font-semibold">Host</div>
             )}
-            <p className="text-xl font-semibold">{player.username}</p>
+            <div className="flex items-center gap-1">
+              {player.stats?.gamemode && (
+                <img
+                  src={`src/assets/modes/${player.stats.gamemode}.png`}
+                  alt={`${player.stats.gamemode} icon`}
+                  className="h-4 w-4 object-contain"
+                />
+              )}
+              <p className="text-xl font-semibold">{player.username}</p>
+            </div>
           </div>
           <div className="flex flex-wrap gap-1">
             {!activityStats?.score && !activityStats?.rank && (

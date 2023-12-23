@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import Select, { Option, Tint } from './Select';
 
-export enum Mode {
+export enum Gamemode {
   Ironman = 'ironman',
   Hardcore = 'hardcore',
   Ultimate = 'ultimate',
 }
 
-export const MODES = [
+export const GAMEMODES = [
   {
     label: 'Open to anyone',
     value: null,
@@ -16,21 +16,21 @@ export const MODES = [
   },
   {
     label: 'Ironman only',
-    value: Mode.Ironman,
+    value: Gamemode.Ironman,
   },
   {
     label: 'Hardcore Ironman only',
-    value: Mode.Hardcore,
+    value: Gamemode.Hardcore,
   },
   {
     label: 'Ultimate Ironman only',
-    value: Mode.Ultimate,
+    value: Gamemode.Ultimate,
   },
 ];
 
 interface ExperienceSelectProps {
-  value: Option<Mode | null> | null;
-  onChange: (value: Option<Mode | null>) => void;
+  value: Option<Gamemode | null> | null;
+  onChange: (value: Option<Gamemode | null>) => void;
   className?: string;
   tint?: Tint;
 }
@@ -41,11 +41,11 @@ const ModeSelect = ({
   className,
   tint,
 }: ExperienceSelectProps) => {
-  const [selected, setSelected] = useState<Option<Mode | null>>(
-    value ?? MODES[0],
+  const [selected, setSelected] = useState<Option<Gamemode | null>>(
+    value ?? GAMEMODES[0],
   );
 
-  const handleChange = (value: Option<Mode | null>[]) => {
+  const handleChange = (value: Option<Gamemode | null>[]) => {
     onChange(value[0]);
     setSelected(value[0]);
   };
@@ -54,7 +54,7 @@ const ModeSelect = ({
     <Select
       value={[selected]}
       onChange={handleChange}
-      options={MODES}
+      options={GAMEMODES}
       placeholder="Select mode"
       className={className}
       tint={tint}

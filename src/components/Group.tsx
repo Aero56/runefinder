@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { DIALOG_SET_USERNAME } from './Dialogs/SetUsername';
 import { EXPERIENCE_TYPES } from './ExperienceSelect';
-import { MODES } from './ModeSelect';
+import { GAMEMODES } from './ModeSelect';
 
 import queryClient from 'api/queryClient';
 import { useAuth } from 'contexts/AuthContext';
@@ -158,9 +158,9 @@ const Group = ({ group }: GroupProps) => {
                 }
               </div>
             )}
-            {group.mode && (
+            {group.gamemode && (
               <div className="badge badge-outline border-red-500 text-red-500">
-                {MODES.find((type) => type.value === group.mode)?.label}
+                {GAMEMODES.find((type) => type.value === group.gamemode)?.label}
               </div>
             )}
           </div>

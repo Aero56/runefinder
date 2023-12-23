@@ -107,9 +107,9 @@ export interface Database {
         Row: {
           created_at: string;
           created_by: string;
+          gamemode: Database['public']['Enums']['group_mode_enum'] | null;
           id: string;
           level: Database['public']['Enums']['group_level_enum'] | null;
-          mode: Database['public']['Enums']['group_mode_enum'] | null;
           name: string;
           size: number;
           status: Database['public']['Enums']['group_status_enum'];
@@ -120,9 +120,9 @@ export interface Database {
         Insert: {
           created_at?: string;
           created_by: string;
+          gamemode?: Database['public']['Enums']['group_mode_enum'] | null;
           id?: string;
           level?: Database['public']['Enums']['group_level_enum'] | null;
-          mode?: Database['public']['Enums']['group_mode_enum'] | null;
           name: string;
           size: number;
           status?: Database['public']['Enums']['group_status_enum'];
@@ -133,9 +133,9 @@ export interface Database {
         Update: {
           created_at?: string;
           created_by?: string;
+          gamemode?: Database['public']['Enums']['group_mode_enum'] | null;
           id?: string;
           level?: Database['public']['Enums']['group_level_enum'] | null;
-          mode?: Database['public']['Enums']['group_mode_enum'] | null;
           name?: string;
           size?: number;
           status?: Database['public']['Enums']['group_status_enum'];
@@ -201,6 +201,7 @@ export interface Database {
           bosses: Bosses;
           combat: number;
           created_at: string;
+          gamemode: Database['public']['Enums']['gamemode_enum'] | null;
           id: string;
           raid_score: number;
           skills: Skills;
@@ -209,6 +210,7 @@ export interface Database {
           bosses: Bosses;
           combat: number;
           created_at?: string;
+          gamemode?: Database['public']['Enums']['gamemode_enum'] | null;
           id: string;
           raid_score: number;
           skills: Skills;
@@ -217,6 +219,7 @@ export interface Database {
           bosses?: Bosses;
           combat?: number;
           created_at?: string;
+          gamemode?: Database['public']['Enums']['gamemode_enum'] | null;
           id?: string;
           raid_score?: number;
           skills?: Skills;
@@ -270,7 +273,6 @@ export interface Database {
           description: string | null;
           group_id: string | null;
           id: string;
-          mode: Database['public']['Enums']['user_mode_enum'] | null;
           username: string | null;
         };
         Insert: {
@@ -278,7 +280,6 @@ export interface Database {
           description?: string | null;
           group_id?: string | null;
           id: string;
-          mode?: Database['public']['Enums']['user_mode_enum'] | null;
           username?: string | null;
         };
         Update: {
@@ -286,7 +287,6 @@ export interface Database {
           description?: string | null;
           group_id?: string | null;
           id?: string;
-          mode?: Database['public']['Enums']['user_mode_enum'] | null;
           username?: string | null;
         };
         Relationships: [
@@ -317,12 +317,16 @@ export interface Database {
         };
         Returns: number;
       };
+      has_player_data: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
     };
     Enums: {
+      gamemode_enum: 'ironman' | 'hardcore' | 'ultimate';
       group_level_enum: 'beginner' | 'average' | 'experienced';
       group_mode_enum: 'ironman' | 'hardcore' | 'ultimate';
       group_status_enum: 'open' | 'closed';
-      user_mode_enum: 'main' | 'ironman' | 'hardcore' | 'ultimate';
     };
     CompositeTypes: {
       [_ in never]: never;
