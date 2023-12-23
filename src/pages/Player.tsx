@@ -12,17 +12,26 @@ import usePlayerQuery from 'hooks/queries/usePlayerQuery';
 
 const Player = () => {
   const { user } = useAuth();
-
   const { id = '' } = useParams();
-
   const { data: player, isLoading } = usePlayerQuery(id);
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
-  if (!player?.username) {
-    return <p>This player does not exist on RuneFinder.</p>;
+  if (!player?.stats) {
+    return (
+      <div className="flex h-[calc(100vh-128px)] items-center justify-center sm:h-[calc(100vh-64px)]">
+        <div className="flex flex-col gap-3 p-4 text-center">
+          <h1 className="text-4xl font-bold text-anzac-400 sm:text-6xl">
+            Oops!
+          </h1>
+          <p className="text-xl sm:text-2xl">
+            This player does not exist on RuneFinder.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   const isPlayerMe = player.id === user?.id;

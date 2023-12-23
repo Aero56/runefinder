@@ -2,6 +2,7 @@ import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 import Auth from 'components/Auth';
 import BottomNavigation from 'components/BottomNavigation';
+import SetUsername from 'components/Dialogs/SetUsername';
 import Header from 'components/Header';
 import Notifications from 'components/Notifications';
 import { useAuth } from 'contexts/AuthContext';
@@ -48,6 +49,7 @@ const App = () => {
       </Routes>
 
       <Auth />
+      <SetUsername />
     </div>
   );
 };

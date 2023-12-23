@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog/Dialog';
 import { Option } from '../Select';
 
+import { DIALOG_SET_USERNAME } from './SetUsername';
+
 import queryClient from 'api/queryClient';
 import { supabase } from 'api/supabase';
 import ActivitySelect from 'components/ActivitySelect';
@@ -32,7 +34,7 @@ interface FormData {
 
 const CreateParty = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, data } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -50,6 +52,10 @@ const CreateParty = () => {
   } = useForm<FormData>();
 
   const handleCreateParty = () => {
+    if (!data?.username) {
+      navigate(`?${DIALOG_SET_USERNAME}`);
+      return;
+    }
     setIsOpen(true);
   };
 

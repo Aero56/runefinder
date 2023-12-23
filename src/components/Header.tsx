@@ -7,6 +7,8 @@ import {
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
+import { DIALOG_SET_USERNAME } from './Dialogs/SetUsername';
+
 import { useAuth } from 'contexts/AuthContext';
 
 const Header = () => {
@@ -71,16 +73,27 @@ const Header = () => {
             {shouldShowDivider && (
               <div className="divider divider-horizontal hidden p-2 sm:flex" />
             )}
-            <NavLink
-              to={`/player/${user.id}`}
-              className={({ isActive }) =>
-                `btn btn-ghost hidden w-12 p-0 hover:bg-black-pearl-800 sm:flex ${
-                  isActive ? 'text-anzac-400' : ''
-                }`
-              }
-            >
-              <UserIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
-            </NavLink>
+            {!data?.username ? (
+              <NavLink
+                to={`?${DIALOG_SET_USERNAME}&redirect`}
+                className={
+                  'btn btn-ghost hidden w-12 p-0 hover:bg-black-pearl-800 sm:flex'
+                }
+              >
+                <UserIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
+              </NavLink>
+            ) : (
+              <NavLink
+                to={`/player/${user.id}`}
+                className={({ isActive }) =>
+                  `btn btn-ghost hidden w-12 p-0 hover:bg-black-pearl-800 sm:flex ${
+                    isActive ? 'text-anzac-400' : ''
+                  }`
+                }
+              >
+                <UserIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
+              </NavLink>
+            )}
             <NavLink
               to="/settings"
               className={({ isActive }) =>

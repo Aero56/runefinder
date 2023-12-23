@@ -9,6 +9,7 @@ import toast from 'react-hot-toast/headless';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 
+import { DIALOG_SET_USERNAME } from './Dialogs/SetUsername';
 import { EXPERIENCE_TYPES } from './ExperienceSelect';
 import { MODES } from './ModeSelect';
 
@@ -28,7 +29,7 @@ interface GroupProps {
 }
 
 const Group = ({ group }: GroupProps) => {
-  const { user } = useAuth();
+  const { user, data } = useAuth();
   const navigate = useNavigate();
 
   const isScreenXs = useMediaQuery({ query: `(max-width: ${SCREEN_XS}px)` });
@@ -41,6 +42,11 @@ const Group = ({ group }: GroupProps) => {
   const handleJoinGroup = async (group: GroupType) => {
     if (!user) {
       navigate('?signin');
+      return;
+    }
+
+    if (!data?.username) {
+      navigate(`?${DIALOG_SET_USERNAME}`);
       return;
     }
 

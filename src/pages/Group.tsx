@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import queryClient from 'api/queryClient';
 import { supabase } from 'api/supabase';
+import { DIALOG_SET_USERNAME } from 'components/Dialogs/SetUsername';
 import { EXPERIENCE_TYPES } from 'components/ExperienceSelect';
 import GroupPlayer from 'components/GroupPlayer';
 import { MODES } from 'components/ModeSelect';
@@ -18,7 +19,7 @@ import useGroupQuery from 'hooks/queries/useGroupQuery';
 import { Group as GroupType } from 'types/groups';
 
 const Group = () => {
-  const { user } = useAuth();
+  const { user, data } = useAuth();
   const { id = '' } = useParams();
   const navigate = useNavigate();
 
@@ -55,6 +56,11 @@ const Group = () => {
   const handleJoinGroup = async (group: GroupType) => {
     if (!user) {
       navigate('?signin');
+      return;
+    }
+
+    if (!data?.username) {
+      navigate(`?${DIALOG_SET_USERNAME}`);
       return;
     }
 

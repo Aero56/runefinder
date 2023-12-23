@@ -18,7 +18,12 @@ const PlayerSettings = () => {
   const { data: player } = useUserQuery();
   const { mutateAsync, isLoading } = useUpdatePlayerMutation();
 
-  const { handleSubmit, register, reset } = useForm<FormData>();
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>();
 
   useEffect(() => {
     reset({ username: player?.username ?? '' });
@@ -46,12 +51,24 @@ const PlayerSettings = () => {
         Player settings
       </div>
       <div className="p-4">
-        <h1 className="mb-1">RuneScape Username</h1>
+        <h1 className="mb-2">Update player data</h1>
         <div className="flex">
-          <input
-            className="input w-full max-w-xs"
-            {...register('username')}
-          ></input>
+          <div className="flex flex-col">
+            <input
+              className={`input w-full max-w-xs ${
+                errors.username
+                  ? 'outline outline-2 outline-offset-2 outline-error/50 focus:outline-error'
+                  : ''
+              }`}
+              placeholder="Your username"
+              {...register('username', { required: 'Username is required.' })}
+            />
+            {errors.username && (
+              <p className="mt-2 text-sm text-error">
+                {errors.username.message}
+              </p>
+            )}
+          </div>
           <button
             className="btn ml-2 w-12 bg-anzac-400 p-0 text-black-pearl-950 hover:bg-anzac-300"
             onClick={handleSubmit(handleUpdatePlayerData)}

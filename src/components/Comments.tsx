@@ -4,6 +4,7 @@ import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
 
 import Comment from './Comment';
+import { DIALOG_SET_USERNAME } from './Dialogs/SetUsername';
 import Pagination from './Pagination';
 
 import queryClient from 'api/queryClient';
@@ -22,7 +23,7 @@ interface FormData {
 }
 
 const Comments = ({ userId }: CommentsProps) => {
-  const { user } = useAuth();
+  const { user, data: userData } = useAuth();
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
@@ -38,6 +39,11 @@ const Comments = ({ userId }: CommentsProps) => {
   const onSubmit = async (data: FormData) => {
     if (!user) {
       navigate('?signin');
+      return;
+    }
+
+    if (!userData?.username) {
+      navigate(`?${DIALOG_SET_USERNAME}`);
       return;
     }
 
