@@ -43,19 +43,29 @@ const Stats = ({ stats }: StatsProps) => {
       <div className="flex justify-center">
         <div className="w-96 py-4 sm:p-4">
           <div className="flex flex-wrap justify-center gap-2">
-            {SKILLS.map((skill) => (
-              <div
-                key={skill}
-                className="flex w-1/4 rounded-xl border-2 border-black-pearl-700 bg-black-pearl-800 p-1"
-              >
-                <img
-                  src={`src/assets/skills/${skill}.png`}
-                  alt={`Skill icon of ${skill}`}
-                  className="ml-1 h-6 w-6 object-contain"
-                />
-                <p className="mx-auto">{stats.skills[skill]?.level ?? 1}</p>
-              </div>
-            ))}
+            {SKILLS.map((skillName) => {
+              const skill = stats.skills[skillName];
+
+              return (
+                <div
+                  key={skillName}
+                  className="flex w-1/4 rounded-xl border-2 border-black-pearl-700 bg-black-pearl-800 p-1"
+                >
+                  <img
+                    src={`src/assets/skills/${skillName}.png`}
+                    alt={`Skill icon of ${skillName}`}
+                    className="ml-1 h-6 w-6 object-contain"
+                  />
+                  <p
+                    className={`mx-auto ${
+                      !skill.rank ? 'text-black-pearl-100/30' : ''
+                    }`}
+                  >
+                    {skill.level}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
