@@ -83,7 +83,7 @@ const Group = () => {
     queryClient.invalidateQueries(['user', user!.id]);
   };
 
-  const handleLeaveGroup = async (group: GroupType) => {
+  const handleLeaveGroup = async (group: GroupType, shouldClose?: boolean) => {
     try {
       await updateUser({ group: null });
     } catch (error) {
@@ -93,7 +93,11 @@ const Group = () => {
       return;
     }
 
-    toast(`You left group "${group.name}"!`);
+    if (shouldClose) {
+      toast(`You closed group "${group.name}"!`);
+    } else {
+      toast(`You left group "${group.name}"!`);
+    }
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
@@ -112,61 +116,63 @@ const Group = () => {
 
   return (
     <div className="container mb-4 flex flex-col gap-4 px-4 pt-4">
-      <div className="flex justify-end">
-        {group.created_by.id === user?.id ? (
-          <button
-            className="btn border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
-            onClick={(event: MouseEvent) => {
-              event.stopPropagation();
-              handleLeaveGroup(group);
-            }}
-          >
-            {!isUpdateUserLoading ? (
-              <>
-                <LockClosedIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
-                Close group
-              </>
-            ) : (
-              <span className="loading loading-spinner"></span>
-            )}
-          </button>
-        ) : group.users.find((currentUser) => currentUser.id === user?.id) ? (
-          <button
-            className="btn border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
-            onClick={(event: MouseEvent) => {
-              event.stopPropagation();
-              handleLeaveGroup(group);
-            }}
-          >
-            {!isUpdateUserLoading ? (
-              <>
-                <ArrowRightOnRectangleIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
-                Leave group
-              </>
-            ) : (
-              <span className="loading loading-spinner"></span>
-            )}
-          </button>
-        ) : (
-          <button
-            className="btn bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 disabled:bg-black-pearl-900"
-            onClick={(event: MouseEvent) => {
-              event.stopPropagation();
-              handleJoinGroup(group);
-            }}
-            disabled={data?.stats ? !canJoinGroup(group, data) : false}
-          >
-            {!isUpdateUserLoading ? (
-              <>
-                <ArrowLeftOnRectangleIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
-                Join group
-              </>
-            ) : (
-              <span className="loading loading-spinner"></span>
-            )}
-          </button>
-        )}
-      </div>
+      {group.status !== 'closed' && (
+        <div className="flex justify-end">
+          {group.created_by.id === user?.id ? (
+            <button
+              className="btn border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
+              onClick={(event: MouseEvent) => {
+                event.stopPropagation();
+                handleLeaveGroup(group, true);
+              }}
+            >
+              {!isUpdateUserLoading ? (
+                <>
+                  <LockClosedIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
+                  Close group
+                </>
+              ) : (
+                <span className="loading loading-spinner"></span>
+              )}
+            </button>
+          ) : group.users.find((currentUser) => currentUser.id === user?.id) ? (
+            <button
+              className="btn border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
+              onClick={(event: MouseEvent) => {
+                event.stopPropagation();
+                handleLeaveGroup(group);
+              }}
+            >
+              {!isUpdateUserLoading ? (
+                <>
+                  <ArrowRightOnRectangleIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
+                  Leave group
+                </>
+              ) : (
+                <span className="loading loading-spinner"></span>
+              )}
+            </button>
+          ) : (
+            <button
+              className="btn bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 disabled:bg-black-pearl-900"
+              onClick={(event: MouseEvent) => {
+                event.stopPropagation();
+                handleJoinGroup(group);
+              }}
+              disabled={data?.stats ? !canJoinGroup(group, data) : false}
+            >
+              {!isUpdateUserLoading ? (
+                <>
+                  <ArrowLeftOnRectangleIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
+                  Join group
+                </>
+              ) : (
+                <span className="loading loading-spinner"></span>
+              )}
+            </button>
+          )}
+        </div>
+      )}
       <div className="overflow-hidden rounded-xl bg-black-pearl-900">
         <div className="relative h-44">
           <img
@@ -174,6 +180,14 @@ const Group = () => {
             className="absolute h-44 w-full object-cover object-top"
           ></img>
           <div className="absolute h-44 w-full shadow-[inset_0_-80px_80px_0px_theme(colors.black-pearl.900)]" />
+          <div className="absolute flex w-full justify-end p-4">
+            {group.status === 'closed' && (
+              <div className="badge badge-outline badge-lg flex gap-1 bg-red-950/60 py-4 font-semibold text-red-500">
+                <LockClosedIcon className="h-4 w-4 [&>path]:stroke-[2.5]" />
+                Closed
+              </div>
+            )}
+          </div>
           <div className="absolute flex h-full flex-col justify-end p-4">
             <p className="text-md font-bold text-anzac-400 xs:text-lg">
               {group.type.name}
@@ -211,26 +225,31 @@ const Group = () => {
         </div>
         <div className="flex flex-col gap-3 p-4">
           <GroupPlayer group={group} player={group.created_by} isHost />
-          <div className="divider my-2">
-            {playersNeeded > 0
-              ? `Looking for ${playersNeeded} ${
-                  playersNeeded === 1 ? ' player' : ' players'
-                }`
-              : 'Group is full'}
-          </div>
+          {!(group.status === 'closed' && group.users.length < 1) && (
+            <div className="divider my-2">
+              {group.status === 'closed'
+                ? 'Group is closed'
+                : playersNeeded > 0
+                  ? `Looking for ${playersNeeded} ${
+                      playersNeeded === 1 ? ' player' : ' players'
+                    }`
+                  : 'Group is full'}
+            </div>
+          )}
           {group.users
             .filter((user) => user.id !== group.created_by.id)
             .map((user) => (
               <GroupPlayer key={user.id} group={group} player={user} />
             ))}
-          {[...Array(playersNeeded)].map((_, index) => (
-            <div
-              key={index}
-              className="skeleton flex flex-col rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950/60 p-7 opacity-50"
-            >
-              <p className="text-center">Waiting for player to join...</p>
-            </div>
-          ))}
+          {group.status !== 'closed' &&
+            [...Array(playersNeeded)].map((_, index) => (
+              <div
+                key={index}
+                className="skeleton flex flex-col rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950/60 p-7 opacity-50"
+              >
+                <p className="text-center">Waiting for player to join...</p>
+              </div>
+            ))}
         </div>
       </div>
     </div>

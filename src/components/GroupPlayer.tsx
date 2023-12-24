@@ -94,21 +94,23 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
           </div>
         </div>
       </div>
-      {!isHost && group.created_by.id === user?.id && (
-        <button
-          className="btn btn-xs w-6 rounded-full border-red-500 bg-red-500/20 px-0 text-red-500 xs:btn-sm hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50 xs:w-auto xs:rounded-lg xs:px-2"
-          onClick={handleKickPlayer}
-        >
-          {!isLoading ? (
-            <>
-              <XMarkIcon className="block h-4 w-4 xs:hidden [&>path]:stroke-[2.5]" />
-              <p className="hidden xs:block">Kick</p>
-            </>
-          ) : (
-            <span className="loading loading-spinner"></span>
-          )}
-        </button>
-      )}
+      {!isHost &&
+        group.created_by.id === user?.id &&
+        group.status !== 'closed' && (
+          <button
+            className="btn btn-xs w-6 rounded-full border-red-500 bg-red-500/20 px-0 text-red-500 xs:btn-sm hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50 xs:w-auto xs:rounded-lg xs:px-2"
+            onClick={handleKickPlayer}
+          >
+            {!isLoading ? (
+              <>
+                <XMarkIcon className="block h-4 w-4 xs:hidden [&>path]:stroke-[2.5]" />
+                <p className="hidden xs:block">Kick</p>
+              </>
+            ) : (
+              <span className="loading loading-spinner"></span>
+            )}
+          </button>
+        )}
     </div>
   );
 };
