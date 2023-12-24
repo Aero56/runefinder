@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import Select, { Option, Tint } from './Select';
 
+import { useAuth } from 'contexts/AuthContext';
+
 export enum Gamemode {
   Ironman = 'ironman',
   Hardcore = 'hardcore',
@@ -33,6 +35,8 @@ interface ExperienceSelectProps {
   onChange: (value: Option<Gamemode | null>) => void;
   className?: string;
   tint?: Tint;
+  disabled?: boolean;
+  isFilter?: boolean;
 }
 
 const ModeSelect = ({
@@ -40,7 +44,11 @@ const ModeSelect = ({
   onChange,
   className,
   tint,
+  disabled,
+  isFilter,
 }: ExperienceSelectProps) => {
+  const { data } = useAuth();
+
   const [selected, setSelected] = useState<Option<Gamemode | null>>(
     value ?? GAMEMODES[0],
   );
@@ -54,10 +62,33 @@ const ModeSelect = ({
     <Select
       value={[selected]}
       onChange={handleChange}
-      options={GAMEMODES}
+      options={
+        isFilter
+          ? GAMEMODES
+          : GAMEMODES.filter((gamemode) => {
+              if (
+                (data?.stats.gamemode === Gamemode.Ironman ||
+                  data?.stats.gamemode === Gamemode.Hardcore) &&
+                gamemode.value === Gamemode.Ultimate
+              ) {
+                return;
+              }
+
+              if (
+                (data?.stats.gamemode === Gamemode.Ironman ||
+                  data?.stats.gamemode === Gamemode.Ultimate) &&
+                gamemode.value === Gamemode.Hardcore
+              ) {
+                return;
+              }
+
+              return gamemode;
+            })
+      }
       placeholder="Select mode"
       className={className}
       tint={tint}
+      disabled={disabled}
     />
   );
 };

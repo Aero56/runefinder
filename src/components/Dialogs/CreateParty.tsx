@@ -221,6 +221,7 @@ const CreateParty = () => {
                   value={value}
                   onChange={onChange}
                   className="w-full"
+                  disabled={!data?.stats.gamemode}
                 />
               )}
             />

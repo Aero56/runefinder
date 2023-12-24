@@ -96,6 +96,7 @@ const Home = () => {
           onChange={handleChangeMode}
           className="flex-grow xs:flex-grow-0"
           tint="light"
+          isFilter
         />
       </div>
       {isLoading ? (

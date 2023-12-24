@@ -41,6 +41,7 @@ interface SelectProps<T extends OptionValue> {
   onChange: (selected: Option<T>[]) => void;
   className?: string;
   tint?: Tint;
+  disabled?: boolean;
 }
 
 const Select = <T extends OptionValue>({
@@ -52,6 +53,7 @@ const Select = <T extends OptionValue>({
   placeholder = 'Select',
   className,
   tint = 'dark',
+  disabled,
 }: SelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<Set<Option<T>>>(
@@ -113,9 +115,14 @@ const Select = <T extends OptionValue>({
         {...getReferenceProps()}
         className={`border-bg btn border-2 ${className} flex flex-nowrap justify-between ${
           tint === 'dark'
-            ? 'border-black-pearl-950 bg-black-pearl-950 hover:border-black-pearl-800 hover:bg-black-pearl-800'
-            : 'border-black-pearl-900 bg-black-pearl-900 hover:border-black-pearl-900 hover:bg-black-pearl-950'
+            ? `border-black-pearl-950 bg-black-pearl-950 hover:border-black-pearl-800 hover:bg-black-pearl-800 ${
+                disabled ? '!bg-black-pearl-950' : ''
+              }`
+            : `border-black-pearl-900 bg-black-pearl-900 hover:border-black-pearl-900 hover:bg-black-pearl-950 ${
+                disabled ? '!bg-black-pearl-900' : ''
+              }`
         }`}
+        disabled={disabled}
       >
         <p className="overflow-hidden text-ellipsis whitespace-nowrap">
           {[...selected][0]?.label ?? placeholder}
