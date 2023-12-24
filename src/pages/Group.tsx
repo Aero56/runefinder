@@ -1,9 +1,11 @@
 import {
   ArrowLeftOnRectangleIcon,
   ArrowRightOnRectangleIcon,
+  ClockIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/outline';
-import { MouseEvent, useEffect } from 'react';
+import { formatDistanceToNowStrict } from 'date-fns';
+import { MouseEvent, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast/headless';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -26,6 +28,20 @@ const Group = () => {
   const navigate = useNavigate();
 
   const { data: group, isLoading } = useGroupQuery(id);
+
+  const [timeOpen, setTimeOpen] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (group) {
+      const createdAt = new Date(group.created_at);
+
+      const interval = setInterval(() => {
+        setTimeOpen(formatDistanceToNowStrict(createdAt));
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [group]);
 
   const { mutateAsync: updateUser, isLoading: isUpdateUserLoading } =
     useUpdateUserMutation();
@@ -185,6 +201,13 @@ const Group = () => {
               <div className="badge badge-outline badge-lg flex gap-1 bg-red-950/60 py-4 font-semibold text-red-500">
                 <LockClosedIcon className="h-4 w-4 [&>path]:stroke-[2.5]" />
                 Closed
+              </div>
+            )}
+
+            {group.status !== 'closed' && timeOpen && (
+              <div className="flex items-center gap-2">
+                <p className="leading-3">{timeOpen}</p>
+                <ClockIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
               </div>
             )}
           </div>
