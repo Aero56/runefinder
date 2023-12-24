@@ -1,3 +1,4 @@
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { MouseEvent } from 'react';
 import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
@@ -46,15 +47,17 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
     >
       <div className="flex">
         <div className="flex w-16 flex-col items-center justify-center">
-          <p className="text-xl font-bold text-anzac-400">
+          <p className="text-lg font-bold text-anzac-400 xs:text-xl">
             {player.stats?.raid_score}
           </p>
         </div>
-        <div className="divider divider-horizontal mx-0"></div>
+        <div className="divider divider-horizontal ml-0 mr-1"></div>
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             {isHost && (
-              <div className="badge badge-primary font-semibold">Host</div>
+              <div className="badge badge-primary badge-sm font-semibold xs:badge-md">
+                Host
+              </div>
             )}
             <div className="flex items-center gap-1">
               {player.stats?.gamemode && (
@@ -64,24 +67,28 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
                   className="h-4 w-4 object-contain"
                 />
               )}
-              <p className="text-xl font-semibold">{player.username}</p>
+              <p className="text-lg font-semibold xs:text-xl">
+                {player.username}
+              </p>
             </div>
           </div>
           <div className="flex flex-wrap gap-1">
             {!activityStats?.score && !activityStats?.rank && (
-              <div className="badge bg-black-pearl-800">Unranked</div>
+              <div className="badge badge-sm bg-black-pearl-800 xs:badge-md">
+                Unranked
+              </div>
             )}
             {activityStats?.score && (
-              <div className="badge bg-black-pearl-800">
+              <div className="badge badge-sm bg-black-pearl-800 xs:badge-md">
                 {activityStats.score} kills
               </div>
             )}
             {activityStats?.rank && (
-              <div className="badge bg-black-pearl-800">
+              <div className="badge  badge-sm bg-black-pearl-800 xs:badge-md">
                 #{activityStats.rank}
               </div>
             )}
-            <div className="badge bg-black-pearl-800">
+            <div className="badge  badge-sm bg-black-pearl-800 xs:badge-md">
               Combat level {player.stats?.combat}
             </div>
           </div>
@@ -89,11 +96,14 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
       </div>
       {!isHost && group.created_by.id === user?.id && (
         <button
-          className="btn btn-sm border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
+          className="btn btn-xs w-6 rounded-full border-red-500 bg-red-500/20 px-0 text-red-500 xs:btn-sm hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50 xs:w-auto xs:rounded-lg xs:px-2"
           onClick={handleKickPlayer}
         >
           {!isLoading ? (
-            'Kick'
+            <>
+              <XMarkIcon className="block h-4 w-4 xs:hidden [&>path]:stroke-[2.5]" />
+              <p className="hidden xs:block">Kick</p>
+            </>
           ) : (
             <span className="loading loading-spinner"></span>
           )}

@@ -69,7 +69,7 @@ const Home = () => {
   }, [fetchNextPage, inView]);
 
   return (
-    <div className="container pt-4">
+    <div className="container px-4 pt-4">
       <div className="mb-3 flex justify-between">
         <input
           className="input w-full bg-black-pearl-900 xs:w-auto"

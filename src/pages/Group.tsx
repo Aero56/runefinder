@@ -111,7 +111,7 @@ const Group = () => {
   const playersNeeded = group.size - group.users.length;
 
   return (
-    <div className="container mb-4 flex flex-col gap-4 pt-4">
+    <div className="container mb-4 flex flex-col gap-4 px-4 pt-4">
       <div className="flex justify-end">
         {group.created_by.id === user?.id ? (
           <button
@@ -175,15 +175,20 @@ const Group = () => {
           ></img>
           <div className="absolute h-44 w-full shadow-[inset_0_-80px_80px_0px_theme(colors.black-pearl.900)]" />
           <div className="absolute flex h-full flex-col justify-end p-4">
-            <p className="text-lg font-bold text-anzac-400">
+            <p className="text-md font-bold text-anzac-400 xs:text-lg">
               {group.type.name}
             </p>
-            <p className="line-clamp-2 text-3xl font-bold">{group.name}</p>
+            <p
+              className="line-clamp-2 text-2xl font-bold xs:text-3xl"
+              title={group.name}
+            >
+              {group.name}
+            </p>
           </div>
         </div>
         <div className="flex flex-col gap-3 px-4 pb-4">
           <div className="flex flex-wrap gap-3">
-            <div className="badge  bg-blue-600">{`World: ${group.world}`}</div>
+            <div className="badge bg-blue-600">{`World: ${group.world}`}</div>
             {group.level && (
               <div className="badge badge-outline border-anzac-400 text-anzac-400">
                 {
