@@ -62,7 +62,12 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
             <div className="flex items-center gap-1">
               {player.stats?.gamemode && (
                 <img
-                  src={`src/assets/modes/${player.stats.gamemode}.png`}
+                  src={
+                    new URL(
+                      `../assets/modes/${player.stats.gamemode}.png`,
+                      import.meta.url,
+                    ).href
+                  }
                   alt={`${player.stats.gamemode} icon`}
                   className="h-4 w-4 object-contain"
                 />

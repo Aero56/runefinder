@@ -50,7 +50,7 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
         } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
       >
         <img
-          src="src/assets/icons/Magic.png"
+          src={new URL('../assets/icons/Magic.png', import.meta.url).href}
           className="[image-rendering:pixelated]"
         />
       </button>
@@ -72,7 +72,9 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
         } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
       >
         <img
-          src="src/assets/icons/Dampen_Magic.png"
+          src={
+            new URL('../assets/icons/Dampen_Magic.png', import.meta.url).href
+          }
           className="rotate-180 [image-rendering:pixelated]"
         />
       </button>

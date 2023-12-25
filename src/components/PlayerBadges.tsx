@@ -7,7 +7,7 @@ interface PlayerBadgesProps {
 }
 
 interface Badge {
-  image: string;
+  imageName: string;
   label: string;
 }
 
@@ -17,7 +17,7 @@ const PlayerBadges = ({ stats }: PlayerBadgesProps) => {
 
     if (stats.bosses.tzKalZuk.score !== -1) {
       badges.push({
-        image: 'src/assets/badges/Infernal_Cape.png',
+        imageName: 'InfernalCape',
         label: 'Owns an infernal cape',
       });
     }
@@ -37,7 +37,14 @@ const PlayerBadges = ({ stats }: PlayerBadgesProps) => {
           className="mx-auto rounded-lg border-2 border-black-pearl-800 bg-black-pearl-900 p-1"
           title={badge.label}
         >
-          <img src={badge.image}></img>
+          <img
+            src={
+              new URL(
+                `../assets/badges/${badge.imageName}.png`,
+                import.meta.url,
+              ).href
+            }
+          ></img>
         </div>
       ))}
     </div>

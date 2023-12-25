@@ -52,7 +52,12 @@ const Stats = ({ stats }: StatsProps) => {
                   className="flex w-1/4 rounded-xl border-2 border-black-pearl-700 bg-black-pearl-800 p-1"
                 >
                   <img
-                    src={`src/assets/skills/${skillName}.png`}
+                    src={
+                      new URL(
+                        `../assets/skills/${skillName}.png`,
+                        import.meta.url,
+                      ).href
+                    }
                     alt={`Skill icon of ${skillName}`}
                     className="ml-1 h-6 w-6 object-contain"
                   />

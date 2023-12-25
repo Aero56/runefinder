@@ -192,7 +192,12 @@ const Group = () => {
       <div className="overflow-hidden rounded-xl bg-black-pearl-900">
         <div className="relative h-44">
           <img
-            src={`src/assets/banners/${group.type.value}.png`}
+            src={
+              new URL(
+                `../assets/banners/${group.type.value}.png`,
+                import.meta.url,
+              ).href
+            }
             className="absolute h-44 w-full object-cover object-top"
           ></img>
           <div className="absolute h-44 w-full shadow-[inset_0_-80px_80px_0px_theme(colors.black-pearl.900)]" />
