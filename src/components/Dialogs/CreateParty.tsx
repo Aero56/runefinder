@@ -154,7 +154,7 @@ const CreateParty = () => {
           className="row-auto grid grid-cols-4 gap-x-6 gap-y-4"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="col-span-full row-start-1 flex items-end justify-between">
+          <div className="col-span-full row-start-1 flex items-center justify-between">
             <div>
               <Controller
                 control={control}
@@ -177,7 +177,7 @@ const CreateParty = () => {
                 </p>
               )}
             </div>
-            <div>
+            <div className="flex flex-col gap-0 xs:flex-row xs:gap-2">
               <label
                 htmlFor="split"
                 className="mb-1 block whitespace-nowrap text-sm"

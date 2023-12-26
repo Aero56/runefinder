@@ -16,6 +16,7 @@ interface Filters {
   type?: number;
   level?: Experience;
   gamemode?: Gamemode;
+  split: boolean;
 }
 
 const useGroupsQuery = (
@@ -36,6 +37,7 @@ const useGroupsQuery = (
           '*, users!users_group_id_fkey(id, username), type!inner(id, name, value), created_by!inner(id, username)',
         )
         .eq('status', 'open')
+        .eq('split', filters?.split ?? false)
         .range(offset - RECORD_LIMIT, offset - 1);
 
       if (filters?.name) {

@@ -24,6 +24,7 @@ const Home = () => {
     useState<Option<Experience | null> | null>(null);
   const [selectedMode, setSelectedMode] =
     useState<Option<Gamemode | null> | null>(null);
+  const [isSplitEnabled, setIsSplitEnabled] = useState<boolean>(false);
 
   const { ref, inView } = useInView();
 
@@ -43,6 +44,7 @@ const Home = () => {
       type: selectedActivity?.value ? selectedActivity.value : undefined,
       level: selectedLevel?.value ? selectedLevel.value : undefined,
       gamemode: selectedMode?.value ? selectedMode.value : undefined,
+      split: isSplitEnabled,
     },
     {
       order: { column: 'updated_at', options: { ascending: false } },
@@ -62,6 +64,10 @@ const Home = () => {
     setSelectedMode(selected);
   };
 
+  const handleToggleSplit = () => {
+    setIsSplitEnabled(!isSplitEnabled);
+  };
+
   useEffect(() => {
     if (inView) {
       fetchNextPage();
@@ -78,27 +84,44 @@ const Home = () => {
         />
         {user && <CreateParty />}
       </div>
-      <div className="mb-8 flex flex-wrap gap-3">
-        <ActivitySelect
-          value={selectedActivity}
-          onChange={handleChangeActivity}
-          className="w-full xs:w-auto"
-          tint="light"
-        />
-        <ExperienceSelect
-          value={selectedLevel}
-          onChange={handleChangeLevel}
-          className="flex-grow xs:flex-grow-0"
-          tint="light"
-        />
-        <ModeSelect
-          value={selectedMode}
-          onChange={handleChangeMode}
-          className="flex-grow xs:flex-grow-0"
-          tint="light"
-          isFilter
-        />
+      <div className="mb-6 flex flex-col items-end justify-between gap-6 xs:flex-row xs:gap-3">
+        <div className="flex flex-wrap gap-3">
+          <ActivitySelect
+            value={selectedActivity}
+            onChange={handleChangeActivity}
+            className="w-full xs:w-auto"
+            tint="light"
+          />
+          <ExperienceSelect
+            value={selectedLevel}
+            onChange={handleChangeLevel}
+            className="flex-grow xs:flex-grow-0"
+            tint="light"
+          />
+          <ModeSelect
+            value={selectedMode}
+            onChange={handleChangeMode}
+            className="flex-grow xs:flex-grow-0"
+            tint="light"
+            isFilter
+          />
+        </div>
+        <div className="flex justify-end gap-2">
+          <label
+            htmlFor="split"
+            className="block whitespace-nowrap text-sm leading-6"
+          >
+            Split
+          </label>
+          <input
+            checked={isSplitEnabled}
+            type="checkbox"
+            className="toggle toggle-primary text-black-pearl-100"
+            onChange={handleToggleSplit}
+          />
+        </div>
       </div>
+
       {isLoading ? (
         <p>Loading...</p>
       ) : (
