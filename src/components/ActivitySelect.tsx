@@ -12,7 +12,7 @@ export const ACTIVITIES = [
       {
         label: 'Theatre of Blood',
         value: Raid.TheatreOfBlood,
-        entity: { teamSize: 4 },
+        entity: { teamSize: 5 },
       },
       {
         label: 'Chambers of Xeric',
