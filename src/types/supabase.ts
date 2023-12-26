@@ -109,9 +109,11 @@ export interface Database {
           created_by: string;
           gamemode: Database['public']['Enums']['group_mode_enum'] | null;
           id: string;
+          kills: number | null;
           level: Database['public']['Enums']['group_level_enum'] | null;
           name: string;
           size: number;
+          split: boolean;
           status: Database['public']['Enums']['group_status_enum'];
           type: number | null;
           updated_at: string;
@@ -122,9 +124,11 @@ export interface Database {
           created_by: string;
           gamemode?: Database['public']['Enums']['group_mode_enum'] | null;
           id?: string;
+          kills?: number | null;
           level?: Database['public']['Enums']['group_level_enum'] | null;
           name: string;
           size: number;
+          split?: boolean;
           status?: Database['public']['Enums']['group_status_enum'];
           type?: number | null;
           updated_at?: string;
@@ -135,9 +139,11 @@ export interface Database {
           created_by?: string;
           gamemode?: Database['public']['Enums']['group_mode_enum'] | null;
           id?: string;
+          kills?: number | null;
           level?: Database['public']['Enums']['group_level_enum'] | null;
           name?: string;
           size?: number;
+          split?: boolean;
           status?: Database['public']['Enums']['group_status_enum'];
           type?: number | null;
           updated_at?: string;

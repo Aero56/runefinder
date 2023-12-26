@@ -193,7 +193,7 @@ const CreateParty = () => {
                     onChange={onChange}
                     type="checkbox"
                     placeholder="302"
-                    className={`toggle toggle-primary`}
+                    className={`toggle toggle-primary text-black-pearl-100`}
                   />
                 )}
               />

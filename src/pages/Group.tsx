@@ -226,11 +226,23 @@ const Group = () => {
             >
               {group.name}
             </p>
+            {group.kills && (
+              <p className="mt-2 text-sm text-red-500">
+                Minimum kills to join: {group.kills}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-3 px-4 pb-4">
           <div className="flex flex-wrap gap-3">
             <div className="badge bg-blue-600">{`World: ${group.world}`}</div>
+            <div
+              className={`badge badge-outline text-black-pearl-950 ${
+                group.split ? 'bg-anzac-400' : 'bg-black-pearl-50'
+              }`}
+            >
+              {group.split ? 'Split' : 'FFA'}
+            </div>
             {group.level && (
               <div className="badge badge-outline border-anzac-400 text-anzac-400">
                 {
