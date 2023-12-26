@@ -43,13 +43,13 @@ const Signup = ({ onClose, isOpen }: SignupProps) => {
       return;
     }
 
-    toast('Success! Your account was created and you have been logged in.');
     onClose();
+    navigate('?set-username');
   };
 
   const handleLoginWithProvider = async (provider: AuthProviders) => {
     try {
-      await loginWithProvider(provider);
+      await loginWithProvider({ provider, isSignup: true });
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message);

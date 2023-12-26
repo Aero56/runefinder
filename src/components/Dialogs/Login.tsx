@@ -48,7 +48,7 @@ const Login = ({ onClose, isOpen }: LoginProps) => {
 
   const handleLoginWithProvider = async (provider: AuthProviders) => {
     try {
-      await loginWithProvider(provider);
+      await loginWithProvider({ provider });
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message);
