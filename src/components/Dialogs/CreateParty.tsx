@@ -30,6 +30,8 @@ interface FormData {
   experience: Option<Experience | null>;
   world: number;
   gamemode: Option<Gamemode | null>;
+  split: boolean;
+  kills?: number;
 }
 
 const CreateParty = () => {
@@ -78,6 +80,8 @@ const CreateParty = () => {
         level: data.experience?.value ?? null,
         gamemode: data.gamemode?.value ?? null,
         world: data.world,
+        split: data.split,
+        kills: data.kills,
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -147,33 +151,56 @@ const CreateParty = () => {
       <Dialog isOpen={isOpen} onClose={handleClose}>
         <DialogHeader title="Create group" />
         <form
-          className="row-auto grid grid-cols-4 gap-x-6 gap-y-4 "
+          className="row-auto grid grid-cols-4 gap-x-6 gap-y-4"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="col-span-full row-start-1">
-            <Controller
-              control={control}
-              name="activity"
-              render={({ field: { onChange, value } }) => (
-                <ActivitySelect
-                  value={value}
-                  onChange={onChange}
-                  {...(errors.activity && {
-                    className:
-                      'outline outline-2 outline-error/50 focus:outline-error',
-                  })}
-                />
+          <div className="col-span-full row-start-1 flex items-end justify-between">
+            <div>
+              <Controller
+                control={control}
+                name="activity"
+                render={({ field: { onChange, value } }) => (
+                  <ActivitySelect
+                    value={value}
+                    onChange={onChange}
+                    {...(errors.activity && {
+                      className:
+                        'outline outline-2 outline-error/50 focus:outline-error',
+                    })}
+                  />
+                )}
+                rules={{ required: 'Please select an activity.' }}
+              />
+              {errors.activity && (
+                <p className="mt-2 text-sm text-error">
+                  {errors.activity.message}
+                </p>
               )}
-              rules={{ required: 'Please select an activity.' }}
-            />
-            {errors.activity && (
-              <p className="mt-2 text-sm text-error">
-                {errors.activity.message}
-              </p>
-            )}
+            </div>
+            <div>
+              <label
+                htmlFor="split"
+                className="mb-1 block whitespace-nowrap text-sm"
+              >
+                Split
+              </label>
+              <Controller
+                control={control}
+                name="split"
+                render={({ field: { onChange } }) => (
+                  <input
+                    id="split"
+                    onChange={onChange}
+                    type="checkbox"
+                    placeholder="302"
+                    className={`toggle toggle-primary`}
+                  />
+                )}
+              />
+            </div>
           </div>
           <div className="col-span-4 row-start-2">
-            <label htmlFor="email" className="mb-2 block text-sm">
+            <label htmlFor="name" className="mb-2 block text-sm">
               Party name
             </label>
             <input
@@ -194,7 +221,7 @@ const CreateParty = () => {
             )}
           </div>
           <div className="col-span-full row-start-3 xs:col-span-2">
-            <label htmlFor="email" className="mb-2 block text-sm">
+            <label htmlFor="experience" className="mb-2 block text-sm">
               Experience level
             </label>
             <Controller
@@ -210,7 +237,7 @@ const CreateParty = () => {
             />
           </div>
           <div className="col-span-full row-start-4 xs:col-span-2 xs:row-start-3">
-            <label htmlFor="email" className="mb-2 block text-sm">
+            <label htmlFor="gamemode" className="mb-2 block text-sm">
               Mode
             </label>
             <Controller
@@ -226,8 +253,8 @@ const CreateParty = () => {
               )}
             />
           </div>
-          <div className="col-span-full row-start-5  xs:row-start-4">
-            <label htmlFor="email" className="mb-2 block text-sm">
+          <div className="col-span-2 row-start-5 xs:row-start-4">
+            <label htmlFor="world" className="mb-2 block text-sm">
               World
             </label>
             <Controller
@@ -235,10 +262,11 @@ const CreateParty = () => {
               name="world"
               render={({ field: { onChange } }) => (
                 <input
+                  id="world"
                   onChange={onChange}
                   type="number"
                   placeholder="302"
-                  className={`input w-24 ${
+                  className={`input  w-full ${
                     errors.world
                       ? 'outline outline-2 outline-error/50 focus:outline-error'
                       : ''
@@ -250,6 +278,26 @@ const CreateParty = () => {
             {errors.world && (
               <p className="mt-2 text-sm text-error">{errors.world.message}</p>
             )}
+          </div>
+          <div className="col-span-2 row-start-5 xs:row-start-4">
+            <label
+              htmlFor="kills"
+              className="mb-2 block whitespace-nowrap text-sm"
+            >
+              Minimum kills
+            </label>
+            <Controller
+              control={control}
+              name="kills"
+              render={({ field: { onChange } }) => (
+                <input
+                  onChange={onChange}
+                  type="kills"
+                  placeholder="50"
+                  className={`input w-full`}
+                />
+              )}
+            />
           </div>
           {selectedActivity && selectedActivity.entity?.teamSize && (
             <div className="col-span-full row-start-6 xs:row-start-5">

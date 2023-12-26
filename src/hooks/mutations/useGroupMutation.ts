@@ -13,6 +13,8 @@ interface GroupMutationProps {
   level: Experience | null;
   gamemode: Gamemode | null;
   world: number;
+  split: boolean;
+  kills?: number;
 }
 
 const useGroupMutation = () => {
@@ -26,6 +28,8 @@ const useGroupMutation = () => {
       level,
       gamemode,
       world,
+      split,
+      kills,
     }: GroupMutationProps) => {
       if (!user) {
         throw new Error('You must be logged in to do this.');
@@ -41,6 +45,8 @@ const useGroupMutation = () => {
           level,
           gamemode,
           world,
+          split,
+          kills,
         })
         .select('id')
         .single();
