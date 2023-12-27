@@ -54,10 +54,16 @@ const CreateParty = () => {
   } = useForm<FormData>();
 
   const handleCreateParty = () => {
+    if (!user) {
+      navigate('?signin');
+      return;
+    }
+
     if (!data?.username) {
       navigate(`?${DIALOG_SET_USERNAME}`);
       return;
     }
+
     setIsOpen(true);
   };
 
@@ -142,7 +148,9 @@ const CreateParty = () => {
           Create group
         </button>
         <button
-          className="btn btn-circle fixed bottom-24 right-6 flex border-none bg-anzac-400 text-black-pearl-900 shadow hover:bg-anzac-300 xs:hidden"
+          className={`btn btn-circle fixed right-6 flex border-none bg-anzac-400 text-black-pearl-900 shadow hover:bg-anzac-300 xs:hidden ${
+            user ? 'bottom-24' : 'bottom-8'
+          }`}
           type="button"
         >
           <PlusIcon className="h-6 w-6" />

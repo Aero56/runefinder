@@ -7,14 +7,11 @@ import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
 import Group from 'components/Group';
 import ModeSelect, { Gamemode } from 'components/ModeSelect';
 import { Option } from 'components/Select';
-import { useAuth } from 'contexts/AuthContext';
 import useGroupsQuery from 'hooks/queries/useGroupsQuery';
 import useDebounce from 'hooks/useDebounce';
 import { Raid } from 'types/raids';
 
 const Home = () => {
-  const { user } = useAuth();
-
   const [term, setTerm] = useState('');
   const debouncedValue = useDebounce(term);
 
@@ -82,7 +79,7 @@ const Home = () => {
           placeholder="Search groups..."
           onChange={handleSearch}
         />
-        {user && <CreateParty />}
+        <CreateParty />
       </div>
       <div className="mb-6 flex flex-col items-end justify-between gap-6 xs:flex-row xs:gap-3">
         <div className="flex flex-wrap gap-3">
