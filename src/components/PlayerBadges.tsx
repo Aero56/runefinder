@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import usePlayerBadgesQuery from 'hooks/queries/usePlayerBadgesQuery';
+import { BadgeType } from 'types/badges';
 import { Tables } from 'types/supabase';
 
 interface PlayerBadgesProps {
@@ -7,42 +9,64 @@ interface PlayerBadgesProps {
 }
 
 interface Badge {
-  imageName: string;
   label: string;
+  type: BadgeType;
 }
 
+const BADGES: Record<BadgeType, Badge> = {
+  [BadgeType.Supporter]: {
+    label: 'Supporter',
+    type: BadgeType.Supporter,
+  },
+  [BadgeType.Inferno]: {
+    label: 'Owns an infernal cape',
+    type: BadgeType.Inferno,
+  },
+  [BadgeType.Maxed]: {
+    label: 'Level 99 in all skills',
+    type: BadgeType.Maxed,
+  },
+};
+
 const PlayerBadges = ({ stats }: PlayerBadgesProps) => {
+  const { data } = usePlayerBadgesQuery(stats.id);
+
   const badges = useMemo(() => {
     const badges: Badge[] = [];
 
-    if (stats.bosses.tzKalZuk.score !== -1) {
-      badges.push({
-        imageName: 'InfernalCape',
-        label: 'Owns an infernal cape',
-      });
+    data?.forEach((badge) => {
+      if (BADGES[badge.name]) {
+        badges.push(BADGES[badge.name]);
+      }
+    });
+
+    if (stats.bosses.tzKalZuk.score !== null) {
+      badges.push(BADGES[BadgeType.Inferno]);
+    }
+
+    if (stats.skills.overall.level === 2277) {
+      badges.push(BADGES[BadgeType.Maxed]);
     }
 
     return badges;
-  }, [stats]);
+  }, [stats, data]);
 
   if (!badges.length) {
     return null;
   }
 
   return (
-    <div className="mx-auto mt-2 grid max-w-xs grid-cols-5 justify-between gap-4 rounded-xl bg-black-pearl-950 p-3 sm:grid-cols-4">
+    <div className="mx-auto mt-2 grid max-w-xs auto-cols-auto grid-cols-4 gap-1 rounded-xl bg-black-pearl-950 p-3 sm:grid-cols-3 md:grid-cols-4">
       {badges.map((badge, index) => (
         <div
           key={index}
-          className="mx-auto rounded-lg border-2 border-black-pearl-800 bg-black-pearl-900 p-1"
+          className="mx-auto w-14 [image-rendering:pixelated]"
           title={badge.label}
         >
           <img
             src={
-              new URL(
-                `../assets/badges/${badge.imageName}.png`,
-                import.meta.url,
-              ).href
+              new URL(`../assets/badges/${badge.type}.png`, import.meta.url)
+                .href
             }
           ></img>
         </div>
