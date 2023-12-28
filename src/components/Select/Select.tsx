@@ -113,7 +113,7 @@ const Select = <T extends OptionValue>({
         type="button"
         ref={refs.setReference}
         {...getReferenceProps()}
-        className={`border-bg btn border-2 ${className} flex flex-nowrap justify-between ${
+        className={`${className} border-bg btn flex flex-nowrap justify-between border-2 shadow-none ${
           tint === 'dark'
             ? `border-black-pearl-950 bg-black-pearl-950 hover:border-black-pearl-800 hover:bg-black-pearl-800 ${
                 disabled ? '!bg-black-pearl-950' : ''

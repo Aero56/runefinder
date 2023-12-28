@@ -16,6 +16,7 @@ import DialogFooter from 'components/Dialog/DialogFooter';
 import DialogHeader from 'components/Dialog/DialogHeader';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
 import ModeSelect, { Gamemode } from 'components/ModeSelect';
+import { Tooltip, TooltipContent, TooltipTrigger } from 'components/Tooltip';
 import { useAuth } from 'contexts/AuthContext';
 import useGroupMutation from 'hooks/mutations/useGroupMutation';
 import { Raid } from 'types/raids';
@@ -248,18 +249,25 @@ const CreateParty = () => {
             <label htmlFor="gamemode" className="mb-2 block text-sm">
               Mode
             </label>
-            <Controller
-              control={control}
-              name="gamemode"
-              render={({ field: { onChange, value } }) => (
-                <ModeSelect
-                  value={value}
-                  onChange={onChange}
-                  className="w-full"
-                  disabled={!data?.stats.gamemode}
+            <Tooltip enabled={!data?.stats.gamemode}>
+              <TooltipTrigger>
+                <Controller
+                  control={control}
+                  name="gamemode"
+                  render={({ field: { onChange, value } }) => (
+                    <ModeSelect
+                      value={value}
+                      onChange={onChange}
+                      className="w-full"
+                      disabled={!data?.stats.gamemode}
+                    />
+                  )}
                 />
-              )}
-            />
+              </TooltipTrigger>
+              <TooltipContent>
+                Only ironmans can limit groups to a specific gamemode
+              </TooltipContent>
+            </Tooltip>
           </div>
           <div className="col-span-2 row-start-5 xs:row-start-4">
             <label htmlFor="world" className="mb-2 block text-sm">
@@ -274,6 +282,7 @@ const CreateParty = () => {
                   onChange={onChange}
                   type="number"
                   placeholder="302"
+                  min={0}
                   className={`input  w-full ${
                     errors.world
                       ? 'outline outline-2 outline-error/50 focus:outline-error'
@@ -299,8 +308,10 @@ const CreateParty = () => {
               name="kills"
               render={({ field: { onChange } }) => (
                 <input
+                  id="kills"
                   onChange={onChange}
-                  type="kills"
+                  type="number"
+                  min={0}
                   placeholder="50"
                   className={`input w-full`}
                 />

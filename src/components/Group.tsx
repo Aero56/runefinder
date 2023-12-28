@@ -14,6 +14,7 @@ import { canJoinGroup } from '../utils/groups';
 import { DIALOG_SET_USERNAME } from './Dialogs/SetUsername';
 import { EXPERIENCE_TYPES } from './ExperienceSelect';
 import { GAMEMODES } from './ModeSelect';
+import { Tooltip, TooltipContent, TooltipTrigger } from './Tooltip';
 
 import queryClient from 'api/queryClient';
 import { useAuth } from 'contexts/AuthContext';
@@ -125,21 +126,23 @@ const Group = ({ group }: GroupProps) => {
               }
 
               return (
-                <div
-                  key={avatar.id}
-                  className="avatar border-black-pearl-950"
-                  title={avatar.username}
-                  onClick={(event: MouseEvent) => {
-                    event.stopPropagation();
-                    navigate(`player/${avatar.id}`);
-                  }}
-                >
-                  <UserIcon
-                    className={`w-8 bg-black-pearl-800 p-1 hover:bg-black-pearl-700 ${
-                      avatar.id === user?.id ? 'text-anzac-400' : ''
-                    }`}
-                  />
-                </div>
+                <Tooltip key={avatar.id}>
+                  <TooltipTrigger className="avatar border-black-pearl-950">
+                    <div
+                      onClick={(event: MouseEvent) => {
+                        event.stopPropagation();
+                        navigate(`player/${avatar.id}`);
+                      }}
+                    >
+                      <UserIcon
+                        className={`w-8 bg-black-pearl-800 p-1 hover:bg-black-pearl-700 ${
+                          avatar.id === user?.id ? 'text-anzac-400' : ''
+                        }`}
+                      />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>{avatar.username}</TooltipContent>
+                </Tooltip>
               );
             })}
             {group.size > avatarStackLimit && (

@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { Tooltip, TooltipContent, TooltipTrigger } from './Tooltip';
+
 import usePlayerBadgesQuery from 'hooks/queries/usePlayerBadgesQuery';
 import { BadgeType } from 'types/badges';
 import { Tables } from 'types/supabase';
@@ -58,18 +60,19 @@ const PlayerBadges = ({ stats }: PlayerBadgesProps) => {
   return (
     <div className="mx-auto mt-2 grid max-w-xs auto-cols-auto grid-cols-4 gap-1 rounded-xl bg-black-pearl-950 p-3 sm:grid-cols-3 md:grid-cols-4">
       {badges.map((badge, index) => (
-        <div
-          key={index}
-          className="mx-auto w-14 [image-rendering:pixelated]"
-          title={badge.label}
-        >
-          <img
-            src={
-              new URL(`../assets/badges/${badge.type}.png`, import.meta.url)
-                .href
-            }
-          ></img>
-        </div>
+        <Tooltip key={index}>
+          <TooltipTrigger>
+            <div className="mx-auto w-14 [image-rendering:pixelated]">
+              <img
+                src={
+                  new URL(`../assets/badges/${badge.type}.png`, import.meta.url)
+                    .href
+                }
+              ></img>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>{badge.label}</TooltipContent>
+        </Tooltip>
       ))}
     </div>
   );
