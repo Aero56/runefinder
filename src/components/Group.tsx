@@ -141,7 +141,9 @@ const Group = ({ group }: GroupProps) => {
                       />
                     </div>
                   </TooltipTrigger>
-                  <TooltipContent>{avatar.username}</TooltipContent>
+                  <TooltipContent className="bg-black-pearl-950 fill-black-pearl-950">
+                    {avatar.username}
+                  </TooltipContent>
                 </Tooltip>
               );
             })}
