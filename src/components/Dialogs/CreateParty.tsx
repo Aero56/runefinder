@@ -249,7 +249,7 @@ const CreateParty = () => {
             <label htmlFor="gamemode" className="mb-2 block text-sm">
               Mode
             </label>
-            <Tooltip enabled={!data?.stats.gamemode}>
+            <Tooltip enabled={!data?.stats?.gamemode}>
               <TooltipTrigger>
                 <Controller
                   control={control}
@@ -259,7 +259,7 @@ const CreateParty = () => {
                       value={value}
                       onChange={onChange}
                       className="w-full"
-                      disabled={!data?.stats.gamemode}
+                      disabled={!data?.stats?.gamemode}
                     />
                   )}
                 />
