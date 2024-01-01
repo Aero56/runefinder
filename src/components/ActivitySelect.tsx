@@ -34,6 +34,7 @@ interface ActivitySelectProps {
   onChange: (value: Option<Raid | null>) => void;
   className?: string;
   tint?: Tint;
+  isFilter?: boolean;
 }
 
 const ActivitySelect = ({
@@ -41,6 +42,7 @@ const ActivitySelect = ({
   onChange,
   className,
   tint,
+  isFilter,
 }: ActivitySelectProps) => {
   const [selected, setSelected] = useState<Option<Raid | null>>(
     value !== null ? value : ACTIVITIES[0],
@@ -55,7 +57,11 @@ const ActivitySelect = ({
     <Select
       value={selected ? [selected] : []}
       onChange={handleChange}
-      options={ACTIVITIES}
+      options={
+        isFilter
+          ? ACTIVITIES
+          : ACTIVITIES.filter((activity) => activity !== ACTIVITIES[0])
+      }
       placeholder="Choose activity"
       className={className}
       tint={tint}

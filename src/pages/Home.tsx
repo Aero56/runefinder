@@ -88,6 +88,7 @@ const Home = () => {
             onChange={handleChangeActivity}
             className="w-full xs:w-auto"
             tint="light"
+            isFilter
           />
           <ExperienceSelect
             value={selectedLevel}
