@@ -1,7 +1,7 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
-import toast from 'react-hot-toast/headless';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import queryClient from 'api/queryClient';
 import { useAuth } from 'contexts/AuthContext';

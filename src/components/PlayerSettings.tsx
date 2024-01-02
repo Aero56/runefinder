@@ -1,7 +1,7 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast/headless';
+import { toast } from 'react-toastify';
 
 import queryClient from 'api/queryClient';
 import { useAuth } from 'contexts/AuthContext';

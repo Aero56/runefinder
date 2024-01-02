@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import toast from 'react-hot-toast/headless';
+import { toast } from 'react-toastify';
 
 import useUpdateUserMutation from 'hooks/mutations/useUpdateUserMutation';
 

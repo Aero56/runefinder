@@ -6,8 +6,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { MouseEvent, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast/headless';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { canJoinGroup } from '../utils/groups';
 

@@ -1,8 +1,8 @@
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Dialog from '../Dialog/Dialog';
 import { Option } from '../Select';

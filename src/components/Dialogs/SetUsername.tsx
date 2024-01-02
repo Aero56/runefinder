@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast/headless';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import queryClient from 'api/queryClient';
 import Dialog from 'components/Dialog/Dialog';

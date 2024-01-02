@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Comment from './Comment';
 import { DIALOG_SET_USERNAME } from './Dialogs/SetUsername';

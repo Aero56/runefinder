@@ -1,7 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { MouseEvent } from 'react';
-import toast from 'react-hot-toast/headless';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import queryClient from 'api/queryClient';
 import { useAuth } from 'contexts/AuthContext';

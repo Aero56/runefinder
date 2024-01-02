@@ -5,9 +5,9 @@ import {
   LockClosedIcon,
 } from '@heroicons/react/24/outline';
 import { MouseEvent, useMemo } from 'react';
-import toast from 'react-hot-toast/headless';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { canJoinGroup } from '../utils/groups';
 
@@ -70,7 +70,7 @@ const Group = ({ group }: GroupProps) => {
     queryClient.invalidateQueries(['user', user!.id]);
   };
 
-  const handleLeaveGroup = async (group: GroupType) => {
+  const handleLeaveGroup = async (group: GroupType, shouldClose?: boolean) => {
     try {
       await updateUser({ group: null });
     } catch (error) {
@@ -80,7 +80,11 @@ const Group = ({ group }: GroupProps) => {
       return;
     }
 
-    toast(`You left group "${group.name}"!`);
+    if (shouldClose) {
+      toast(`You closed group "${group.name}"!`);
+    } else {
+      toast(`You left group "${group.name}"!`);
+    }
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
@@ -190,7 +194,7 @@ const Group = ({ group }: GroupProps) => {
             className="btn w-12 rounded-full border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50 xs:w-24 xs:rounded-btn"
             onClick={(event: MouseEvent) => {
               event.stopPropagation();
-              handleLeaveGroup(group);
+              handleLeaveGroup(group, true);
             }}
           >
             {!isUpdateUserLoading ? (

@@ -13,6 +13,8 @@ import Player from 'pages/Player';
 import ChangePassword from 'pages/auth/ChangePassword';
 import Settings from 'pages/auth/Settings';
 
+import 'react-toastify/dist/ReactToastify.min.css';
+
 const AuthRoute = () => {
   const { session } = useAuth();
 
