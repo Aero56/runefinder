@@ -5,6 +5,7 @@ import ActivitySelect from 'components/ActivitySelect';
 import CreateParty from 'components/Dialogs/CreateParty';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
 import Group from 'components/Group';
+import GroupCardSkeleton from 'components/LoadingSkeletons/GroupCardSkeleton';
 import ModeSelect, { Gamemode } from 'components/ModeSelect';
 import { Option } from 'components/Select';
 import useGroupsQuery from 'hooks/queries/useGroupsQuery';
@@ -121,7 +122,11 @@ const Home = () => {
       </div>
 
       {isLoading ? (
-        <p>Loading...</p>
+        <div className="flex flex-col gap-5">
+          {[...Array(10)].map(() => (
+            <GroupCardSkeleton />
+          ))}
+        </div>
       ) : (
         groups && (
           <>
