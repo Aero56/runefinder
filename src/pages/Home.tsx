@@ -72,6 +72,15 @@ const Home = () => {
     }
   }, [fetchNextPage, inView]);
 
+  const isFiltering =
+    !!debouncedValue ||
+    !!selectedActivity?.value ||
+    !!selectedLevel?.value ||
+    !!selectedMode?.value ||
+    isSplitEnabled;
+
+  console.log(groups);
+
   return (
     <div className="container px-4 pt-4">
       <div className="mb-3 flex justify-between">
@@ -121,39 +130,51 @@ const Home = () => {
         </div>
       </div>
 
-      {isLoading ? (
+      {isLoading && (
         <div className="flex flex-col gap-5">
           {[...Array(10)].map(() => (
             <GroupCardSkeleton />
           ))}
         </div>
-      ) : (
-        groups && (
-          <>
-            <div className="mb-5 flex flex-col gap-5">
-              {groups.pages.map(
-                (page) =>
-                  page?.map((group) => <Group key={group.id} group={group} />),
-              )}
-            </div>
-            {hasNextPage && (
-              <button
-                ref={ref}
-                className="btn mx-auto mb-5 flex border-none bg-black-pearl-900 hover:bg-black-pearl-800"
-                onClick={() => fetchNextPage()}
-              >
-                {isFetchingNextPage ? (
-                  <>
-                    <span className="loading loading-spinner"></span>
-                    Loading more
-                  </>
-                ) : (
-                  'Load more'
-                )}
-              </button>
+      )}
+
+      {!isLoading && !!groups?.pages[0]?.length && (
+        <>
+          <div className="mb-5 flex flex-col gap-5">
+            {groups.pages.map(
+              (page) =>
+                page?.map((group) => <Group key={group.id} group={group} />),
             )}
-          </>
-        )
+          </div>
+          {hasNextPage && (
+            <button
+              ref={ref}
+              className="btn mx-auto mb-5 flex border-none bg-black-pearl-900 hover:bg-black-pearl-800"
+              onClick={() => fetchNextPage()}
+            >
+              {isFetchingNextPage ? (
+                <>
+                  <span className="loading loading-spinner"></span>
+                  Loading more
+                </>
+              ) : (
+                'Load more'
+              )}
+            </button>
+          )}
+        </>
+      )}
+
+      {!isLoading && !groups?.pages[0]?.length && isFiltering && (
+        <p className="mx-auto max-w-xs text-center text-lg text-black-pearl-200/40 xs:max-w-none">
+          No groups found, try filtering on something else.
+        </p>
+      )}
+
+      {!isLoading && !groups?.pages[0]?.length && !isFiltering && (
+        <p className="mx-auto max-w-xs text-center text-lg text-black-pearl-200/40 xs:max-w-none">
+          There are no groups open at the moment.
+        </p>
       )}
     </div>
   );
