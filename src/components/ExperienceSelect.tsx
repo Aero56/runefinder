@@ -12,7 +12,6 @@ export const EXPERIENCE_TYPES = [
   {
     label: 'Any level',
     value: null,
-    entity: { teamSize: 4 },
   },
   {
     label: 'Beginner',

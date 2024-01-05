@@ -4,27 +4,24 @@ import { supabase } from 'api/supabase';
 import { Experience } from 'components/ExperienceSelect';
 import { Gamemode } from 'components/ModeSelect';
 import { useAuth } from 'contexts/AuthContext';
-import { Raid } from 'types/raids';
 
 interface GroupMutationProps {
+  id: string;
   name: string;
-  size: number;
-  type: Raid | null;
   level: Experience | null;
   gamemode: Gamemode | null;
   world: number;
   split: boolean;
-  kills?: number;
+  kills?: number | null;
 }
 
-const useGroupMutation = () => {
+const useUpdateGroupMutation = () => {
   const { user } = useAuth();
 
   return useMutation(
     async ({
+      id,
       name,
-      size,
-      type,
       level,
       gamemode,
       world,
@@ -37,19 +34,15 @@ const useGroupMutation = () => {
 
       const { data, error } = await supabase
         .from('groups')
-        .insert({
+        .update({
           name,
-          size,
-          type,
-          created_by: user.id,
           level,
           gamemode,
           world,
           split,
           kills,
         })
-        .select('id')
-        .single();
+        .eq('id', id);
 
       if (error) {
         throw new Error(error.message);
@@ -60,4 +53,4 @@ const useGroupMutation = () => {
   );
 };
 
-export default useGroupMutation;
+export default useUpdateGroupMutation;

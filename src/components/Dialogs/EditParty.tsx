@@ -1,32 +1,30 @@
-import { PlusIcon } from '@heroicons/react/20/solid';
-import { useEffect, useState } from 'react';
+import { PencilIcon } from '@heroicons/react/24/solid';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Dialog from '../Dialog/Dialog';
 import { Option } from '../Select';
 
-import { DIALOG_SET_USERNAME } from './SetUsername';
-
 import queryClient from 'api/queryClient';
-import { supabase } from 'api/supabase';
-import ActivitySelect from 'components/ActivitySelect';
 import DialogFooter from 'components/Dialog/DialogFooter';
 import DialogHeader from 'components/Dialog/DialogHeader';
-import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
-import ModeSelect, { Gamemode } from 'components/ModeSelect';
+import ExperienceSelect, {
+  EXPERIENCE_TYPES,
+  Experience,
+} from 'components/ExperienceSelect';
+import ModeSelect, { GAMEMODES, Gamemode } from 'components/ModeSelect';
 import { Tooltip, TooltipContent, TooltipTrigger } from 'components/Tooltip';
 import { useAuth } from 'contexts/AuthContext';
-import useCreateGroupMutation from 'hooks/mutations/useCreateGroupMutation';
-import { Raid } from 'types/raids';
+import useUpdateGroupMutation from 'hooks/mutations/useUpdateGroupMutation';
+import { Group } from 'types/groups';
 
-const DEFAULT_SIZE = 10;
+interface EditPartyProps {
+  group: Group;
+}
 
 interface FormData {
   name: string;
-  activity: Option<Raid | null>;
-  size: string;
   experience: Option<Experience | null>;
   world: number;
   gamemode: Option<Gamemode | null>;
@@ -34,36 +32,33 @@ interface FormData {
   kills?: number;
 }
 
-const CreateParty = () => {
-  const navigate = useNavigate();
+const EditParty = ({ group }: EditPartyProps) => {
   const { user, data } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
-  const { mutateAsync: createGroup, isLoading } = useCreateGroupMutation();
+  const { mutateAsync: updateGroup, isLoading } = useUpdateGroupMutation();
 
   const {
     handleSubmit,
     register,
-    watch,
-    setValue,
     control,
     formState: { errors },
     getValues,
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    defaultValues: {
+      name: group.name,
+      split: group.split,
+      experience: EXPERIENCE_TYPES.find(
+        (experience) => experience.value === group.level,
+      ),
+      gamemode: GAMEMODES.find((gamemode) => gamemode.value === group.gamemode),
+      world: group.world,
+      kills: group.kills ?? undefined,
+    },
+  });
 
-  const handleCreateParty = () => {
-    if (!user) {
-      navigate('?signin');
-      return;
-    }
-
-    if (!data?.username) {
-      navigate(`?${DIALOG_SET_USERNAME}`);
-      return;
-    }
-
+  const handleEditParty = () => {
     setIsOpen(true);
   };
 
@@ -71,23 +66,18 @@ const CreateParty = () => {
     setIsOpen(false);
   };
 
-  const handleCreateGroup = async () => {
+  const handleUpdateGroup = async () => {
     const data = getValues();
 
-    let result;
-
     try {
-      result = await createGroup({
+      await updateGroup({
+        id: group.id,
         name: data.name,
-        size: data.activity.entity?.teamSize
-          ? Number(data.size) + 1
-          : DEFAULT_SIZE,
-        type: data.activity?.value ?? null,
         level: data.experience?.value ?? null,
         gamemode: data.gamemode?.value ?? null,
         world: data.world,
         split: data.split,
-        kills: data.kills,
+        kills: data.kills || null,
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -96,95 +86,28 @@ const CreateParty = () => {
       }
     }
 
-    navigate('/group/' + result?.id);
-    setIsConfirmationOpen(false);
     setIsOpen(false);
 
     queryClient.invalidateQueries(['groups']);
+    queryClient.invalidateQueries(['group', group.id]);
     queryClient.invalidateQueries(['user', user!.id]);
-  };
-
-  const onSubmit = async () => {
-    if (user) {
-      const { data } = await supabase
-        .from('groups')
-        .select('id')
-        .eq('created_by', user.id)
-        .eq('status', 'open');
-
-      if (data?.length) {
-        setIsConfirmationOpen(true);
-        setIsOpen(false);
-        return;
-      }
-
-      handleCreateGroup();
-    }
-  };
-
-  const selectedActivity = watch('activity');
-
-  useEffect(() => {
-    setValue('size', '1');
-  }, [selectedActivity, setValue]);
-
-  const handleConfirm = async () => {
-    handleCreateGroup();
-  };
-
-  const handleConfirmCancel = () => {
-    setIsConfirmationOpen(false);
-    setIsOpen(true);
   };
 
   return (
     <>
-      <div onClick={handleCreateParty}>
-        <button
-          className="btn hidden bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 xs:flex"
-          type="button"
-        >
-          <PlusIcon className="h-6 w-6" />
-          Create group
-        </button>
-        <button
-          className={`btn btn-circle fixed right-6 flex border-none bg-anzac-400 text-black-pearl-900 shadow hover:bg-anzac-300 xs:hidden ${
-            user ? 'bottom-24' : 'bottom-8'
-          }`}
-          type="button"
-        >
-          <PlusIcon className="h-6 w-6" />
-        </button>
-      </div>
+      <button
+        className="btn btn-circle btn-ghost btn-sm ml-2"
+        onClick={handleEditParty}
+      >
+        <PencilIcon className="h-5 w-5 [&>path]:stroke-[2.5]" />
+      </button>
       <Dialog isOpen={isOpen} onClose={handleClose}>
-        <DialogHeader title="Create group" />
+        <DialogHeader title="Edit group" />
         <form
           className="row-auto grid grid-cols-4 gap-x-6 gap-y-4"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(handleUpdateGroup)}
         >
-          <div className="col-span-full row-start-1 flex items-center justify-between">
-            <div>
-              <Controller
-                control={control}
-                name="activity"
-                render={({ field: { onChange, value } }) => (
-                  <ActivitySelect
-                    value={value}
-                    onChange={onChange}
-                    {...(errors.activity && {
-                      className:
-                        'outline outline-2 outline-error/50 focus:outline-error',
-                    })}
-                  />
-                )}
-                rules={{ required: 'Please select an activity.' }}
-              />
-              {errors.activity && (
-                <p className="mt-2 text-sm text-error">
-                  {errors.activity.message}
-                </p>
-              )}
-            </div>
+          <div className="col-span-full row-start-1 flex items-center justify-end">
             <div className="flex flex-col gap-0 xs:flex-row xs:gap-2">
               <label
                 htmlFor="split"
@@ -195,9 +118,10 @@ const CreateParty = () => {
               <Controller
                 control={control}
                 name="split"
-                render={({ field: { onChange } }) => (
+                render={({ field: { onChange, value } }) => (
                   <input
                     id="split"
+                    checked={value}
                     onChange={onChange}
                     type="checkbox"
                     placeholder="302"
@@ -275,9 +199,10 @@ const CreateParty = () => {
             <Controller
               control={control}
               name="world"
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value } }) => (
                 <input
                   id="world"
+                  value={value}
                   onChange={onChange}
                   type="number"
                   placeholder="302"
@@ -305,9 +230,10 @@ const CreateParty = () => {
             <Controller
               control={control}
               name="kills"
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value } }) => (
                 <input
                   id="kills"
+                  value={value ?? ''}
                   onChange={onChange}
                   type="number"
                   min={0}
@@ -317,49 +243,17 @@ const CreateParty = () => {
               )}
             />
           </div>
-          {selectedActivity && selectedActivity.entity?.teamSize && (
-            <div className="col-span-full row-start-6 xs:row-start-5">
-              <label htmlFor="email" className="mb-2 block text-sm">
-                {`Players needed: ${watch('size')}`}
-              </label>
-              <input
-                type="range"
-                min={1}
-                max={selectedActivity.entity.teamSize - 1}
-                className="range range-primary"
-                {...register('size')}
-              />
-            </div>
-          )}
         </form>
         <DialogFooter
           primaryAction={{
-            label: 'Create group',
-            onClick: handleSubmit(onSubmit),
+            label: 'Save',
+            onClick: handleSubmit(handleUpdateGroup),
           }}
           isLoading={isLoading}
-        />
-      </Dialog>
-
-      <Dialog
-        isOpen={isConfirmationOpen}
-        onClose={handleConfirmCancel}
-        size="small"
-      >
-        <DialogHeader title="You already have an open group" />
-        <p>
-          Are you sure you want to create a new group? Your current group will
-          be closed.
-        </p>
-        <DialogFooter
-          primaryAction={{ label: 'Confirm', onClick: handleConfirm }}
-          secondaryAction={{ label: 'Cancel', onClick: handleConfirmCancel }}
-          isLoading={isLoading}
-          isCompact
         />
       </Dialog>
     </>
   );
 };
 
-export default CreateParty;
+export default EditParty;

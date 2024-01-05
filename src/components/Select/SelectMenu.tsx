@@ -34,7 +34,9 @@ const SelectMenu = <T extends OptionValue>({
             <button
               onClick={() => handleSelect(option)}
               className={`active:!bg-anzac-400 active:!text-black-pearl-950 ${
-                selected.has(option)
+                [...selected].find(
+                  (selectedOption) => selectedOption.value === option.value,
+                )
                   ? '!bg-anzac-400 font-medium !text-black-pearl-950'
                   : ''
               }`}

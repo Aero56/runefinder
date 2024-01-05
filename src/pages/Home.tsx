@@ -79,8 +79,6 @@ const Home = () => {
     !!selectedMode?.value ||
     isSplitEnabled;
 
-  console.log(groups);
-
   return (
     <div className="container px-4 pt-4">
       <div className="mb-3 flex justify-between">
@@ -132,8 +130,8 @@ const Home = () => {
 
       {isLoading && (
         <div className="flex flex-col gap-5">
-          {[...Array(10)].map(() => (
-            <GroupCardSkeleton />
+          {[...Array(10)].map((_, index) => (
+            <GroupCardSkeleton key={index} />
           ))}
         </div>
       )}
