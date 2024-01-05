@@ -87,7 +87,7 @@ const CreateParty = () => {
         gamemode: data.gamemode?.value ?? null,
         world: data.world,
         split: data.split,
-        kills: data.kills,
+        kills: data.kills || null,
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -275,9 +275,10 @@ const CreateParty = () => {
             <Controller
               control={control}
               name="world"
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value } }) => (
                 <input
                   id="world"
+                  value={value ?? ''}
                   onChange={onChange}
                   type="number"
                   placeholder="302"
@@ -305,9 +306,10 @@ const CreateParty = () => {
             <Controller
               control={control}
               name="kills"
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value } }) => (
                 <input
                   id="kills"
+                  value={value ?? ''}
                   onChange={onChange}
                   type="number"
                   min={0}

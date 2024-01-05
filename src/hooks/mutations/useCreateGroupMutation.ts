@@ -14,7 +14,7 @@ interface GroupMutationProps {
   gamemode: Gamemode | null;
   world: number;
   split: boolean;
-  kills?: number;
+  kills?: number | null;
 }
 
 const useCreateGroupMutation = () => {
