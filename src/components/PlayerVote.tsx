@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import { Tooltip, TooltipContent, TooltipTrigger } from './Tooltip';
+
 import queryClient from 'api/queryClient';
 import { useAuth } from 'contexts/AuthContext';
 import usePlayerVoteMutation from 'hooks/mutations/usePlayerVoteMutation';
@@ -43,17 +45,23 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
 
   return (
     <div className="mx-auto flex max-w-xs items-center justify-between gap-4 rounded-xl bg-black-pearl-950 p-3">
-      <button
-        onClick={() => handleVote(playerVote === -1 ? 0 : -1)}
-        className={`bg-center bg-no-repeat hover:bg-overhead ${
-          playerVote === -1 ? 'bg-overhead' : ''
-        } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
-      >
-        <img
-          src={new URL('../assets/icons/Magic.png', import.meta.url).href}
-          className="[image-rendering:pixelated]"
-        />
-      </button>
+      <Tooltip enabled={isPlayerMe}>
+        <TooltipTrigger asChild>
+          <button
+            onClick={() => handleVote(playerVote === -1 ? 0 : -1)}
+            disabled={isPlayerMe}
+            className={`bg-center bg-no-repeat ${
+              playerVote === -1 ? 'bg-overhead' : ''
+            } ${isPlayerMe ? 'grayscale' : 'hover:bg-overhead'}`}
+          >
+            <img
+              src={new URL('../assets/icons/Magic.png', import.meta.url).href}
+              className="[image-rendering:pixelated]"
+            />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent>You can not downvote yourself</TooltipContent>
+      </Tooltip>
       <p
         className={`${
           totalVotes && totalVotes > 0
@@ -65,19 +73,26 @@ const PlayerVote = ({ playerId }: PlayerVoteProps) => {
       >
         {totalVotes ? (totalVotes > 0 ? `+${totalVotes}` : totalVotes) : 0}
       </p>
-      <button
-        onClick={() => handleVote(playerVote === 1 ? 0 : 1)}
-        className={`bg-center bg-no-repeat hover:bg-overhead ${
-          playerVote === 1 ? 'bg-overhead' : ''
-        } ${isPlayerMe ? 'pointer-events-none grayscale' : ''}`}
-      >
-        <img
-          src={
-            new URL('../assets/icons/Dampen_Magic.png', import.meta.url).href
-          }
-          className="rotate-180 [image-rendering:pixelated]"
-        />
-      </button>
+      <Tooltip enabled={isPlayerMe}>
+        <TooltipTrigger asChild>
+          <button
+            onClick={() => handleVote(playerVote === 1 ? 0 : 1)}
+            disabled={isPlayerMe}
+            className={`bg-center bg-no-repeat ${
+              playerVote === 1 ? 'bg-overhead' : ''
+            } ${isPlayerMe ? 'grayscale' : 'hover:bg-overhead'}`}
+          >
+            <img
+              src={
+                new URL('../assets/icons/Dampen_Magic.png', import.meta.url)
+                  .href
+              }
+              className="rotate-180 [image-rendering:pixelated]"
+            />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent>You can not upvote yourself</TooltipContent>
+      </Tooltip>
     </div>
   );
 };
