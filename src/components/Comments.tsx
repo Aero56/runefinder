@@ -15,7 +15,7 @@ import useCommentsQuery, { RECORD_LIMIT } from 'hooks/queries/useCommentsQuery';
 const MAX_COMMENT_LENGTH = 500;
 
 interface CommentsProps {
-  userId: string;
+  userId?: string;
 }
 
 interface FormData {
@@ -27,7 +27,10 @@ const Comments = ({ userId }: CommentsProps) => {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useCommentsQuery({ userId, page });
+  const { data, isLoading } = useCommentsQuery(
+    { userId: userId!, page },
+    { keepPreviousData: true, enabled: !!userId },
+  );
 
   const { mutateAsync: addComment, isLoading: isAddLoading } =
     useCommentMutation();
@@ -49,7 +52,7 @@ const Comments = ({ userId }: CommentsProps) => {
 
     try {
       await addComment({
-        userId: userId,
+        userId: userId!,
         comment: data.comment,
       });
     } catch (error) {
@@ -106,10 +109,21 @@ const Comments = ({ userId }: CommentsProps) => {
             </div>
           )}
         </div>
-        {!isLoading &&
-          data?.comments?.map((comment) => (
-            <Comment key={comment.id} comment={comment} userId={userId} />
-          ))}
+        {userId && !isLoading ? (
+          data?.comments?.length ? (
+            data?.comments?.map((comment) => (
+              <Comment key={comment.id} comment={comment} userId={userId} />
+            ))
+          ) : (
+            <p className="mt-4 text-center text-black-pearl-200/40">
+              This player does not have any comments yet.
+            </p>
+          )
+        ) : (
+          [...Array(3)].map(() => (
+            <div className="skeleton mt-4 h-20 w-full bg-black-pearl-950/60" />
+          ))
+        )}
         {!isLoading && !!data?.count && data.count > RECORD_LIMIT && (
           <div className="mx-auto mt-4">
             <Pagination

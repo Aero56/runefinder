@@ -1,8 +1,11 @@
+import PlayerRankingsSkeleton from './LoadingSkeletons/PlayerRankingsSkeleton';
+
 import { Bosses } from 'types/bosses';
 import { Tables } from 'types/supabase';
 
 interface RankingsProps {
-  stats: Tables<'statistics'>;
+  stats?: Tables<'statistics'>;
+  isLoading: boolean;
 }
 
 const RANKINGS: { [key in keyof Partial<Bosses>]: { label: string } } = {
@@ -14,11 +17,11 @@ const RANKINGS: { [key in keyof Partial<Bosses>]: { label: string } } = {
   tombsOfAmascutExpertMode: { label: 'Tombs of Amascut (Expert mode)' },
 };
 
-const Rankings = ({ stats }: RankingsProps) => {
+const Rankings = ({ stats, isLoading }: RankingsProps) => {
   const rankings = Object.entries(RANKINGS).map(([key, ranking]) => {
-    const boss = stats.bosses[key as keyof Bosses];
+    const boss = stats?.bosses[key as keyof Bosses];
 
-    if (!boss.score) {
+    if (!boss?.score) {
       return null;
     }
 
@@ -39,26 +42,30 @@ const Rankings = ({ stats }: RankingsProps) => {
       <div className="flex items-center justify-between rounded-t-xl border-b-2 border-black-pearl-700 bg-black-pearl-800 p-4 font-semibold">
         Rankings
       </div>
-      <div className="w-full">
-        <div className="p-4">
-          {rankings.filter(Boolean).length ? (
-            <>
-              <div className="flex flex-col items-center">
-                <h2 className="font-semibold">Raid score</h2>
-                <p className="text-4xl font-bold text-anzac-400">
-                  {stats.raid_score}
-                </p>
-              </div>
-              <div className="divider my-4" />
-              <div className="flex flex-wrap gap-2">{rankings}</div>
-            </>
-          ) : (
-            <p className="p-4 text-center text-black-pearl-200/40">
-              This player is not ranked on anything yet.
-            </p>
-          )}
+      {stats && !isLoading ? (
+        <div className="w-full">
+          <div className="p-4">
+            {rankings.filter(Boolean).length ? (
+              <>
+                <div className="flex flex-col items-center">
+                  <h2 className="font-semibold">Raid score</h2>
+                  <p className="text-4xl font-bold text-anzac-400">
+                    {stats.raid_score}
+                  </p>
+                </div>
+                <div className="divider my-4" />
+                <div className="flex flex-wrap gap-2">{rankings}</div>
+              </>
+            ) : (
+              <p className="p-4 text-center text-black-pearl-200/40">
+                This player is not ranked on anything yet.
+              </p>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <PlayerRankingsSkeleton />
+      )}
     </div>
   );
 };

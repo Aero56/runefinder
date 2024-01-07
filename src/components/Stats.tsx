@@ -2,7 +2,8 @@ import { Skills } from 'types/skills';
 import { Tables } from 'types/supabase';
 
 interface StatsProps {
-  stats: Tables<'statistics'>;
+  stats?: Tables<'statistics'>;
+  isLoading: boolean;
 }
 
 const SKILLS: Array<keyof Skills> = [
@@ -31,46 +32,52 @@ const SKILLS: Array<keyof Skills> = [
   'hunter',
 ];
 
-const Stats = ({ stats }: StatsProps) => {
+const Stats = ({ stats, isLoading }: StatsProps) => {
   return (
     <div className="col-span-1 rounded-xl bg-black-pearl-900 sm:col-span-3">
       <div className="flex items-center justify-between rounded-t-xl border-b-2 border-black-pearl-700 bg-black-pearl-800 p-4 font-semibold">
         Stats
-        <div className="badge badge-primary">
-          {`Total: ${stats.skills.overall.level}`}
-        </div>
+        {stats && (
+          <div className="badge badge-primary">
+            {`Total: ${stats.skills.overall.level}`}
+          </div>
+        )}
       </div>
       <div className="flex justify-center">
         <div className="w-96 py-4 sm:p-4">
           <div className="flex flex-wrap justify-center gap-2">
-            {SKILLS.map((skillName) => {
-              const skill = stats.skills[skillName];
+            {stats && !isLoading
+              ? SKILLS.map((skillName) => {
+                  const skill = stats.skills[skillName];
 
-              return (
-                <div
-                  key={skillName}
-                  className="flex w-1/4 rounded-xl border-2 border-black-pearl-700 bg-black-pearl-800 p-1"
-                >
-                  <img
-                    src={
-                      new URL(
-                        `../assets/skills/${skillName}.png`,
-                        import.meta.url,
-                      ).href
-                    }
-                    alt={`Skill icon of ${skillName}`}
-                    className="ml-1 h-6 w-6 object-contain"
-                  />
-                  <p
-                    className={`mx-auto ${
-                      !skill.rank ? 'text-black-pearl-100/30' : ''
-                    }`}
-                  >
-                    {skill.level}
-                  </p>
-                </div>
-              );
-            })}
+                  return (
+                    <div
+                      key={skillName}
+                      className="flex w-1/4 rounded-xl border-2 border-black-pearl-700 bg-black-pearl-800 p-1"
+                    >
+                      <img
+                        src={
+                          new URL(
+                            `../assets/skills/${skillName}.png`,
+                            import.meta.url,
+                          ).href
+                        }
+                        alt={`Skill icon of ${skillName}`}
+                        className="ml-1 h-6 w-6 object-contain"
+                      />
+                      <p
+                        className={`mx-auto ${
+                          !skill.rank ? 'text-black-pearl-100/30' : ''
+                        }`}
+                      >
+                        {skill.level}
+                      </p>
+                    </div>
+                  );
+                })
+              : [...Array(SKILLS.length)].map(() => (
+                  <div className="skeleton h-9 w-24 rounded-xl bg-black-pearl-950/60" />
+                ))}
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 
 import { supabase } from 'api/supabase';
 import { Tables } from 'types/supabase';
@@ -23,7 +23,10 @@ interface CommentsQueryData {
   count: number | null;
 }
 
-const useCommentsQuery = ({ userId, page }: CommentsQueryProps) => {
+const useCommentsQuery = (
+  { userId, page }: CommentsQueryProps,
+  options?: UseQueryOptions<CommentsQueryData>,
+) => {
   const queryKey = ['comments', userId, page];
 
   const offset = RECORD_LIMIT * page;
@@ -44,7 +47,7 @@ const useCommentsQuery = ({ userId, page }: CommentsQueryProps) => {
 
       return { comments: data, count };
     },
-    { keepPreviousData: true },
+    options,
   );
 };
 
