@@ -65,8 +65,10 @@ const PlayerBadges = ({ stats }: PlayerBadgesProps) => {
             <div className="mx-auto w-14 [image-rendering:pixelated]">
               <img
                 src={
-                  new URL(`../assets/badges/${badge.type}.png`, import.meta.url)
-                    .href
+                  new URL(
+                    `../assets/badges/${badge.type}.webp`,
+                    import.meta.url,
+                  ).href
                 }
               ></img>
             </div>

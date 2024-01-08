@@ -204,7 +204,7 @@ const Group = () => {
           <img
             src={
               new URL(
-                `../assets/banners/${group.type.value}.png`,
+                `../assets/banners/${group.type.value}.webp`,
                 import.meta.url,
               ).href
             }
