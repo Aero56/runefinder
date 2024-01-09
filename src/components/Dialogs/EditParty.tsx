@@ -33,7 +33,7 @@ interface FormData {
 }
 
 const EditParty = ({ group }: EditPartyProps) => {
-  const { user, data } = useAuth();
+  const { data } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -90,7 +90,6 @@ const EditParty = ({ group }: EditPartyProps) => {
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
-    queryClient.invalidateQueries(['user', user!.id]);
   };
 
   return (

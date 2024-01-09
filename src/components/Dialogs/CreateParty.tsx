@@ -101,7 +101,7 @@ const CreateParty = () => {
     setIsOpen(false);
 
     queryClient.invalidateQueries(['groups']);
-    queryClient.invalidateQueries(['user', user!.id]);
+    queryClient.invalidateQueries(['player', user!.id]);
   };
 
   const onSubmit = async () => {
