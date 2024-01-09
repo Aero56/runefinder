@@ -17,6 +17,7 @@ import EditParty from 'components/Dialogs/EditParty';
 import { DIALOG_SET_USERNAME } from 'components/Dialogs/SetUsername';
 import { EXPERIENCE_TYPES } from 'components/ExperienceSelect';
 import GroupPlayer from 'components/GroupPlayer';
+import GroupSkeleton from 'components/LoadingSkeletons/GroupSkeleton';
 import { GAMEMODES } from 'components/ModeSelect';
 import { useAuth } from 'contexts/AuthContext';
 import useUpdateUserMutation from 'hooks/mutations/useUpdateUserMutation';
@@ -122,7 +123,7 @@ const Group = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <GroupSkeleton />;
   }
 
   if (!group) {
@@ -299,7 +300,7 @@ const Group = () => {
             [...Array(playersNeeded)].map((_, index) => (
               <div
                 key={index}
-                className="skeleton flex flex-col rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950/60 p-7 opacity-50"
+                className="skeleton flex h-[88px] flex-col justify-center rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950/60 opacity-50"
               >
                 <p className="text-center">Waiting for player to join...</p>
               </div>

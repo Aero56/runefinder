@@ -76,7 +76,7 @@ const Stats = ({ stats, isLoading }: StatsProps) => {
                   );
                 })
               : [...Array(SKILLS.length)].map(() => (
-                  <div className="skeleton h-9 w-24 rounded-xl bg-black-pearl-950/60" />
+                  <div className="skeleton h-9 w-1/4 rounded-xl bg-black-pearl-950/60" />
                 ))}
           </div>
         </div>
