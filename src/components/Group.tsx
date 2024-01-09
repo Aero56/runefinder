@@ -67,7 +67,7 @@ const Group = ({ group }: GroupProps) => {
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
-    queryClient.invalidateQueries(['user', user!.id]);
+    queryClient.invalidateQueries(['player', user!.id]);
   };
 
   const handleLeaveGroup = async (group: GroupType, shouldClose?: boolean) => {
@@ -88,7 +88,7 @@ const Group = ({ group }: GroupProps) => {
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
-    queryClient.invalidateQueries(['user', user!.id]);
+    queryClient.invalidateQueries(['player', user!.id]);
   };
 
   const avatars = useMemo(() => {
