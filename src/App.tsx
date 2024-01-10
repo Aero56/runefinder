@@ -12,6 +12,8 @@ import NotFound from 'pages/NotFound';
 import Player from 'pages/Player';
 import ChangePassword from 'pages/auth/ChangePassword';
 import Settings from 'pages/auth/Settings';
+import Info from 'pages/info/Info';
+import Privacy from 'pages/info/Privacy';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -36,6 +38,10 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
+
+        <Route path="/info" element={<Info />} />
+        <Route path="/info/privacy" element={<Privacy />} />
+
         <Route path="/player/:id" element={<Player />} />
         <Route path="/group/:id" element={<Group />} />
 

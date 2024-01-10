@@ -121,9 +121,16 @@ const Header = () => {
             </button>
           </>
         )}
-        <button className="btn btn-ghost w-12 p-0 hover:bg-black-pearl-800">
+        <NavLink
+          to="/info"
+          className={({ isActive }) =>
+            `btn btn-ghost w-12 p-0 hover:bg-black-pearl-800 ${
+              isActive ? 'text-anzac-400' : ''
+            }`
+          }
+        >
           <QuestionMarkCircleIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
-        </button>
+        </NavLink>
       </div>
     </div>
   );
