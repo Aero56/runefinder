@@ -6,7 +6,7 @@ const Privacy = () => {
       </h1>
 
       <p className="my-6 mt-2">
-        <em>Last Modified: 10/01/2024</em>
+        <em>Last Modified: 11/01/2024</em>
       </p>
 
       <h2 className="my-6 text-2xl font-semibold">1. Introduction:</h2>
