@@ -12,7 +12,7 @@ const NewsAndUpdates = () => {
         <p className="mt-2">
           It's taken me a while, but it's finally out!
           <br />
-          In the future updates will be posted here.
+          Future updates will be posted here.
         </p>
       </div>
     </div>

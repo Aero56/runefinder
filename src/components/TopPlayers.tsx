@@ -29,7 +29,7 @@ const TopPlayers = () => {
                           : rank === 2
                             ? 'bg-black-pearl-100'
                             : rank === 3
-                              ? 'bg-amber-600'
+                              ? 'bg-amber-700'
                               : 'bg-black-pearl-600'
                       }`}
                     >
