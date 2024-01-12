@@ -2,7 +2,7 @@ const NewsAndUpdates = () => {
   return (
     <div className="h-min w-full rounded-xl bg-black-pearl-900 p-4 lg:w-2/3">
       <h2 className="mb-4 font-semibold">News & Updates</h2>
-      <div className="rounded-xl bg-black-pearl-950 p-4">
+      <div className="rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950 p-4">
         <div className="flex justify-between">
           <h2 className="text-lg font-medium text-anzac-400">
             RuneFinder released!

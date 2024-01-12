@@ -23,7 +23,7 @@ const TopPlayers = () => {
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className={`h-5 w-5 rounded bg-anzac-400 text-center text-sm font-semibold text-black-pearl-950 ${
+                      className={`h-5 w-5 rounded text-center text-sm font-semibold text-black-pearl-950 ${
                         rank === 1
                           ? 'bg-anzac-400'
                           : rank === 2
