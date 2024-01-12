@@ -6,15 +6,14 @@ const Privacy = () => {
       </h1>
 
       <p className="my-6 mt-2">
-        <em>Last Modified: 11/01/2024</em>
+        <em>Last Modified: 12/01/2024</em>
       </p>
 
       <h2 className="my-6 text-2xl font-semibold">1. Introduction:</h2>
 
       <p className="mb-4">
-        For all purposes, this English language version of this Privacy Policy
-        shall be the original, governing instrument, and understanding of the
-        parties.
+        For all purposes, this Privacy Policy shall be the original, governing
+        instrument, and understanding of the parties.
       </p>
       <p className="mb-4">
         RuneFinder is a free fan made service for RuneScape, the video game. It
