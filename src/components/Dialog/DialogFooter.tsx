@@ -19,7 +19,7 @@ const DialogFooter = ({
   return isCompact ? (
     <div className="mt-5 flex flex-row-reverse gap-2">
       <button
-        className="btn w-28 bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300"
+        className="btn btn-primary w-28 font-bold"
         onClick={primaryAction.onClick}
       >
         {!isLoading ? (
@@ -40,7 +40,7 @@ const DialogFooter = ({
   ) : (
     <div className="mt-5 w-full">
       <button
-        className="btn w-full bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300"
+        className="btn btn-primary w-full font-bold"
         onClick={primaryAction.onClick}
       >
         {!isLoading ? (

@@ -3,6 +3,7 @@ import {
   QuestionMarkCircleIcon,
   Cog6ToothIcon,
   UsersIcon,
+  MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
@@ -55,7 +56,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="navbar-end gap-1">
-        {user ? (
+        {user && (
           <>
             {!!data?.group_id && (
               <NavLink
@@ -73,6 +74,36 @@ const Header = () => {
             {shouldShowDivider && (
               <div className="divider divider-horizontal hidden p-2 sm:flex" />
             )}
+          </>
+        )}
+        {!user && (
+          <>
+            <button
+              className="btn btn-ghost font-bold hover:bg-black-pearl-800"
+              onClick={() => navigate('?signin')}
+            >
+              Sign in
+            </button>
+            <button
+              className="btn btn-primary font-bold"
+              onClick={() => navigate('?signup')}
+            >
+              Sign up
+            </button>
+          </>
+        )}
+        <NavLink
+          to="/groups"
+          className={({ isActive }) =>
+            `btn btn-ghost w-12 p-0 hover:bg-black-pearl-800 sm:flex ${
+              isActive ? 'text-anzac-400' : ''
+            } ${user ? 'hidden' : ''}`
+          }
+        >
+          <MagnifyingGlassIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
+        </NavLink>
+        {user && (
+          <>
             {!data?.username ? (
               <NavLink
                 to={`?${DIALOG_SET_USERNAME}&redirect`}
@@ -104,21 +135,6 @@ const Header = () => {
             >
               <Cog6ToothIcon className="h-6 w-6 [&>path]:stroke-[2.5]" />
             </NavLink>
-          </>
-        ) : (
-          <>
-            <button
-              className="btn btn-ghost font-bold hover:bg-black-pearl-800"
-              onClick={() => navigate('?signin')}
-            >
-              Sign in
-            </button>
-            <button
-              className="btn bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300"
-              onClick={() => navigate('?signup')}
-            >
-              Sign up
-            </button>
           </>
         )}
         <NavLink

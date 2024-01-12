@@ -147,7 +147,7 @@ const Group = () => {
         <div className="flex justify-end">
           {group.created_by.id === user?.id ? (
             <button
-              className="btn border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
+              className="btn w-40 border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
               onClick={(event: MouseEvent) => {
                 event.stopPropagation();
                 handleLeaveGroup(group, true);
@@ -164,7 +164,7 @@ const Group = () => {
             </button>
           ) : group.users.find((currentUser) => currentUser.id === user?.id) ? (
             <button
-              className="btn border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
+              className="btn w-40 border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
               onClick={(event: MouseEvent) => {
                 event.stopPropagation();
                 handleLeaveGroup(group);
@@ -181,7 +181,7 @@ const Group = () => {
             </button>
           ) : (
             <button
-              className="btn bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 disabled:bg-black-pearl-900"
+              className="btn btn-primary w-40 font-bold disabled:bg-black-pearl-900"
               onClick={(event: MouseEvent) => {
                 event.stopPropagation();
                 handleJoinGroup(group);

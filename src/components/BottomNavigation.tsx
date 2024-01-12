@@ -1,6 +1,7 @@
 import {
   Cog6ToothIcon,
   HomeIcon,
+  MagnifyingGlassIcon,
   UserIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
@@ -26,6 +27,14 @@ const BottomNavigation = () => {
         }
       >
         <HomeIcon className="h-6 w-6" />
+      </NavLink>
+      <NavLink
+        to="/groups"
+        className={({ isActive }) =>
+          `transition-colors ${isActive ? 'active text-anzac-400' : ''}`
+        }
+      >
+        <MagnifyingGlassIcon className="h-6 w-6" />
       </NavLink>
       {data?.group_id && (
         <NavLink

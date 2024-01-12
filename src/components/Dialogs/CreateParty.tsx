@@ -141,14 +141,14 @@ const CreateParty = () => {
     <>
       <div onClick={handleCreateParty}>
         <button
-          className="btn hidden bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300 xs:flex"
+          className="btn btn-primary hidden font-bold xs:flex"
           type="button"
         >
           <PlusIcon className="h-6 w-6" />
           Create group
         </button>
         <button
-          className={`btn btn-circle fixed right-6 flex border-none bg-anzac-400 text-black-pearl-900 shadow hover:bg-anzac-300 xs:hidden ${
+          className={`btn btn-circle btn-primary fixed right-6 flex shadow xs:hidden ${
             user ? 'bottom-24' : 'bottom-8'
           }`}
           type="button"

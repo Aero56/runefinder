@@ -24,15 +24,12 @@ const AccountSettings = () => {
       </div>
       <div className="flex flex-wrap gap-2 p-4">
         <button
-          className="btn bg-anzac-400 text-black-pearl-950 hover:bg-anzac-300"
+          className="btn btn-primary"
           onClick={() => navigate('/settings/change-password')}
         >
           Change password
         </button>
-        <button
-          className="btn bg-anzac-400 text-black-pearl-950 hover:bg-anzac-300"
-          onClick={handleSignOut}
-        >
+        <button className="btn btn-primary" onClick={handleSignOut}>
           Sign out
         </button>
       </div>

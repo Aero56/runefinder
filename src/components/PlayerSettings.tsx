@@ -70,7 +70,7 @@ const PlayerSettings = () => {
             )}
           </div>
           <button
-            className="btn ml-2 w-12 bg-anzac-400 p-0 text-black-pearl-950 hover:bg-anzac-300"
+            className="btn btn-primary ml-2 w-12 p-0"
             onClick={handleSubmit(handleUpdatePlayerData)}
           >
             {!isLoading ? (

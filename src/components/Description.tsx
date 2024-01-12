@@ -73,10 +73,7 @@ const Description = ({ value }: DescriptionProps) => {
           e.target.value = val;
         }}
       />
-      <button
-        className="btn btn-sm mt-2 bg-primary text-neutral hover:bg-anzac-300"
-        onClick={handleSave}
-      >
+      <button className="btn btn-primary btn-sm mt-2" onClick={handleSave}>
         {!isLoading ? (
           'Save'
         ) : (

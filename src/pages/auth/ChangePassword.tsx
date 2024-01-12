@@ -106,7 +106,7 @@ const ChangePassword = () => {
               </p>
             )}
           </div>
-          <button className="btn mt-5 w-full bg-anzac-400 font-bold text-black-pearl-900 hover:bg-anzac-300">
+          <button className="btn btn-primary mt-5 w-full font-bold">
             {!isLoading ? (
               'Change password'
             ) : (

@@ -95,7 +95,7 @@ const Comments = ({ userId }: CommentsProps) => {
                 }`}
               >{`${commentField.length}/${MAX_COMMENT_LENGTH}`}</p>
               <button
-                className={`btn btn-sm w-36 bg-anzac-400 text-black-pearl-950 hover:bg-anzac-300 ${
+                className={`btn btn-primary btn-sm w-36 ${
                   commentField.length > MAX_COMMENT_LENGTH ? 'btn-disabled' : ''
                 }`}
                 onClick={handleSubmit(onSubmit)}

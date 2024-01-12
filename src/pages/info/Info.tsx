@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 const SUPPORTERS = ['wpix'];
 
 const Info = () => {
@@ -103,9 +101,6 @@ const Info = () => {
           Discord
         </button>
       </div>
-      <Link to="privacy" className="btn btn-outline btn-neutral border-2">
-        Privacy Policy
-      </Link>
       <h1 className="font-semibold">Supporters</h1>
       <div className="flex flex-wrap justify-center gap-3">
         {SUPPORTERS.map((supporter) => (

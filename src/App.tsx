@@ -7,6 +7,7 @@ import Header from 'components/Header';
 import Notifications from 'components/Notifications';
 import { useAuth } from 'contexts/AuthContext';
 import Group from 'pages/Group';
+import Groups from 'pages/Groups';
 import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
 import Player from 'pages/Player';
@@ -38,12 +39,13 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/info" element={<Info />} />
-        <Route path="/info/privacy" element={<Privacy />} />
+        <Route path="/privacy" element={<Privacy />} />
+
+        <Route path="/groups" element={<Groups />} />
+        <Route path="/group/:id" element={<Group />} />
 
         <Route path="/player/:id" element={<Player />} />
-        <Route path="/group/:id" element={<Group />} />
 
         <Route element={<AuthRoute />}>
           <Route
