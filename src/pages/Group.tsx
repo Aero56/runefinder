@@ -13,7 +13,7 @@ import { canJoinGroup } from '../utils/groups';
 
 import queryClient from 'api/queryClient';
 import { supabase } from 'api/supabase';
-import EditParty from 'components/Dialogs/EditParty';
+import EditGroup from 'components/Dialogs/EditGroup';
 import { DIALOG_SET_USERNAME } from 'components/Dialogs/SetUsername';
 import { EXPERIENCE_TYPES } from 'components/ExperienceSelect';
 import GroupPlayer from 'components/GroupPlayer';
@@ -228,7 +228,7 @@ const Group = () => {
             )}
 
             {group.status !== 'closed' && user?.id === group.created_by.id && (
-              <EditParty group={group} />
+              <EditGroup group={group} />
             )}
           </div>
           <div className="absolute flex h-full flex-col justify-end p-4">

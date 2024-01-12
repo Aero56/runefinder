@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import ActivitySelect from 'components/ActivitySelect';
-import CreateParty from 'components/Dialogs/CreateParty';
+import CreateGroup from 'components/Dialogs/CreateGroup';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
 import Group from 'components/Group';
 import GroupCardSkeleton from 'components/LoadingSkeletons/GroupCardSkeleton';
@@ -87,7 +87,7 @@ const Groups = () => {
           placeholder="Search groups..."
           onChange={handleSearch}
         />
-        <CreateParty />
+        <CreateGroup />
       </div>
       <div className="mb-6 flex flex-col items-end justify-between gap-6 xs:flex-row xs:gap-3">
         <div className="flex flex-wrap gap-3">
