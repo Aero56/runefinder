@@ -17,6 +17,7 @@ const TopPlayers = () => {
 
               return (
                 <Link
+                  key={player.id}
                   to={`/player/${player.id}`}
                   className="flex items-center justify-between gap-2 rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950 p-4 transition-colors hover:bg-black-pearl-950/50"
                 >
@@ -42,8 +43,11 @@ const TopPlayers = () => {
                 </Link>
               );
             })
-          : [...Array(3)].map(() => (
-              <div className="skeleton h-[60px] w-full rounded-xl bg-black-pearl-950/60" />
+          : [...Array(3)].map((_, index) => (
+              <div
+                key={index}
+                className="skeleton h-[60px] w-full rounded-xl bg-black-pearl-950/60"
+              />
             ))}
       </div>
     </div>

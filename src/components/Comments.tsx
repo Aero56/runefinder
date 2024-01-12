@@ -120,8 +120,11 @@ const Comments = ({ userId }: CommentsProps) => {
             </p>
           )
         ) : (
-          [...Array(3)].map(() => (
-            <div className="skeleton mt-4 h-20 w-full bg-black-pearl-950/60" />
+          [...Array(3)].map((_, index) => (
+            <div
+              key={index}
+              className="skeleton mt-4 h-20 w-full bg-black-pearl-950/60"
+            />
           ))
         )}
         {!isLoading && !!data?.count && data.count > RECORD_LIMIT && (

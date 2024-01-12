@@ -23,8 +23,11 @@ const GroupSkeleton = () => {
         <div className="flex flex-col gap-3 p-4">
           <div className="skeleton h-[88px] w-full border-2 border-black-pearl-800 bg-black-pearl-950/60" />
           <div className="divider my-2" />
-          {[...Array(2)].map(() => (
-            <div className="skeleton h-[88px] w-full border-2 border-black-pearl-800 bg-black-pearl-950/60 opacity-50" />
+          {[...Array(2)].map((_, index) => (
+            <div
+              key={index}
+              className="skeleton h-[88px] w-full border-2 border-black-pearl-800 bg-black-pearl-950/60 opacity-50"
+            />
           ))}
         </div>
       </div>

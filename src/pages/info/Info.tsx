@@ -103,8 +103,11 @@ const Info = () => {
       </div>
       <h1 className="font-semibold">Supporters</h1>
       <div className="flex flex-wrap justify-center gap-3">
-        {SUPPORTERS.map((supporter) => (
-          <div className="badge badge-lg bg-black-pearl-100 font-semibold text-black-pearl-950">
+        {SUPPORTERS.map((supporter, index) => (
+          <div
+            key={index}
+            className="badge badge-lg bg-black-pearl-100 font-semibold text-black-pearl-950"
+          >
             {supporter}
           </div>
         ))}

@@ -75,8 +75,11 @@ const Stats = ({ stats, isLoading }: StatsProps) => {
                     </div>
                   );
                 })
-              : [...Array(SKILLS.length)].map(() => (
-                  <div className="skeleton h-9 w-1/4 rounded-xl bg-black-pearl-950/60" />
+              : [...Array(SKILLS.length)].map((_, index) => (
+                  <div
+                    key={index}
+                    className="skeleton h-9 w-1/4 rounded-xl bg-black-pearl-950/60"
+                  />
                 ))}
           </div>
         </div>
