@@ -14,7 +14,6 @@ export const GAMEMODES = [
   {
     label: 'Open to anyone',
     value: null,
-    entity: { teamSize: 4 },
   },
   {
     label: 'Ironman only',
