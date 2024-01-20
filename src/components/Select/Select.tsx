@@ -17,34 +17,30 @@ import { useState } from 'react';
 
 import SelectMenu from './SelectMenu';
 
-import { Activity } from 'types/generic';
-
-type Entity = Activity;
-
 type OptionValue = string | number | null;
 
 export type Tint = 'light' | 'dark';
 
-export interface Option<T extends OptionValue> {
+export interface Option<T extends OptionValue, E = undefined> {
   label: string;
   value?: T;
-  options?: Option<T>[];
-  entity?: Entity;
+  options?: Option<T, E>[];
+  entity?: E;
 }
 
-interface SelectProps<T extends OptionValue> {
-  value: Option<T>[];
+interface SelectProps<T extends OptionValue, E = undefined> {
+  value: Option<T, E>[];
   placeholder?: string;
-  options: Option<T>[];
+  options: Option<T, E>[];
   isMulti?: boolean;
   isClearable?: boolean;
-  onChange: (selected: Option<T>[]) => void;
+  onChange: (selected: Option<T, E>[]) => void;
   className?: string;
   tint?: Tint;
   disabled?: boolean;
 }
 
-const Select = <T extends OptionValue>({
+const Select = <T extends OptionValue, E = undefined>({
   value,
   options,
   onChange,
@@ -54,9 +50,9 @@ const Select = <T extends OptionValue>({
   className,
   tint = 'dark',
   disabled,
-}: SelectProps<T>) => {
+}: SelectProps<T, E>) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<Set<Option<T>>>(
+  const [selected, setSelected] = useState<Set<Option<T, E>>>(
     new Set(value ?? []),
   );
 
@@ -87,7 +83,7 @@ const Select = <T extends OptionValue>({
 
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context);
 
-  const handleSelect = (value: Option<T>) => {
+  const handleSelect = (value: Option<T, E>) => {
     let selection = selected;
 
     if (!selection.has(value)) {

@@ -2,18 +2,18 @@ import { Option } from './Select';
 
 type OptionValue = string | number | null;
 
-interface SelectMenuProps<T extends OptionValue> {
-  options: Option<T>[];
-  onSelect: (selected: Option<T>) => void;
-  selected: Set<Option<T>>;
+interface SelectMenuProps<T extends OptionValue, E = undefined> {
+  options: Option<T, E>[];
+  onSelect: (selected: Option<T, E>) => void;
+  selected: Set<Option<T, E>>;
 }
 
-const SelectMenu = <T extends OptionValue>({
+const SelectMenu = <T extends OptionValue, E = undefined>({
   options,
   onSelect,
   selected,
-}: SelectMenuProps<T>) => {
-  const handleSelect = (option: Option<T>) => {
+}: SelectMenuProps<T, E>) => {
+  const handleSelect = (option: Option<T, E>) => {
     onSelect(option);
   };
 

@@ -9,6 +9,11 @@ import { Raid } from 'types/raids';
 
 export type Activity = Raid | Boss | Minigame;
 
+export interface Entity {
+  teamSize: number;
+  type: ActivityType;
+}
+
 export const ACTIVITIES = [
   { label: 'Any activity', value: null },
   {
@@ -144,8 +149,8 @@ export const ACTIVITIES = [
 ];
 
 interface ActivitySelectProps {
-  value: Option<Activity | null> | null;
-  onChange: (value: Option<Activity | null>) => void;
+  value: Option<Activity | null, Entity> | null;
+  onChange: (value: Option<Activity | null, Entity>) => void;
   className?: string;
   tint?: Tint;
   isFilter?: boolean;
@@ -158,11 +163,11 @@ const ActivitySelect = ({
   tint,
   isFilter,
 }: ActivitySelectProps) => {
-  const [selected, setSelected] = useState<Option<Activity | null>>(
+  const [selected, setSelected] = useState<Option<Activity | null, Entity>>(
     value !== null ? value : ACTIVITIES[0],
   );
 
-  const handleChange = (value: Option<Activity | null>[]) => {
+  const handleChange = (value: Option<Activity | null, Entity>[]) => {
     onChange(value[0]);
     setSelected(value[0]);
   };

@@ -11,7 +11,7 @@ import { DIALOG_SET_USERNAME } from './SetUsername';
 
 import queryClient from 'api/queryClient';
 import { supabase } from 'api/supabase';
-import ActivitySelect from 'components/ActivitySelect';
+import ActivitySelect, { Entity } from 'components/ActivitySelect';
 import DialogFooter from 'components/Dialog/DialogFooter';
 import DialogHeader from 'components/Dialog/DialogHeader';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
@@ -26,7 +26,7 @@ const DEFAULT_SIZE = 10;
 
 interface FormData {
   name: string;
-  activity: Option<Raid | null>;
+  activity: Option<Raid | null, Entity>;
   size: string;
   experience: Option<Experience | null>;
   world: number;
