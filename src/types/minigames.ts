@@ -1,14 +1,8 @@
 export enum Minigame {
-  BarbarianAssault,
-  FightPit,
-  TroubleBrewing,
-}
-
-export interface Minigames {
-  lms: IMinigame;
-}
-
-interface IMinigame {
-  rank: number;
-  score: number;
+  CastleWars = 19,
+  BarbarianAssault = 18,
+  PestControl = 20,
+  FightPit = 21,
+  GnomeBall = 22,
+  TroubleBrewing = 23,
 }

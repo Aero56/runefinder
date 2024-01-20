@@ -118,7 +118,7 @@ const Group = ({ group }: GroupProps) => {
           <h1 className="line-clamp-2 overflow-hidden text-ellipsis font-bold">
             {group.name}
           </h1>
-          <p>{group.type.name}</p>
+          <p>{group.activity.name}</p>
           <div className="avatar-group mt-2 w-fit -space-x-4 rounded-full bg-black-pearl-950 rtl:space-x-reverse">
             {avatars.map((avatar, index) => {
               if (!avatar) {

@@ -205,7 +205,7 @@ const Group = () => {
           <img
             src={
               new URL(
-                `../assets/banners/${group.type.value}.webp`,
+                `../assets/banners/${group.activity.value}.webp`,
                 import.meta.url,
               ).href
             }
@@ -233,7 +233,7 @@ const Group = () => {
           </div>
           <div className="absolute flex h-full flex-col justify-end p-4">
             <p className="text-md font-bold text-anzac-400 xs:text-lg">
-              {group.type.name}
+              {group.activity.name}
             </p>
             <p
               className="line-clamp-2 text-2xl font-bold xs:text-3xl"

@@ -22,7 +22,7 @@ export const canJoinGroup = (group: Group, player: Player) => {
   if (
     group.kills &&
     group.kills >
-      (player.stats.bosses[group.type.value as keyof Bosses].score ?? 0)
+      (player.stats.bosses[group.activity.value as keyof Bosses].score ?? 0)
   ) {
     return false;
   }

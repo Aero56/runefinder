@@ -19,6 +19,7 @@ import ModeSelect, { Gamemode } from 'components/ModeSelect';
 import { Tooltip, TooltipContent, TooltipTrigger } from 'components/Tooltip';
 import { useAuth } from 'contexts/AuthContext';
 import useCreateGroupMutation from 'hooks/mutations/useCreateGroupMutation';
+import { ActivityType } from 'types/activities';
 import { Raid } from 'types/raids';
 
 const DEFAULT_SIZE = 10;
@@ -296,29 +297,32 @@ const CreateGroup = () => {
               <p className="mt-2 text-sm text-error">{errors.world.message}</p>
             )}
           </div>
-          <div className="col-span-2 row-start-5 xs:row-start-4">
-            <label
-              htmlFor="kills"
-              className="mb-2 block whitespace-nowrap text-sm"
-            >
-              Minimum kills
-            </label>
-            <Controller
-              control={control}
-              name="kills"
-              render={({ field: { onChange, value } }) => (
-                <input
-                  id="kills"
-                  value={value ?? ''}
-                  onChange={onChange}
-                  type="number"
-                  min={0}
-                  placeholder="50"
-                  className={`input w-full`}
+          {selectedActivity &&
+            selectedActivity.entity?.type !== ActivityType.Minigame && (
+              <div className="col-span-2 row-start-5 xs:row-start-4">
+                <label
+                  htmlFor="kills"
+                  className="mb-2 block whitespace-nowrap text-sm"
+                >
+                  Minimum kills
+                </label>
+                <Controller
+                  control={control}
+                  name="kills"
+                  render={({ field: { onChange, value } }) => (
+                    <input
+                      id="kills"
+                      value={value ?? ''}
+                      onChange={onChange}
+                      type="number"
+                      min={0}
+                      placeholder="50"
+                      className={`input w-full`}
+                    />
+                  )}
                 />
-              )}
-            />
-          </div>
+              </div>
+            )}
           {selectedActivity && selectedActivity.entity?.teamSize && (
             <div className="col-span-full row-start-6 xs:row-start-5">
               <label htmlFor="email" className="mb-2 block text-sm">

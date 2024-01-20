@@ -1,3 +1,4 @@
+import { ActivityType } from './activities';
 import { Tables } from './supabase';
 
 export interface GroupUser {
@@ -6,12 +7,14 @@ export interface GroupUser {
   stats: Tables<'statistics'> | null;
 }
 
-export interface Group extends Omit<Tables<'groups'>, 'type' | 'created_by'> {
+export interface Group
+  extends Omit<Tables<'groups'>, 'activity' | 'created_by'> {
   users: GroupUser[];
-  type: {
+  activity: {
     id: string;
     name: string;
     value: string;
+    type: ActivityType;
   };
   created_by: GroupUser;
 }

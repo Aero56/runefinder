@@ -34,7 +34,7 @@ const useGroupsQuery = (
       let query = supabase
         .from('groups')
         .select(
-          '*, users!users_group_id_fkey(id, username), type!inner(id, name, value), created_by!inner(id, username)',
+          '*, users!users_group_id_fkey(id, username), activity:type(id, name, value, type), created_by!inner(id, username)',
         )
         .eq('status', 'open')
         .eq('split', filters?.split ?? false)

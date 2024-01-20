@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import ActivitySelect from 'components/ActivitySelect';
+import ActivitySelect, { Activity } from 'components/ActivitySelect';
 import CreateGroup from 'components/Dialogs/CreateGroup';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
 import Group from 'components/Group';
@@ -10,14 +10,13 @@ import ModeSelect, { Gamemode } from 'components/ModeSelect';
 import { Option } from 'components/Select';
 import useGroupsQuery from 'hooks/queries/useGroupsQuery';
 import useDebounce from 'hooks/useDebounce';
-import { Raid } from 'types/raids';
 
 const Groups = () => {
   const [term, setTerm] = useState('');
   const debouncedValue = useDebounce(term);
 
   const [selectedActivity, setSelectedActivity] =
-    useState<Option<Raid | null> | null>(null);
+    useState<Option<Activity | null> | null>(null);
   const [selectedLevel, setSelectedLevel] =
     useState<Option<Experience | null> | null>(null);
   const [selectedMode, setSelectedMode] =
@@ -50,7 +49,7 @@ const Groups = () => {
     { keepPreviousData: true },
   );
 
-  const handleChangeActivity = (selected: Option<Raid | null>) => {
+  const handleChangeActivity = (selected: Option<Activity | null>) => {
     setSelectedActivity(selected);
   };
 

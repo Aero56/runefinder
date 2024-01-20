@@ -17,6 +17,7 @@ import ModeSelect, { GAMEMODES, Gamemode } from 'components/ModeSelect';
 import { Tooltip, TooltipContent, TooltipTrigger } from 'components/Tooltip';
 import { useAuth } from 'contexts/AuthContext';
 import useUpdateGroupMutation from 'hooks/mutations/useUpdateGroupMutation';
+import { ActivityType } from 'types/activities';
 import { Group } from 'types/groups';
 
 interface EditPartyProps {
@@ -219,29 +220,31 @@ const EditGroup = ({ group }: EditPartyProps) => {
               <p className="mt-2 text-sm text-error">{errors.world.message}</p>
             )}
           </div>
-          <div className="col-span-2 row-start-5 xs:row-start-4">
-            <label
-              htmlFor="kills"
-              className="mb-2 block whitespace-nowrap text-sm"
-            >
-              Minimum kills
-            </label>
-            <Controller
-              control={control}
-              name="kills"
-              render={({ field: { onChange, value } }) => (
-                <input
-                  id="kills"
-                  value={value ?? ''}
-                  onChange={onChange}
-                  type="number"
-                  min={0}
-                  placeholder="50"
-                  className={`input w-full`}
-                />
-              )}
-            />
-          </div>
+          {group.activity.type !== ActivityType.Minigame && (
+            <div className="col-span-2 row-start-5 xs:row-start-4">
+              <label
+                htmlFor="kills"
+                className="mb-2 block whitespace-nowrap text-sm"
+              >
+                Minimum kills
+              </label>
+              <Controller
+                control={control}
+                name="kills"
+                render={({ field: { onChange, value } }) => (
+                  <input
+                    id="kills"
+                    value={value ?? ''}
+                    onChange={onChange}
+                    type="number"
+                    min={0}
+                    placeholder="50"
+                    className={`input w-full`}
+                  />
+                )}
+              />
+            </div>
+          )}
         </form>
         <DialogFooter
           primaryAction={{

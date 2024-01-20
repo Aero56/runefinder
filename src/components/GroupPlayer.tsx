@@ -38,7 +38,8 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
     queryClient.invalidateQueries(['group', group.id]);
   };
 
-  const activityStats = player.stats?.bosses[group.type.value as keyof Bosses];
+  const activityStats =
+    player.stats?.bosses[group.activity.value as keyof Bosses];
 
   return (
     <div
