@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import ActivitySelect, { Activity } from 'components/ActivitySelect';
+import ActivitySelect, { Activity, Entity } from 'components/ActivitySelect';
 import CreateGroup from 'components/Dialogs/CreateGroup';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
 import Group from 'components/Group';
@@ -15,8 +15,10 @@ const Groups = () => {
   const [term, setTerm] = useState('');
   const debouncedValue = useDebounce(term);
 
-  const [selectedActivity, setSelectedActivity] =
-    useState<Option<Activity | null> | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<Option<
+    Activity | null,
+    Entity
+  > | null>(null);
   const [selectedLevel, setSelectedLevel] =
     useState<Option<Experience | null> | null>(null);
   const [selectedMode, setSelectedMode] =
@@ -49,7 +51,7 @@ const Groups = () => {
     { keepPreviousData: true },
   );
 
-  const handleChangeActivity = (selected: Option<Activity | null>) => {
+  const handleChangeActivity = (selected: Option<Activity | null, Entity>) => {
     setSelectedActivity(selected);
   };
 

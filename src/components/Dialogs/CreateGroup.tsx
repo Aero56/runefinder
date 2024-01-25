@@ -11,7 +11,7 @@ import { DIALOG_SET_USERNAME } from './SetUsername';
 
 import queryClient from 'api/queryClient';
 import { supabase } from 'api/supabase';
-import ActivitySelect, { Entity } from 'components/ActivitySelect';
+import ActivitySelect, { Activity, Entity } from 'components/ActivitySelect';
 import DialogFooter from 'components/Dialog/DialogFooter';
 import DialogHeader from 'components/Dialog/DialogHeader';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
@@ -20,13 +20,12 @@ import { Tooltip, TooltipContent, TooltipTrigger } from 'components/Tooltip';
 import { useAuth } from 'contexts/AuthContext';
 import useCreateGroupMutation from 'hooks/mutations/useCreateGroupMutation';
 import { ActivityType } from 'types/activities';
-import { Raid } from 'types/raids';
 
 const DEFAULT_SIZE = 10;
 
 interface FormData {
   name: string;
-  activity: Option<Raid | null, Entity>;
+  activity: Option<Activity, Entity>;
   size: string;
   experience: Option<Experience | null>;
   world: number;
@@ -83,7 +82,7 @@ const CreateGroup = () => {
         size: data.activity.entity?.teamSize
           ? Number(data.size) + 1
           : DEFAULT_SIZE,
-        type: data.activity?.value ?? null,
+        type: data.activity.value!,
         level: data.experience?.value ?? null,
         gamemode: data.gamemode?.value ?? null,
         world: data.world,

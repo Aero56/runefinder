@@ -1,15 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { supabase } from 'api/supabase';
+import { Activity } from 'components/ActivitySelect';
 import { Experience } from 'components/ExperienceSelect';
 import { Gamemode } from 'components/ModeSelect';
 import { useAuth } from 'contexts/AuthContext';
-import { Raid } from 'types/raids';
 
 interface GroupMutationProps {
   name: string;
   size: number;
-  type: Raid | null;
+  type: Activity;
   level: Experience | null;
   gamemode: Gamemode | null;
   world: number;
