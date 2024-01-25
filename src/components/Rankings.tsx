@@ -9,12 +9,25 @@ interface RankingsProps {
 }
 
 const RANKINGS: { [key in keyof Partial<Bosses>]: { label: string } } = {
+  tzKalZuk: { label: 'Inferno' },
+  tzTokJad: { label: 'Jad' },
   theatreOfBlood: { label: 'Theatre of Blood' },
   theatreOfBloodHardMode: { label: 'Theatre of Blood (Hard mode)' },
   chambersOfXeric: { label: 'Chambers of Xeric' },
   chambersOfXericChallengeMode: { label: 'Chambers of Xeric (Challenge mode)' },
   tombsOfAmascut: { label: 'Tombs of Amascut' },
   tombsOfAmascutExpertMode: { label: 'Tombs of Amascut (Expert mode)' },
+  generalGraardor: { label: 'General Graardor' },
+  commanderZilyana: { label: 'Commander Zilyana' },
+  krilTsutsaroth: { label: "K'ril Tsutsaroth" },
+  kreeArra: { label: "Kree'arra" },
+  nightmare: { label: 'The Nightmare' },
+  phosanisNightmare: { label: "Phosani's Nightmare" },
+  corporealBeast: { label: 'Corporeal Beast' },
+  kingBlackDragon: { label: 'King Black Dragon' },
+  zalcano: { label: 'Zalcano' },
+  wintertodt: { label: 'Wintertodt' },
+  tempoross: { label: 'Tempoross' },
 };
 
 const Rankings = ({ stats, isLoading }: RankingsProps) => {
@@ -28,7 +41,7 @@ const Rankings = ({ stats, isLoading }: RankingsProps) => {
     return (
       <div
         key={key}
-        className="w-full rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950 p-4 sm:w-auto"
+        className="w-full min-w-48 rounded-xl border-2 border-black-pearl-800 bg-black-pearl-950 p-4 sm:w-auto"
       >
         <p className="font-bold">{ranking.label}</p>
         <p>Kills: {boss.score}</p>
@@ -47,11 +60,25 @@ const Rankings = ({ stats, isLoading }: RankingsProps) => {
           <div className="p-4">
             {rankings.filter(Boolean).length ? (
               <>
-                <div className="flex flex-col items-center">
-                  <h2 className="font-semibold">Raid score</h2>
-                  <p className="text-4xl font-bold text-anzac-400">
-                    {stats.raid_score}
-                  </p>
+                <div className="flex flex-col justify-evenly gap-2 xs:flex-row">
+                  <div className="flex flex-col items-center">
+                    <h2 className="font-semibold">Overall score</h2>
+                    <p className="text-4xl font-bold text-anzac-400">
+                      {stats.raid_score + stats.boss_score}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <h2 className="font-semibold">Raid score</h2>
+                    <p className="text-4xl font-bold text-anzac-400">
+                      {stats.raid_score}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <h2 className="font-semibold">Boss score</h2>
+                    <p className="text-4xl font-bold text-anzac-400">
+                      {stats.boss_score}
+                    </p>
+                  </div>
                 </div>
                 <div className="divider my-4" />
                 <div className="flex flex-wrap gap-2">{rankings}</div>

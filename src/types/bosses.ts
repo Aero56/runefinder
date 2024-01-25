@@ -17,6 +17,8 @@ export interface Bosses {
   zalcano: IBoss;
   wintertodt: IBoss;
   tempoross: IBoss;
+  tzTokJad: IBoss;
+  phosanisNightmare: IBoss;
 }
 
 interface IBoss {

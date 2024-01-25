@@ -33,18 +33,21 @@ export interface Database {
           id: number;
           max_size: number;
           name: string;
+          type: Database['public']['Enums']['activity_type_enum'];
           value: string;
         };
         Insert: {
           id?: number;
           max_size: number;
           name: string;
+          type?: Database['public']['Enums']['activity_type_enum'];
           value: string;
         };
         Update: {
           id?: number;
           max_size?: number;
           name?: string;
+          type?: Database['public']['Enums']['activity_type_enum'];
           value?: string;
         };
         Relationships: [];
@@ -115,7 +118,7 @@ export interface Database {
           size: number;
           split: boolean;
           status: Database['public']['Enums']['group_status_enum'];
-          type: number | null;
+          type: number;
           updated_at: string;
           world: number;
         };
@@ -130,7 +133,7 @@ export interface Database {
           size: number;
           split?: boolean;
           status?: Database['public']['Enums']['group_status_enum'];
-          type?: number | null;
+          type: number;
           updated_at?: string;
           world?: number;
         };
@@ -145,7 +148,7 @@ export interface Database {
           size?: number;
           split?: boolean;
           status?: Database['public']['Enums']['group_status_enum'];
-          type?: number | null;
+          type?: number;
           updated_at?: string;
           world?: number;
         };
@@ -204,6 +207,7 @@ export interface Database {
       };
       statistics: {
         Row: {
+          boss_score: number;
           bosses: Bosses;
           combat: number;
           created_at: string;
@@ -213,15 +217,17 @@ export interface Database {
           skills: Skills;
         };
         Insert: {
+          boss_score?: number;
           bosses: Bosses;
           combat: number;
           created_at?: string;
           gamemode?: Database['public']['Enums']['gamemode_enum'] | null;
           id: string;
-          raid_score: number;
+          raid_score?: number;
           skills: Skills;
         };
         Update: {
+          boss_score?: number;
           bosses?: Bosses;
           combat?: number;
           created_at?: string;
@@ -314,7 +320,22 @@ export interface Database {
       };
     };
     Views: {
-      [_ in never]: never;
+      top_players: {
+        Row: {
+          id: string | null;
+          total_score: number | null;
+          username: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'users_id_fkey';
+            columns: ['id'];
+            isOneToOne: true;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Functions: {
       get_player_votes: {
@@ -329,6 +350,7 @@ export interface Database {
       };
     };
     Enums: {
+      activity_type_enum: 'raid' | 'boss' | 'minigame';
       gamemode_enum: 'ironman' | 'hardcore' | 'ultimate';
       group_level_enum: 'beginner' | 'average' | 'experienced';
       group_mode_enum: 'ironman' | 'hardcore' | 'ultimate';

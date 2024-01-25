@@ -6,11 +6,7 @@ const useTopPlayersQuery = () => {
   const queryKey = ['topPlayers'];
 
   return useQuery(queryKey, async () => {
-    const { data } = await supabase
-      .from('statistics')
-      .select('id, raid_score, user:users(username)')
-      .order('raid_score', { ascending: false })
-      .limit(10);
+    const { data } = await supabase.from('top_players').select('*');
 
     return data;
   });

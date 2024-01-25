@@ -35,10 +35,10 @@ const TopPlayers = () => {
                     >
                       {rank}
                     </div>
-                    <p className="font-medium">{player.user?.username}</p>
+                    <p className="font-medium">{player.username}</p>
                   </div>
                   <p className="font-semibold text-anzac-400">
-                    {player.raid_score}
+                    {player.total_score}
                   </p>
                 </Link>
               );
