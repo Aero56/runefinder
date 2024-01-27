@@ -52,7 +52,7 @@ const Group = () => {
       const client = supabase.channel(group.id);
 
       client
-        .on('broadcast', { event: 'update' }, (payload) => {
+        .on('broadcast', { event: 'update' }, ({ payload }) => {
           queryClient.invalidateQueries(['group', id]);
           toast(payload.message);
         })
@@ -138,7 +138,7 @@ const Group = () => {
           payload: {
             message: shouldClose
               ? `${data.username} closed the group!`
-              : `${data.username} has joined the group!`,
+              : `${data.username} has left the group!`,
           },
         });
       }
