@@ -22,7 +22,6 @@ import { GAMEMODES } from 'components/ModeSelect';
 import { useAuth } from 'contexts/AuthContext';
 import useUpdateUserMutation from 'hooks/mutations/useUpdateUserMutation';
 import useGroupQuery from 'hooks/queries/useGroupQuery';
-import { Group as GroupType } from 'types/groups';
 
 const Group = () => {
   const { user, data } = useAuth();
@@ -49,31 +48,27 @@ const Group = () => {
     useUpdateUserMutation();
 
   useEffect(() => {
-    supabase
-      .channel('table-db-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'users',
-          filter: `group_id=eq.${id}`,
-        },
-        (payload) => {
-          if (payload.new.id !== user?.id) {
-            queryClient.invalidateQueries(['group', id]);
-            toast(`${payload.new.username} has joined the group!`);
-          }
-        },
-      )
-      .subscribe();
+    if (group) {
+      const client = supabase.channel(group.id);
 
-    return () => {
-      supabase.channel('table-db-changes').unsubscribe();
-    };
-  }, [id, user]);
+      client
+        .on('broadcast', { event: 'update' }, (payload) => {
+          queryClient.invalidateQueries(['group', id]);
+          toast(payload.message);
+        })
+        .subscribe();
 
-  const handleJoinGroup = async (group: GroupType) => {
+      return () => {
+        client.unsubscribe();
+      };
+    }
+  }, [id, user, group]);
+
+  const handleJoinGroup = async () => {
+    if (!group) {
+      return;
+    }
+
     if (!user) {
       navigate('?signin');
       return;
@@ -96,12 +91,22 @@ const Group = () => {
     toast(`You joined group "${group.name}"!`);
     navigate(`/group/${group.id}`);
 
+    supabase.channel(group.id).send({
+      type: 'broadcast',
+      event: 'update',
+      payload: { message: `${data.username} has joined the group!` },
+    });
+
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
     queryClient.invalidateQueries(['player', user!.id]);
   };
 
-  const handleLeaveGroup = async (group: GroupType, shouldClose?: boolean) => {
+  const handleLeaveGroup = async (shouldClose?: boolean) => {
+    if (!group || !data) {
+      return;
+    }
+
     try {
       await updateUser({ group: null });
     } catch (error) {
@@ -116,6 +121,16 @@ const Group = () => {
     } else {
       toast(`You left group "${group.name}"!`);
     }
+
+    supabase.channel(group.id).send({
+      type: 'broadcast',
+      event: 'update',
+      payload: {
+        message: shouldClose
+          ? `${data.username} closed the group!`
+          : `${data.username} has joined the group!`,
+      },
+    });
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
@@ -150,7 +165,7 @@ const Group = () => {
               className="btn w-40 border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
               onClick={(event: MouseEvent) => {
                 event.stopPropagation();
-                handleLeaveGroup(group, true);
+                handleLeaveGroup(true);
               }}
             >
               {!isUpdateUserLoading ? (
@@ -167,7 +182,7 @@ const Group = () => {
               className="btn w-40 border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
               onClick={(event: MouseEvent) => {
                 event.stopPropagation();
-                handleLeaveGroup(group);
+                handleLeaveGroup();
               }}
             >
               {!isUpdateUserLoading ? (
@@ -184,7 +199,7 @@ const Group = () => {
               className="btn btn-primary w-40 font-bold disabled:bg-black-pearl-900"
               onClick={(event: MouseEvent) => {
                 event.stopPropagation();
-                handleJoinGroup(group);
+                handleJoinGroup();
               }}
               disabled={data?.stats ? !canJoinGroup(group, data) : false}
             >
