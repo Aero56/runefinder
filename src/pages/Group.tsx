@@ -91,10 +91,16 @@ const Group = () => {
     toast(`You joined group "${group.name}"!`);
     navigate(`/group/${group.id}`);
 
-    supabase.channel(group.id).send({
-      type: 'broadcast',
-      event: 'update',
-      payload: { message: `${data.username} has joined the group!` },
+    const channel = supabase.channel(group.id);
+
+    channel.subscribe((status) => {
+      if (status === 'SUBSCRIBED') {
+        channel.send({
+          type: 'broadcast',
+          event: 'update',
+          payload: { message: `${data.username} has joined the group!` },
+        });
+      }
     });
 
     queryClient.invalidateQueries(['groups']);
@@ -122,14 +128,20 @@ const Group = () => {
       toast(`You left group "${group.name}"!`);
     }
 
-    supabase.channel(group.id).send({
-      type: 'broadcast',
-      event: 'update',
-      payload: {
-        message: shouldClose
-          ? `${data.username} closed the group!`
-          : `${data.username} has joined the group!`,
-      },
+    const channel = supabase.channel(group.id);
+
+    channel.subscribe((status) => {
+      if (status === 'SUBSCRIBED') {
+        channel.send({
+          type: 'broadcast',
+          event: 'update',
+          payload: {
+            message: shouldClose
+              ? `${data.username} closed the group!`
+              : `${data.username} has joined the group!`,
+          },
+        });
+      }
     });
 
     queryClient.invalidateQueries(['groups']);
