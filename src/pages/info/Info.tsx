@@ -1,10 +1,16 @@
+import { Link } from 'react-router-dom';
+
 const SUPPORTERS = ['wpix'];
 
 const Info = () => {
   return (
     <div className="container mb-4 flex flex-col items-center gap-3 pt-4">
       <div className="flex flex-wrap justify-center gap-3">
-        <button className="btn bg-black-pearl-100 text-black-pearl-950 hover:bg-anzac-400">
+        <Link
+          to="https://patreon.com/runefinder"
+          target="_blank"
+          className="btn bg-black-pearl-100 text-black-pearl-950 hover:bg-anzac-400"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -17,9 +23,13 @@ const Info = () => {
             />
           </svg>
           Patreon
-        </button>
+        </Link>
 
-        <button className="btn bg-black-pearl-100 text-black-pearl-950 hover:bg-anzac-400">
+        <Link
+          to="https://buymeacoffee.com/runefinder"
+          target="_blank"
+          className="btn bg-black-pearl-100 text-black-pearl-950 hover:bg-anzac-400"
+        >
           <svg
             width="24"
             height="30"
@@ -85,8 +95,12 @@ const Info = () => {
             ></path>
           </svg>
           Buy me a coffee
-        </button>
-        <button className="btn bg-black-pearl-100 text-black-pearl-950 hover:bg-anzac-400">
+        </Link>
+        <Link
+          to="https://discord.gg/Dcfyf4HfqZ"
+          className="btn bg-black-pearl-100 text-black-pearl-950 hover:bg-anzac-400"
+          target="_blank"
+        >
           <svg
             height="24"
             viewBox="-10.63 -.07077792 823.87 610.06955549"
@@ -99,7 +113,7 @@ const Info = () => {
             />
           </svg>
           Discord
-        </button>
+        </Link>
       </div>
       <h1 className="font-semibold">Supporters</h1>
       <div className="flex flex-wrap justify-center gap-3">

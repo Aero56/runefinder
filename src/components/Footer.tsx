@@ -20,6 +20,13 @@ const Footer = () => {
         <Link to="/info" className="link-hover link">
           About
         </Link>
+        <Link
+          to="https://discord.gg/Dcfyf4HfqZ"
+          target="_blank"
+          className="link-hover link"
+        >
+          Discord
+        </Link>
       </nav>
       <nav>
         <header className="footer-title">Legal</header>
@@ -29,8 +36,20 @@ const Footer = () => {
       </nav>
       <nav>
         <header className="footer-title">Support 💛</header>
-        <a className="link-hover link">Patreon</a>
-        <a className="link-hover link">Buy me a coffee</a>
+        <a
+          href="https://patreon.com/runefinder"
+          target="_blank"
+          className="link-hover link"
+        >
+          Patreon
+        </a>
+        <a
+          href="https://buymeacoffee.com/runefinder"
+          target="_blank"
+          className="link-hover link"
+        >
+          Buy me a coffee
+        </a>
       </nav>
     </footer>
   );

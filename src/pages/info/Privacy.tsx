@@ -108,7 +108,11 @@ const Privacy = () => {
           support@runefinder.net
         </a>
         or through
-        <a href="#" className="ml-1 text-anzac-400">
+        <a
+          href="https://discord.gg/Dcfyf4HfqZ"
+          target="_blank"
+          className="ml-1 text-anzac-400"
+        >
           Discord
         </a>
         .
