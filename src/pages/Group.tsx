@@ -238,7 +238,7 @@ const Group = () => {
             }
             className="absolute h-44 w-full object-cover object-top"
           ></img>
-          <div className="absolute h-44 w-full shadow-[inset_0_-80px_80px_0px_theme(colors.black-pearl.900)]" />
+          <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-b from-transparent from-20% to-black-pearl-900 to-95%" />
           <div className="absolute flex w-full justify-end p-4">
             {group.status === 'closed' && (
               <div className="badge badge-outline badge-lg flex gap-1 bg-red-950/60 py-4 font-semibold text-red-500">
