@@ -1,4 +1,5 @@
 import {
+  ArrowLeftIcon,
   ArrowLeftOnRectangleIcon,
   ArrowRightOnRectangleIcon,
   ClockIcon,
@@ -6,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { MouseEvent, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { canJoinGroup } from '../utils/groups';
@@ -184,7 +185,11 @@ const Group = () => {
   return (
     <div className="container mb-4 flex flex-col gap-4 px-4 pt-4">
       {group.status !== 'closed' && (
-        <div className="flex justify-end">
+        <div className="flex justify-between">
+          <Link to="/groups" className="btn btn-ghost flex">
+            <ArrowLeftIcon className="h-4 w-4 [&>path]:stroke-[2.5]" />
+            <p>Back to groups</p>
+          </Link>
           {group.created_by.id === user?.id ? (
             <button
               className="btn w-40 border-red-500 bg-red-500/20 text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-black-pearl-50"
@@ -221,7 +226,7 @@ const Group = () => {
             </button>
           ) : (
             <button
-              className="btn btn-primary w-40 font-bold disabled:bg-black-pearl-900"
+              className="btn btn-primary w-32 p-0 font-bold disabled:bg-black-pearl-900 xs:w-36"
               onClick={(event: MouseEvent) => {
                 event.stopPropagation();
                 handleJoinGroup();
