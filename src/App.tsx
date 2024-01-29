@@ -51,12 +51,10 @@ const App = () => {
         <Route path="/player/:id" element={<Player />} />
 
         <Route element={<AuthRoute />}>
-          <Route
-            path="/settings/change-password"
-            element={<ChangePassword />}
-          />
           <Route path="/settings" element={<Settings />} />
         </Route>
+
+        <Route path="/settings/change-password" element={<ChangePassword />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

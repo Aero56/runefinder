@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import { supabase } from 'api/supabase';
 import useUpdateAuthMutation from 'hooks/mutations/useUpdateAuthMutation';
 
 interface FormData {
@@ -32,8 +34,16 @@ const ChangePassword = () => {
     }
 
     toast('Success! Your password has been changed.');
-    navigate('/account');
+    navigate('/settings');
   };
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (!session && event !== 'PASSWORD_RECOVERY') {
+        navigate('/');
+      }
+    });
+  }, [navigate]);
 
   return (
     <div className="flex items-center justify-center">
