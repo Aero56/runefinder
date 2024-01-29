@@ -6,6 +6,7 @@ import SetUsername from 'components/Dialogs/SetUsername';
 import Header from 'components/Header';
 import Notifications from 'components/Notifications';
 import { useAuth } from 'contexts/AuthContext';
+import { useScrollToTop } from 'hooks/useScrollToTop';
 import Group from 'pages/Group';
 import Groups from 'pages/Groups';
 import Home from 'pages/Home';
@@ -30,6 +31,8 @@ const AuthRoute = () => {
 
 const App = () => {
   const { session } = useAuth();
+
+  useScrollToTop();
 
   return (
     <div className={session ? 'pb-16 sm:pb-0' : ''}>
