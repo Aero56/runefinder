@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import useUpdateUserMutation from 'hooks/mutations/useUpdateUserMutation';
@@ -7,12 +8,21 @@ interface DescriptionProps {
   value: string | null;
 }
 
+interface FormData {
+  description: string;
+}
+
+const MAX_DESCRIPTION_LENGTH = 150;
+
 const Description = ({ value }: DescriptionProps) => {
-  const ref = useRef<HTMLTextAreaElement>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState<string | undefined>(
     value ?? undefined,
   );
+
+  const { handleSubmit, register, watch } = useForm<FormData>({
+    defaultValues: { description },
+  });
 
   const { mutateAsync, isLoading } = useUpdateUserMutation();
 
@@ -26,23 +36,23 @@ const Description = ({ value }: DescriptionProps) => {
     }
   };
 
-  const handleSave = async () => {
-    const value = ref.current?.value.trim();
+  const handleSave = async (data: FormData) => {
+    const description = data.description;
 
-    if (value) {
-      try {
-        await mutateAsync({ description: value }).then(() => {
-          setDescription(value);
-          setIsEditing(false);
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          toast('Something went wrong!');
-          return;
-        }
+    try {
+      await mutateAsync({ description }).then(() => {
+        setDescription(description);
+        setIsEditing(false);
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        toast('Something went wrong!');
+        return;
       }
     }
   };
+
+  const descriptionField = watch('description');
 
   if (!isEditing) {
     return (
@@ -53,7 +63,7 @@ const Description = ({ value }: DescriptionProps) => {
         {!description ? (
           <p className="text-slate-400">Tell something about yourself...</p>
         ) : (
-          <p>{description}</p>
+          <p className="text-wrap break-words">{description}</p>
         )}
       </div>
     );
@@ -62,8 +72,6 @@ const Description = ({ value }: DescriptionProps) => {
   return (
     <div className="flex flex-col items-end">
       <textarea
-        ref={ref}
-        defaultValue={description}
         className="textarea textarea-bordered h-32 w-full"
         onKeyDown={handleCancel}
         autoFocus
@@ -72,14 +80,27 @@ const Description = ({ value }: DescriptionProps) => {
           e.target.value = '';
           e.target.value = val;
         }}
+        {...register('description', { maxLength: MAX_DESCRIPTION_LENGTH })}
       />
-      <button className="btn btn-primary btn-sm mt-2" onClick={handleSave}>
-        {!isLoading ? (
-          'Save'
-        ) : (
-          <span className="loading loading-spinner"></span>
-        )}
-      </button>
+      <div className="mt-2 flex items-center gap-2">
+        <p
+          className={`text-sm ${
+            descriptionField.length > MAX_DESCRIPTION_LENGTH
+              ? 'text-red-500'
+              : ''
+          }`}
+        >{`${descriptionField.length}/${MAX_DESCRIPTION_LENGTH}`}</p>
+        <button
+          className="btn btn-primary btn-sm w-14"
+          onClick={handleSubmit(handleSave)}
+        >
+          {!isLoading ? (
+            'Save'
+          ) : (
+            <span className="loading loading-spinner loading-xs"></span>
+          )}
+        </button>
+      </div>
     </div>
   );
 };
