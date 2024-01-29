@@ -17,6 +17,7 @@ import { GAMEMODES } from './ModeSelect';
 import { Tooltip, TooltipContent, TooltipTrigger } from './Tooltip';
 
 import queryClient from 'api/queryClient';
+import { supabase } from 'api/supabase';
 import { useAuth } from 'contexts/AuthContext';
 import useUpdateUserMutation from 'hooks/mutations/useUpdateUserMutation';
 import { SCREEN_SM, SCREEN_XS } from 'types/generic';
@@ -65,12 +66,28 @@ const Group = ({ group }: GroupProps) => {
     toast(`You joined group "${group.name}"!`);
     navigate(`/group/${group.id}`);
 
+    const channel = supabase.channel(group.id);
+
+    channel.subscribe((status) => {
+      if (status === 'SUBSCRIBED') {
+        channel.send({
+          type: 'broadcast',
+          event: 'update',
+          payload: { message: `${data.username} joined the group!` },
+        });
+      }
+    });
+
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
     queryClient.invalidateQueries(['player', user!.id]);
   };
 
   const handleLeaveGroup = async (group: GroupType, shouldClose?: boolean) => {
+    if (!group || !data) {
+      return;
+    }
+
     try {
       await updateUser({ group: null });
     } catch (error) {
@@ -85,6 +102,22 @@ const Group = ({ group }: GroupProps) => {
     } else {
       toast(`You left group "${group.name}"!`);
     }
+
+    const channel = supabase.channel(group.id);
+
+    channel.subscribe((status) => {
+      if (status === 'SUBSCRIBED') {
+        channel.send({
+          type: 'broadcast',
+          event: 'update',
+          payload: {
+            message: shouldClose
+              ? `${data.username} closed the group!`
+              : `${data.username} left the group!`,
+          },
+        });
+      }
+    });
 
     queryClient.invalidateQueries(['groups']);
     queryClient.invalidateQueries(['group', group.id]);
