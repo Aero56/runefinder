@@ -49,17 +49,30 @@ const Group = () => {
 
   useEffect(() => {
     if (group) {
-      const client = supabase.channel(group.id);
+      const channel = supabase.channel(group.id);
 
-      client
+      channel
         .on('broadcast', { event: 'update' }, ({ payload }) => {
           queryClient.invalidateQueries(['group', id]);
           toast(payload.message);
         })
+        .on(
+          'postgres_changes',
+          {
+            schema: 'public',
+            table: 'groups',
+            event: 'UPDATE',
+            filter: `id=eq.${group.id}`,
+          },
+          () => {
+            queryClient.invalidateQueries(['group', id]);
+            toast('Group was updated!');
+          },
+        )
         .subscribe();
 
       return () => {
-        client.unsubscribe();
+        channel.unsubscribe();
       };
     }
   }, [id, user, group]);
@@ -98,7 +111,7 @@ const Group = () => {
         channel.send({
           type: 'broadcast',
           event: 'update',
-          payload: { message: `${data.username} has joined the group!` },
+          payload: { message: `${data.username} joined the group!` },
         });
       }
     });
@@ -138,7 +151,7 @@ const Group = () => {
           payload: {
             message: shouldClose
               ? `${data.username} closed the group!`
-              : `${data.username} has left the group!`,
+              : `${data.username} left the group!`,
           },
         });
       }
