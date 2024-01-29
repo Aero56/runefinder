@@ -85,11 +85,11 @@ const Description = ({ value }: DescriptionProps) => {
       <div className="mt-2 flex items-center gap-2">
         <p
           className={`text-sm ${
-            descriptionField.length > MAX_DESCRIPTION_LENGTH
+            descriptionField?.length > MAX_DESCRIPTION_LENGTH
               ? 'text-red-500'
               : ''
           }`}
-        >{`${descriptionField.length}/${MAX_DESCRIPTION_LENGTH}`}</p>
+        >{`${descriptionField?.length ?? 0}/${MAX_DESCRIPTION_LENGTH}`}</p>
         <button
           className="btn btn-primary btn-sm w-14"
           onClick={handleSubmit(handleSave)}
