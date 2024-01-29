@@ -67,12 +67,14 @@ const Rankings = ({ stats, isLoading }: RankingsProps) => {
                       {stats.raid_score + stats.boss_score}
                     </p>
                   </div>
+                  <div className="divider m-0 xs:divider-horizontal" />
                   <div className="flex flex-col items-center">
                     <h2 className="font-semibold">Raid score</h2>
                     <p className="text-4xl font-bold text-anzac-400">
                       {stats.raid_score}
                     </p>
                   </div>
+                  <div className="divider m-0 xs:divider-horizontal" />
                   <div className="flex flex-col items-center">
                     <h2 className="font-semibold">Boss score</h2>
                     <p className="text-4xl font-bold text-anzac-400">
@@ -80,7 +82,7 @@ const Rankings = ({ stats, isLoading }: RankingsProps) => {
                     </p>
                   </div>
                 </div>
-                <div className="divider my-4" />
+                <div className="divider my-4 mt-2 xs:mt-4" />
                 <div className="flex flex-wrap gap-2">{rankings}</div>
               </>
             ) : (
