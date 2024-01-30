@@ -76,9 +76,11 @@ const Group = () => {
             event: 'UPDATE',
             filter: `id=eq.${group.id}`,
           },
-          () => {
-            queryClient.invalidateQueries(['group', id]);
-            toast('Group was updated!');
+          (payload) => {
+            if (payload.new.status !== 'closed') {
+              queryClient.invalidateQueries(['group', id]);
+              toast('Group was updated!');
+            }
           },
         )
         .subscribe();
