@@ -21,8 +21,9 @@ const AccountSettings = () => {
 
   return (
     <div className="col-span-1 rounded-xl bg-black-pearl-900 sm:col-span-5">
-      <div className="flex items-center justify-between rounded-t-xl border-b-2 border-black-pearl-700 bg-black-pearl-800 p-4 font-semibold">
-        Account settings
+      <div className="flex flex-wrap items-center justify-between rounded-t-xl border-b-2 border-black-pearl-700 bg-black-pearl-800 p-4 font-semibold">
+        <p className="mr-2">Account settings</p>
+        <p className="text-xs text-black-pearl-200/40">{user?.id}</p>
       </div>
       <div className="flex flex-col gap-4 p-4">
         <div>
@@ -33,6 +34,7 @@ const AccountSettings = () => {
             </p>
           )}
         </div>
+
         <div className="flex flex-wrap gap-2">
           <button
             className="btn btn-primary"
