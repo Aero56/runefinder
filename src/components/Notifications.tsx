@@ -23,7 +23,7 @@ const Notifications = () => {
       position="bottom-right"
       className={(type) =>
         type?.defaultClassName +
-        ' !bottom-[62px] gap-2 xs:!bottom-20 sm:!bottom-6'
+        ' !bottom-[62px] !z-40 gap-2 xs:!bottom-20 sm:!bottom-6'
       }
       toastClassName={(type) =>
         CONTEXT_CLASSES[type?.type || 'default'] +
