@@ -34,9 +34,9 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
           if (status === 'SUBSCRIBED') {
             channel.send({
               type: 'broadcast',
-              event: 'update',
+              event: 'kick',
               payload: {
-                message: `${player.username} was kicked from the group!`,
+                player,
               },
             });
           }

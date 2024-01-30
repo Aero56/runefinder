@@ -57,6 +57,17 @@ const Group = () => {
           queryClient.invalidateQueries(['group', id]);
           toast(payload.message);
         })
+        .on('broadcast', { event: 'kick' }, ({ payload }) => {
+          if (user && payload.player.id === user.id) {
+            toast('You were kicked from the group!');
+            queryClient.invalidateQueries(['group', id]);
+            queryClient.invalidateQueries(['player', user.id]);
+            return;
+          }
+
+          toast(`${payload.player.username} was kicked from the group!`);
+          queryClient.invalidateQueries(['group', id]);
+        })
         .on(
           'postgres_changes',
           {
