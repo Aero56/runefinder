@@ -14,7 +14,7 @@ interface FormData {
 const ChangePassword = () => {
   const navigate = useNavigate();
 
-  const { mutateAsync: changePassword, isLoading } = useUpdateAuthMutation();
+  const { mutateAsync: updateAuth, isLoading } = useUpdateAuthMutation();
 
   const {
     handleSubmit,
@@ -25,7 +25,7 @@ const ChangePassword = () => {
 
   const onSubmit = async ({ password }: FormData) => {
     try {
-      await changePassword({ password });
+      await updateAuth({ password });
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message);

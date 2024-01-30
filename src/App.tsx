@@ -12,6 +12,7 @@ import Groups from 'pages/Groups';
 import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
 import Player from 'pages/Player';
+import ChangeEmail from 'pages/auth/ChangeEmail';
 import ChangePassword from 'pages/auth/ChangePassword';
 import Settings from 'pages/auth/Settings';
 import Info from 'pages/info/Info';
@@ -52,6 +53,7 @@ const App = () => {
 
         <Route element={<AuthRoute />}>
           <Route path="/settings" element={<Settings />} />
+          <Route path="/settings/change-email" element={<ChangeEmail />} />
         </Route>
 
         <Route path="/settings/change-password" element={<ChangePassword />} />

@@ -25,15 +25,31 @@ const AccountSettings = () => {
         Account settings
       </div>
       <div className="flex flex-col gap-4 p-4">
-        <p>{user?.email}</p>
+        <div>
+          <p>{user?.email}</p>
+          {user?.new_email && (
+            <p className="text-sm text-black-pearl-100/50">
+              {user.new_email} (pending confirmation)
+            </p>
+          )}
+        </div>
         <div className="flex flex-wrap gap-2">
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate('/settings/change-email')}
+          >
+            Change email
+          </button>
           <button
             className="btn btn-primary"
             onClick={() => navigate('/settings/change-password')}
           >
             Change password
           </button>
-          <button className="btn btn-primary" onClick={handleSignOut}>
+          <button
+            className="btn border-none bg-red-500 hover:bg-red-600"
+            onClick={handleSignOut}
+          >
             Sign out
           </button>
         </div>
