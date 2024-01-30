@@ -257,7 +257,7 @@ const Group = () => {
             className="absolute h-44 w-full object-cover object-top"
           ></img>
           <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-b from-transparent from-20% to-black-pearl-900 to-95%" />
-          <div className="absolute flex w-full justify-end p-4">
+          <div className="absolute z-10 flex w-full justify-end p-4">
             {group.status === 'closed' && (
               <div className="badge badge-outline badge-lg flex gap-1 bg-red-950/60 py-4 font-semibold text-red-500">
                 <LockClosedIcon className="h-4 w-4 [&>path]:stroke-[2.5]" />
@@ -276,12 +276,12 @@ const Group = () => {
               <EditGroup group={group} />
             )}
           </div>
-          <div className="absolute flex h-full flex-col justify-end p-4">
+          <div className="absolute flex h-full max-w-full flex-col justify-end p-4">
             <p className="text-md font-bold text-anzac-400 xs:text-lg">
               {group.activity.name}
             </p>
             <p
-              className="line-clamp-2 text-2xl font-bold xs:text-3xl"
+              className="line-clamp-2 break-words text-2xl font-bold xs:text-3xl"
               title={group.name}
             >
               {group.name}

@@ -20,6 +20,8 @@ import useUpdateGroupMutation from 'hooks/mutations/useUpdateGroupMutation';
 import { ActivityType } from 'types/activities';
 import { Group } from 'types/groups';
 
+const MAX_NAME_LENGTH = 150;
+
 interface EditPartyProps {
   group: Group;
 }
@@ -146,6 +148,10 @@ const EditGroup = ({ group }: EditPartyProps) => {
               }`}
               {...register('name', {
                 required: 'Please enter a party name.',
+                maxLength: {
+                  value: MAX_NAME_LENGTH,
+                  message: 'Party name can not be longer than 150 characters.',
+                },
               })}
             />
             {errors.name && (

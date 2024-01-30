@@ -1,10 +1,8 @@
-import { PencilIcon } from '@heroicons/react/24/solid';
-
 const GroupSkeleton = () => {
   return (
     <div className="container mb-4 mt-16 flex flex-col gap-4 p-4">
       <div className="flex h-[212px] flex-col justify-between rounded-xl bg-black-pearl-900 p-4">
-        <PencilIcon className="m-1.5 ml-auto h-5 w-5 [&>path]:stroke-[2.5]" />
+        <div className="skeleton ml-auto h-5 w-24 bg-black-pearl-950/60" />
 
         <div className="flex flex-col gap-2">
           <div className="skeleton h-5 w-32 bg-black-pearl-950/60" />
