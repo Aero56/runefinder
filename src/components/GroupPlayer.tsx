@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import queryClient from 'api/queryClient';
+import { supabase } from 'api/supabase';
 import { useAuth } from 'contexts/AuthContext';
 import useKickPlayerMutation from 'hooks/mutations/useKickPlayerMutation';
 import { Bosses } from 'types/bosses';
@@ -25,9 +26,22 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
     event.stopPropagation();
 
     try {
-      await mutateAsync({ userId: player.id, groupId: group.id }).then(() =>
-        toast(`Player ${player.username} has been kicked.`),
-      );
+      await mutateAsync({ userId: player.id, groupId: group.id }).then(() => {
+        toast(`You have kicked ${player.username} from the group!`);
+
+        const channel = supabase.channel(group.id);
+        channel.subscribe((status) => {
+          if (status === 'SUBSCRIBED') {
+            channel.send({
+              type: 'broadcast',
+              event: 'update',
+              payload: {
+                message: `${player.username} was kicked from the group!`,
+              },
+            });
+          }
+        });
+      });
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message);
