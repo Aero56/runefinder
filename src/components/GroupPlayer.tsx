@@ -7,6 +7,7 @@ import queryClient from 'api/queryClient';
 import { supabase } from 'api/supabase';
 import { useAuth } from 'contexts/AuthContext';
 import useKickPlayerMutation from 'hooks/mutations/useKickPlayerMutation';
+import { ActivityType } from 'types/activities';
 import { Bosses } from 'types/bosses';
 import { Group, GroupUser } from 'types/groups';
 
@@ -63,7 +64,12 @@ const GroupPlayer = ({ group, player, isHost }: GroupPlayerProps) => {
       <div className="flex">
         <div className="flex w-16 flex-col items-center justify-center">
           <p className="text-lg font-bold text-anzac-400 xs:text-xl">
-            {player.stats?.raid_score}
+            {group.activity.type === ActivityType.Boss
+              ? player.stats?.boss_score
+              : group.activity.type === ActivityType.Raid
+                ? player.stats?.raid_score
+                : (player.stats?.raid_score ?? 0) +
+                  (player.stats?.boss_score ?? 0)}
           </p>
         </div>
         <div className="divider divider-horizontal ml-0 mr-1"></div>
