@@ -1,10 +1,29 @@
 import { Link } from 'react-router-dom';
 
+const VOAX_ID = '812cbe9f-2b6d-4a43-9247-44da4bffd84a';
 const SUPPORTERS = ['wpix'];
 
 const Info = () => {
   return (
     <div className="container mb-4 flex flex-col items-center gap-3 pt-4">
+      <div className="flex max-w-lg flex-col gap-1 text-center">
+        <p>
+          Made with love by
+          <span className="mx-1">
+            <Link
+              to={`/player/${VOAX_ID}`}
+              className="link-hover text-anzac-400"
+            >
+              Voax
+            </Link>
+          </span>
+          as a hobby project.
+        </p>
+        <p>
+          Keeping RuneFinder online is not free and I put quite some time in it
+          so if you want to support me feel free to do so!
+        </p>
+      </div>
       <div className="flex flex-wrap justify-center gap-3">
         <Link
           to="https://patreon.com/runefinder"
