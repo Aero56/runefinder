@@ -36,9 +36,9 @@ const BottomNavigation = () => {
       >
         <MagnifyingGlassIcon className="h-6 w-6" />
       </NavLink>
-      {data?.group_id && (
+      {data?.group.id && (
         <NavLink
-          to={`/group/${data.group_id}`}
+          to={`/group/${data.group.id}`}
           className={({ isActive }) =>
             `transition-colors ${isActive ? 'active text-anzac-400' : ''}`
           }

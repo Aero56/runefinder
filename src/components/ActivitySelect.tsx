@@ -2,16 +2,16 @@ import { useState } from 'react';
 
 import Select, { Option, Tint } from './Select';
 
-import { ActivityType } from 'types/activities';
+import { ActivityType, Other } from 'types/activities';
 import { Boss } from 'types/bosses';
 import { Minigame } from 'types/minigames';
 import { Raid } from 'types/raids';
 
-export type Activity = Raid | Boss | Minigame;
+export type Activity = Raid | Boss | Minigame | Other;
 
 export interface Entity {
   teamSize: number;
-  type: ActivityType;
+  type: ActivityType | null;
 }
 
 export const ACTIVITIES = [
@@ -143,6 +143,21 @@ export const ACTIVITIES = [
         label: 'Gnome Ball',
         value: Minigame.GnomeBall,
         entity: { teamSize: 100, type: ActivityType.Minigame },
+      },
+    ],
+  },
+  {
+    label: 'Other',
+    options: [
+      {
+        label: 'Shield of Arrav',
+        value: Other.ShieldOfArrav,
+        entity: { teamSize: 2, type: null },
+      },
+      {
+        label: "Heroes' Quest",
+        value: Other.HeroesQuest,
+        entity: { teamSize: 2, type: null },
       },
     ],
   },

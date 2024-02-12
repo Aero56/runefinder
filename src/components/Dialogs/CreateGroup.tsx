@@ -10,7 +10,6 @@ import { Option } from '../Select';
 import { DIALOG_SET_USERNAME } from './SetUsername';
 
 import queryClient from 'api/queryClient';
-import { supabase } from 'api/supabase';
 import ActivitySelect, { Activity, Entity } from 'components/ActivitySelect';
 import DialogFooter from 'components/Dialog/DialogFooter';
 import DialogHeader from 'components/Dialog/DialogHeader';
@@ -80,7 +79,9 @@ const CreateGroup = () => {
       result = await createGroup({
         name: data.name,
         size: data.activity.entity?.teamSize
-          ? Number(data.size) + 1
+          ? data.activity.entity.teamSize > 2
+            ? data.activity.entity.teamSize
+            : Number(data.size) + 1
           : DEFAULT_SIZE,
         type: data.activity.value!,
         level: data.experience?.value ?? null,
@@ -106,13 +107,7 @@ const CreateGroup = () => {
 
   const onSubmit = async () => {
     if (user) {
-      const { data } = await supabase
-        .from('groups')
-        .select('id')
-        .eq('created_by', user.id)
-        .eq('status', 'open');
-
-      if (data?.length) {
+      if (data?.group.created_by === user.id) {
         setIsConfirmationOpen(true);
         setIsOpen(false);
         return;
@@ -162,7 +157,7 @@ const CreateGroup = () => {
           className="row-auto grid grid-cols-4 gap-x-6 gap-y-4"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="col-span-full row-start-1 flex items-center justify-between">
+          <div className="col-span-full row-start-auto flex items-center justify-between">
             <div>
               <Controller
                 control={control}
@@ -185,29 +180,33 @@ const CreateGroup = () => {
                 </p>
               )}
             </div>
-            <div className="flex flex-col gap-0 xs:flex-row xs:gap-2">
-              <label
-                htmlFor="split"
-                className="mb-1 block whitespace-nowrap text-sm"
-              >
-                Split
-              </label>
-              <Controller
-                control={control}
-                name="split"
-                render={({ field: { onChange } }) => (
-                  <input
-                    id="split"
-                    onChange={onChange}
-                    type="checkbox"
-                    placeholder="302"
-                    className={`toggle toggle-primary text-black-pearl-100`}
+            {selectedActivity?.entity?.type &&
+              selectedActivity.entity.type !== ActivityType.Minigame && (
+                <div className="flex flex-col gap-0 xs:flex-row xs:gap-2">
+                  <label
+                    htmlFor="split"
+                    className="mb-1 block whitespace-nowrap text-sm"
+                  >
+                    Split
+                  </label>
+                  <Controller
+                    control={control}
+                    name="split"
+                    shouldUnregister
+                    render={({ field: { onChange } }) => (
+                      <input
+                        id="split"
+                        onChange={onChange}
+                        type="checkbox"
+                        placeholder="302"
+                        className={`toggle toggle-primary text-black-pearl-100`}
+                      />
+                    )}
                   />
-                )}
-              />
-            </div>
+                </div>
+              )}
           </div>
-          <div className="col-span-4 row-start-2">
+          <div className="col-span-4 row-start-auto">
             <label htmlFor="name" className="mb-2 block text-sm">
               Party name
             </label>
@@ -228,47 +227,54 @@ const CreateGroup = () => {
               <p className="mt-2 text-sm text-error">{errors.name.message}</p>
             )}
           </div>
-          <div className="col-span-full row-start-3 xs:col-span-2">
-            <label htmlFor="experience" className="mb-2 block text-sm">
-              Experience level
-            </label>
-            <Controller
-              control={control}
-              name="experience"
-              render={({ field: { onChange, value } }) => (
-                <ExperienceSelect
-                  value={value}
-                  onChange={onChange}
-                  className="w-full"
-                />
-              )}
-            />
-          </div>
-          <div className="col-span-full row-start-4 xs:col-span-2 xs:row-start-3">
-            <label htmlFor="gamemode" className="mb-2 block text-sm">
-              Mode
-            </label>
-            <Tooltip enabled={!data?.stats?.gamemode}>
-              <TooltipTrigger>
+          {(!selectedActivity ||
+            (selectedActivity && selectedActivity.entity?.type)) && (
+            <>
+              <div className="col-span-full row-start-auto xs:col-span-2">
+                <label htmlFor="experience" className="mb-2 block text-sm">
+                  Experience level
+                </label>
                 <Controller
                   control={control}
-                  name="gamemode"
+                  name="experience"
+                  shouldUnregister
                   render={({ field: { onChange, value } }) => (
-                    <ModeSelect
+                    <ExperienceSelect
                       value={value}
                       onChange={onChange}
                       className="w-full"
-                      disabled={!data?.stats?.gamemode}
                     />
                   )}
                 />
-              </TooltipTrigger>
-              <TooltipContent>
-                Only ironmans can limit groups to a specific gamemode
-              </TooltipContent>
-            </Tooltip>
-          </div>
-          <div className="col-span-2 row-start-5 xs:row-start-4">
+              </div>
+              <div className="col-span-full row-start-auto xs:col-span-2">
+                <label htmlFor="gamemode" className="mb-2 block text-sm">
+                  Mode
+                </label>
+                <Tooltip enabled={!data?.stats?.gamemode}>
+                  <TooltipTrigger>
+                    <Controller
+                      control={control}
+                      name="gamemode"
+                      shouldUnregister
+                      render={({ field: { onChange, value } }) => (
+                        <ModeSelect
+                          value={value}
+                          onChange={onChange}
+                          className="w-full"
+                          disabled={!data?.stats?.gamemode}
+                        />
+                      )}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Only ironmans can limit groups to a specific gamemode
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </>
+          )}
+          <div className="col-span-2 row-start-auto">
             <label htmlFor="world" className="mb-2 block text-sm">
               World
             </label>
@@ -297,8 +303,9 @@ const CreateGroup = () => {
             )}
           </div>
           {selectedActivity &&
+            selectedActivity.entity?.type &&
             selectedActivity.entity?.type !== ActivityType.Minigame && (
-              <div className="col-span-2 row-start-5 xs:row-start-4">
+              <div className="col-span-2 row-start-auto">
                 <label
                   htmlFor="kills"
                   className="mb-2 block whitespace-nowrap text-sm"
@@ -308,6 +315,7 @@ const CreateGroup = () => {
                 <Controller
                   control={control}
                   name="kills"
+                  shouldUnregister
                   render={({ field: { onChange, value } }) => (
                     <input
                       id="kills"
@@ -322,20 +330,22 @@ const CreateGroup = () => {
                 />
               </div>
             )}
-          {selectedActivity && selectedActivity.entity?.teamSize && (
-            <div className="col-span-full row-start-6 xs:row-start-5">
-              <label htmlFor="email" className="mb-2 block text-sm">
-                {`Players needed: ${watch('size')}`}
-              </label>
-              <input
-                type="range"
-                min={1}
-                max={selectedActivity.entity.teamSize - 1}
-                className="range range-primary"
-                {...register('size')}
-              />
-            </div>
-          )}
+          {selectedActivity &&
+            selectedActivity.entity?.teamSize &&
+            selectedActivity.entity?.teamSize > 2 && (
+              <div className="col-span-full row-start-auto">
+                <label htmlFor="email" className="mb-2 block text-sm">
+                  {`Players needed: ${watch('size')}`}
+                </label>
+                <input
+                  type="range"
+                  min={1}
+                  max={selectedActivity.entity.teamSize - 1}
+                  className="range range-primary"
+                  {...register('size')}
+                />
+              </div>
+            )}
         </form>
         <DialogFooter
           primaryAction={{

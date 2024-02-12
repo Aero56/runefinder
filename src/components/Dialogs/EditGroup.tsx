@@ -109,31 +109,34 @@ const EditGroup = ({ group }: EditPartyProps) => {
           className="row-auto grid grid-cols-4 gap-x-6 gap-y-4"
           onSubmit={handleSubmit(handleUpdateGroup)}
         >
-          <div className="col-span-full row-start-1 flex items-center justify-end">
-            <div className="flex flex-col gap-0 xs:flex-row xs:gap-2">
-              <label
-                htmlFor="split"
-                className="mb-1 block whitespace-nowrap text-sm"
-              >
-                Split
-              </label>
-              <Controller
-                control={control}
-                name="split"
-                render={({ field: { onChange, value } }) => (
-                  <input
-                    id="split"
-                    checked={value}
-                    onChange={onChange}
-                    type="checkbox"
-                    placeholder="302"
-                    className={`toggle toggle-primary text-black-pearl-100`}
+          {group.activity.type &&
+            group.activity.type !== ActivityType.Minigame && (
+              <div className="col-span-full row-start-auto flex items-center justify-end">
+                <div className="flex flex-col gap-0 xs:flex-row xs:gap-2">
+                  <label
+                    htmlFor="split"
+                    className="mb-1 block whitespace-nowrap text-sm"
+                  >
+                    Split
+                  </label>
+                  <Controller
+                    control={control}
+                    name="split"
+                    render={({ field: { onChange, value } }) => (
+                      <input
+                        id="split"
+                        checked={value}
+                        onChange={onChange}
+                        type="checkbox"
+                        placeholder="302"
+                        className={`toggle toggle-primary text-black-pearl-100`}
+                      />
+                    )}
                   />
-                )}
-              />
-            </div>
-          </div>
-          <div className="col-span-4 row-start-2">
+                </div>
+              </div>
+            )}
+          <div className="col-span-4 row-start-auto">
             <label htmlFor="name" className="mb-2 block text-sm">
               Party name
             </label>
@@ -158,47 +161,51 @@ const EditGroup = ({ group }: EditPartyProps) => {
               <p className="mt-2 text-sm text-error">{errors.name.message}</p>
             )}
           </div>
-          <div className="col-span-full row-start-3 xs:col-span-2">
-            <label htmlFor="experience" className="mb-2 block text-sm">
-              Experience level
-            </label>
-            <Controller
-              control={control}
-              name="experience"
-              render={({ field: { onChange, value } }) => (
-                <ExperienceSelect
-                  value={value}
-                  onChange={onChange}
-                  className="w-full"
-                />
-              )}
-            />
-          </div>
-          <div className="col-span-full row-start-4 xs:col-span-2 xs:row-start-3">
-            <label htmlFor="gamemode" className="mb-2 block text-sm">
-              Mode
-            </label>
-            <Tooltip enabled={!data?.stats?.gamemode}>
-              <TooltipTrigger>
+          {group.activity.type !== null && (
+            <>
+              <div className="col-span-full row-start-auto xs:col-span-2">
+                <label htmlFor="experience" className="mb-2 block text-sm">
+                  Experience level
+                </label>
                 <Controller
                   control={control}
-                  name="gamemode"
+                  name="experience"
                   render={({ field: { onChange, value } }) => (
-                    <ModeSelect
+                    <ExperienceSelect
                       value={value}
                       onChange={onChange}
                       className="w-full"
-                      disabled={!data?.stats?.gamemode}
                     />
                   )}
                 />
-              </TooltipTrigger>
-              <TooltipContent>
-                Only ironmans can limit groups to a specific gamemode
-              </TooltipContent>
-            </Tooltip>
-          </div>
-          <div className="col-span-2 row-start-5 xs:row-start-4">
+              </div>
+              <div className="col-span-full row-start-auto xs:col-span-2">
+                <label htmlFor="gamemode" className="mb-2 block text-sm">
+                  Mode
+                </label>
+                <Tooltip enabled={!data?.stats?.gamemode}>
+                  <TooltipTrigger>
+                    <Controller
+                      control={control}
+                      name="gamemode"
+                      render={({ field: { onChange, value } }) => (
+                        <ModeSelect
+                          value={value}
+                          onChange={onChange}
+                          className="w-full"
+                          disabled={!data?.stats?.gamemode}
+                        />
+                      )}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Only ironmans can limit groups to a specific gamemode
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </>
+          )}
+          <div className="col-span-2 row-start-auto">
             <label htmlFor="world" className="mb-2 block text-sm">
               World
             </label>
@@ -226,31 +233,32 @@ const EditGroup = ({ group }: EditPartyProps) => {
               <p className="mt-2 text-sm text-error">{errors.world.message}</p>
             )}
           </div>
-          {group.activity.type !== ActivityType.Minigame && (
-            <div className="col-span-2 row-start-5 xs:row-start-4">
-              <label
-                htmlFor="kills"
-                className="mb-2 block whitespace-nowrap text-sm"
-              >
-                Minimum kills
-              </label>
-              <Controller
-                control={control}
-                name="kills"
-                render={({ field: { onChange, value } }) => (
-                  <input
-                    id="kills"
-                    value={value ?? ''}
-                    onChange={onChange}
-                    type="number"
-                    min={0}
-                    placeholder="50"
-                    className={`input w-full`}
-                  />
-                )}
-              />
-            </div>
-          )}
+          {group.activity.type &&
+            group.activity.type !== ActivityType.Minigame && (
+              <div className="col-span-2 row-start-auto">
+                <label
+                  htmlFor="kills"
+                  className="mb-2 block whitespace-nowrap text-sm"
+                >
+                  Minimum kills
+                </label>
+                <Controller
+                  control={control}
+                  name="kills"
+                  render={({ field: { onChange, value } }) => (
+                    <input
+                      id="kills"
+                      value={value ?? ''}
+                      onChange={onChange}
+                      type="number"
+                      min={0}
+                      placeholder="50"
+                      className={`input w-full`}
+                    />
+                  )}
+                />
+              </div>
+            )}
         </form>
         <DialogFooter
           primaryAction={{

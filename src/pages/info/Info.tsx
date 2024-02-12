@@ -20,8 +20,8 @@ const Info = () => {
           as a hobby project.
         </p>
         <p>
-          Keeping RuneFinder online is not free and I put quite some time in it
-          so if you want to support me feel free to do so!
+          Keeping RuneFinder online is not free and I put quite some time into
+          it so if you want to support me feel free to do so!
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-3">

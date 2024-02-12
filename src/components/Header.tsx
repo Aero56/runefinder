@@ -28,7 +28,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', scrollHandler);
   }, [top]);
 
-  const shouldShowDivider = !!data?.group_id;
+  const shouldShowDivider = !!data?.group.id;
 
   return (
     <div
@@ -58,9 +58,9 @@ const Header = () => {
       <div className="navbar-end gap-1">
         {user && (
           <>
-            {!!data?.group_id && (
+            {!!data?.group.id && (
               <NavLink
-                to={`/group/${data.group_id}`}
+                to={`/group/${data.group.id}`}
                 className={({ isActive }) =>
                   `btn btn-ghost hidden font-extrabold hover:bg-black-pearl-800 sm:flex ${
                     isActive ? 'text-anzac-400' : ''
