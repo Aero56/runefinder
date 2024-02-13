@@ -1,6 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
+import {
+  SessionStorageKey,
+  getSessionStorageValue,
+  setSessionStorageValue,
+} from '../utils/sessionStorage';
+
 import ActivitySelect, { Activity, Entity } from 'components/ActivitySelect';
 import CreateGroup from 'components/Dialogs/CreateGroup';
 import ExperienceSelect, { Experience } from 'components/ExperienceSelect';
@@ -12,23 +18,34 @@ import useGroupsQuery from 'hooks/queries/useGroupsQuery';
 import useDebounce from 'hooks/useDebounce';
 
 const Groups = () => {
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState(
+    getSessionStorageValue(SessionStorageKey.GroupsSearchTerm) ?? '',
+  );
   const debouncedValue = useDebounce(term);
 
   const [selectedActivity, setSelectedActivity] = useState<Option<
     Activity | null,
     Entity
-  > | null>(null);
-  const [selectedLevel, setSelectedLevel] =
-    useState<Option<Experience | null> | null>(null);
+  > | null>(getSessionStorageValue(SessionStorageKey.GroupsActivityFilter));
+  const [selectedExperience, setSelectedExperience] =
+    useState<Option<Experience | null> | null>(
+      getSessionStorageValue(SessionStorageKey.GroupsExperienceFilter),
+    );
   const [selectedMode, setSelectedMode] =
-    useState<Option<Gamemode | null> | null>(null);
-  const [isSplitEnabled, setIsSplitEnabled] = useState<boolean>(false);
+    useState<Option<Gamemode | null> | null>(
+      getSessionStorageValue(SessionStorageKey.GroupsModeFilter),
+    );
+  const [isSplitEnabled, setIsSplitEnabled] = useState<boolean>(
+    getSessionStorageValue(SessionStorageKey.GroupsSplitEnabled) ?? false,
+  );
 
   const { ref, inView } = useInView();
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setTerm(event.target.value);
+    const value = event.target.value;
+
+    setTerm(value);
+    setSessionStorageValue(SessionStorageKey.GroupsSearchTerm, value);
   };
 
   const {
@@ -41,7 +58,7 @@ const Groups = () => {
     {
       name: debouncedValue ? debouncedValue.trim() : undefined,
       type: selectedActivity?.value ? selectedActivity.value : undefined,
-      level: selectedLevel?.value ? selectedLevel.value : undefined,
+      level: selectedExperience?.value ? selectedExperience.value : undefined,
       gamemode: selectedMode?.value ? selectedMode.value : undefined,
       split: isSplitEnabled,
     },
@@ -53,18 +70,25 @@ const Groups = () => {
 
   const handleChangeActivity = (selected: Option<Activity | null, Entity>) => {
     setSelectedActivity(selected);
+    setSessionStorageValue(SessionStorageKey.GroupsActivityFilter, selected);
   };
 
-  const handleChangeLevel = (selected: Option<Experience | null>) => {
-    setSelectedLevel(selected);
+  const handleChangeExperience = (selected: Option<Experience | null>) => {
+    setSelectedExperience(selected);
+    setSessionStorageValue(SessionStorageKey.GroupsExperienceFilter, selected);
   };
 
   const handleChangeMode = (selected: Option<Gamemode | null>) => {
     setSelectedMode(selected);
+    setSessionStorageValue(SessionStorageKey.GroupsModeFilter, selected);
   };
 
   const handleToggleSplit = () => {
     setIsSplitEnabled(!isSplitEnabled);
+    setSessionStorageValue(
+      SessionStorageKey.GroupsSplitEnabled,
+      !isSplitEnabled,
+    );
   };
 
   useEffect(() => {
@@ -76,7 +100,7 @@ const Groups = () => {
   const isFiltering =
     !!debouncedValue ||
     !!selectedActivity?.value ||
-    !!selectedLevel?.value ||
+    !!selectedExperience?.value ||
     !!selectedMode?.value ||
     isSplitEnabled;
 
@@ -84,6 +108,7 @@ const Groups = () => {
     <div className="container px-4 pt-4">
       <div className="mb-3 flex justify-between">
         <input
+          value={term}
           className="input w-full bg-black-pearl-900 xs:w-auto"
           placeholder="Search groups..."
           onChange={handleSearch}
@@ -100,8 +125,8 @@ const Groups = () => {
             isFilter
           />
           <ExperienceSelect
-            value={selectedLevel}
-            onChange={handleChangeLevel}
+            value={selectedExperience}
+            onChange={handleChangeExperience}
             className="flex-grow xs:flex-grow-0"
             tint="light"
           />
