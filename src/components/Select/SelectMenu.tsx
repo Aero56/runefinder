@@ -22,7 +22,14 @@ const SelectMenu = <T extends OptionValue, E = undefined>({
       {options.map((option) => (
         <li key={option.value || option.label}>
           {Array.isArray(option.options) ? (
-            <details>
+            <details
+              open={[...selected].some(
+                (selectedOption) =>
+                  option.options?.find(
+                    (option) => option.value === selectedOption.value,
+                  ),
+              )}
+            >
               <summary>{option.label}</summary>
               <SelectMenu
                 options={option.options}
