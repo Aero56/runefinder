@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
+import queryClient from 'api/queryClient';
+import { useAuth } from 'contexts/AuthContext';
 import useUpdateUserMutation from 'hooks/mutations/useUpdateUserMutation';
 
 interface DescriptionProps {
@@ -15,6 +17,8 @@ interface FormData {
 const MAX_DESCRIPTION_LENGTH = 150;
 
 const Description = ({ value }: DescriptionProps) => {
+  const { user } = useAuth();
+
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState<string | undefined>(
     value ?? undefined,
@@ -50,6 +54,8 @@ const Description = ({ value }: DescriptionProps) => {
         return;
       }
     }
+
+    queryClient.invalidateQueries(['player', user?.id]);
   };
 
   const descriptionField = watch('description');

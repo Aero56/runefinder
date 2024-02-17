@@ -107,7 +107,7 @@ const CreateGroup = () => {
 
   const onSubmit = async () => {
     if (user) {
-      if (data?.group.created_by === user.id) {
+      if (data?.group && data?.group.created_by === user.id) {
         setIsConfirmationOpen(true);
         setIsOpen(false);
         return;

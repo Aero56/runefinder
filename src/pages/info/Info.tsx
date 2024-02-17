@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const VOAX_ID = 'a9d673dd-3fd9-40c5-99af-a815944fe84a';
+const VOAX_ID = '21e8817b-9ff1-4ded-8086-769dc2bb4a3b';
 const SUPPORTERS = ['wpix'];
 
 const Info = () => {
