@@ -168,7 +168,7 @@ const Group = ({ group }: GroupProps) => {
                     <div
                       onClick={(event: MouseEvent) => {
                         event.stopPropagation();
-                        navigate(`player/${avatar.id}`);
+                        navigate(`/player/${avatar.id}`);
                       }}
                     >
                       <UserIcon
