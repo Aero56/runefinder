@@ -76,7 +76,7 @@ const Select = <T extends OptionValue, E = undefined>({
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
-    useClick(context),
+    useClick(context, { event: 'mousedown' }),
     useDismiss(context),
     useRole(context),
   ]);
