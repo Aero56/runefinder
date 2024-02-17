@@ -4,7 +4,7 @@ import { Bosses } from 'types/bosses';
 import { Tables } from 'types/supabase';
 
 interface RankingsProps {
-  stats?: Tables<'statistics'>;
+  stats?: Tables<'user_details'>;
   isLoading: boolean;
 }
 

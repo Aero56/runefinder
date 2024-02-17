@@ -36,7 +36,7 @@ const BottomNavigation = () => {
       >
         <MagnifyingGlassIcon className="h-6 w-6" />
       </NavLink>
-      {data?.group.id && (
+      {data?.group && (
         <NavLink
           to={`/group/${data.group.id}`}
           className={({ isActive }) =>

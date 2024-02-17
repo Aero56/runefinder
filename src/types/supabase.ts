@@ -33,21 +33,21 @@ export interface Database {
           id: number;
           max_size: number;
           name: string;
-          type: Database['public']['Enums']['activity_type_enum'];
+          type: Database['public']['Enums']['activity_type_enum'] | null;
           value: string;
         };
         Insert: {
           id?: number;
           max_size: number;
           name: string;
-          type?: Database['public']['Enums']['activity_type_enum'];
+          type?: Database['public']['Enums']['activity_type_enum'] | null;
           value: string;
         };
         Update: {
           id?: number;
           max_size?: number;
           name?: string;
-          type?: Database['public']['Enums']['activity_type_enum'];
+          type?: Database['public']['Enums']['activity_type_enum'] | null;
           value?: string;
         };
         Relationships: [];
@@ -94,7 +94,21 @@ export interface Database {
             foreignKeyName: 'comments_commenter_id_fkey';
             columns: ['commenter_id'];
             isOneToOne: false;
+            referencedRelation: 'top_players';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'comments_commenter_id_fkey';
+            columns: ['commenter_id'];
+            isOneToOne: false;
             referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'comments_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'top_players';
             referencedColumns: ['id'];
           },
           {
@@ -157,6 +171,13 @@ export interface Database {
             foreignKeyName: 'groups_created_by_fkey';
             columns: ['created_by'];
             isOneToOne: false;
+            referencedRelation: 'top_players';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'groups_created_by_fkey';
+            columns: ['created_by'];
+            isOneToOne: false;
             referencedRelation: 'users';
             referencedColumns: ['id'];
           },
@@ -193,6 +214,13 @@ export interface Database {
             foreignKeyName: 'player_votes_player_id_fkey';
             columns: ['player_id'];
             isOneToOne: false;
+            referencedRelation: 'top_players';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'player_votes_player_id_fkey';
+            columns: ['player_id'];
+            isOneToOne: false;
             referencedRelation: 'users';
             referencedColumns: ['id'];
           },
@@ -200,47 +228,6 @@ export interface Database {
             foreignKeyName: 'player_votes_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: false;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-      statistics: {
-        Row: {
-          boss_score: number;
-          bosses: Bosses;
-          combat: number;
-          created_at: string;
-          gamemode: Database['public']['Enums']['gamemode_enum'] | null;
-          id: string;
-          raid_score: number;
-          skills: Skills;
-        };
-        Insert: {
-          boss_score?: number;
-          bosses: Bosses;
-          combat: number;
-          created_at?: string;
-          gamemode?: Database['public']['Enums']['gamemode_enum'] | null;
-          id: string;
-          raid_score?: number;
-          skills: Skills;
-        };
-        Update: {
-          boss_score?: number;
-          bosses?: Bosses;
-          combat?: number;
-          created_at?: string;
-          gamemode?: Database['public']['Enums']['gamemode_enum'] | null;
-          id?: string;
-          raid_score?: number;
-          skills?: Skills;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'statistics_id_fkey';
-            columns: ['id'];
-            isOneToOne: true;
             referencedRelation: 'users';
             referencedColumns: ['id'];
           },
@@ -274,6 +261,64 @@ export interface Database {
             foreignKeyName: 'user_badges_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: false;
+            referencedRelation: 'top_players';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'user_badges_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      user_details: {
+        Row: {
+          boss_score: number;
+          bosses: Bosses;
+          combat: number;
+          created_at: string;
+          gamemode: Database['public']['Enums']['gamemode_enum'] | null;
+          id: string;
+          raid_score: number;
+          rank: Database['public']['Enums']['user_rank_enum'];
+          skills: Skills;
+        };
+        Insert: {
+          boss_score?: number;
+          bosses: Bosses;
+          combat: number;
+          created_at?: string;
+          gamemode?: Database['public']['Enums']['gamemode_enum'] | null;
+          id: string;
+          raid_score?: number;
+          rank?: Database['public']['Enums']['user_rank_enum'];
+          skills: Skills;
+        };
+        Update: {
+          boss_score?: number;
+          bosses?: Bosses;
+          combat?: number;
+          created_at?: string;
+          gamemode?: Database['public']['Enums']['gamemode_enum'] | null;
+          id?: string;
+          raid_score?: number;
+          rank?: Database['public']['Enums']['user_rank_enum'];
+          skills?: Skills;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'user_details_id_fkey';
+            columns: ['id'];
+            isOneToOne: true;
+            referencedRelation: 'top_players';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'user_details_id_fkey';
+            columns: ['id'];
+            isOneToOne: true;
             referencedRelation: 'users';
             referencedColumns: ['id'];
           },
@@ -355,6 +400,7 @@ export interface Database {
       group_level_enum: 'beginner' | 'average' | 'experienced';
       group_mode_enum: 'ironman' | 'hardcore' | 'ultimate';
       group_status_enum: 'open' | 'closed';
+      user_rank_enum: 'user' | 'supporter' | 'admin';
     };
     CompositeTypes: {
       [_ in never]: never;

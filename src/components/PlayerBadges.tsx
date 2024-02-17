@@ -7,7 +7,7 @@ import { BadgeType } from 'types/badges';
 import { Tables } from 'types/supabase';
 
 interface PlayerBadgesProps {
-  stats: Tables<'statistics'>;
+  stats: Tables<'user_details'>;
 }
 
 interface Badge {

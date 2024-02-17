@@ -19,7 +19,7 @@ const usePlayerQuery = (id?: string) => {
     const { data } = await supabase
       .from('users')
       .select(
-        '*, stats:statistics!statistics_id_fkey(*), group:groups!users_group_id_fkey(*)',
+        '*, stats:user_details!user_details_id_fkey(*), group:groups!users_group_id_fkey(*)',
       )
       .eq('id', userId)
       .single<Player>();

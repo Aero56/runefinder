@@ -4,7 +4,7 @@ import { Tables } from './supabase';
 export interface GroupUser {
   id: string;
   username: string;
-  stats: Tables<'statistics'> | null;
+  stats: Tables<'user_details'> | null;
 }
 
 export interface Group

@@ -2,7 +2,7 @@ import { Skills } from 'types/skills';
 import { Tables } from 'types/supabase';
 
 interface StatsProps {
-  stats?: Tables<'statistics'>;
+  stats?: Tables<'user_details'>;
   isLoading: boolean;
 }
 
