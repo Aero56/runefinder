@@ -35,7 +35,21 @@ const TopPlayers = () => {
                     >
                       {rank}
                     </div>
-                    <p className="font-medium">{player.username}</p>
+                    <div className="flex items-center gap-1">
+                      {player.gamemode && (
+                        <img
+                          src={
+                            new URL(
+                              `../assets/modes/${player.gamemode}.png`,
+                              import.meta.url,
+                            ).href
+                          }
+                          alt={`${player.gamemode} icon`}
+                          className="h-4 w-4 object-contain"
+                        />
+                      )}
+                      <p className="font-medium">{player.username}</p>
+                    </div>
                   </div>
                   <p className="font-semibold text-anzac-400">
                     {player.total_score}

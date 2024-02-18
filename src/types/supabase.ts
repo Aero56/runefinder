@@ -370,6 +370,7 @@ export interface Database {
           id: string | null;
           total_score: number | null;
           username: string | null;
+          gamemode: Database['public']['Enums']['gamemode_enum'] | null;
         };
         Relationships: [
           {
